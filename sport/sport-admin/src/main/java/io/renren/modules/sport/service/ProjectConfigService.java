@@ -21,5 +21,7 @@ public interface ProjectConfigService extends IService<ProjectConfig> {
     List<ProjectConfig> getByIds(List<Integer> projectIds);
 
     List<ProjectConfig> getByProjectIds(List<Integer> projectIds);
+
+    List<ProjectConfig> getByFullScoreByProjectIds(List<Integer> projectIds);
 }
 

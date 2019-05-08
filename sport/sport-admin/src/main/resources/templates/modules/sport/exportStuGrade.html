@@ -26,7 +26,6 @@
 
 <div style="align-content: center;margin:0 auto;text-align-all: center;">
     <button class='btn btn-primary ' onclick="jqPrint('main')" >打印</button>
-    <br/>
 </div>
 <div class="container" id="main" style="width:850px;height:978px">
     <div class="row">
@@ -95,13 +94,12 @@
             </tr>
             <tr>
                 <td colspan="10">
-
                     <table class="table table-border">
                         <tr>
                             <td>测试项目</td>
 
                             <#list lastProGradeList as proGrade>
-                                <td>${proGrade.projectType} <br/>  ${proGrade.projectName}</td>
+                                <td>${proGrade.projectType} /  ${proGrade.projectName}</td>
                             </#list>
                         </tr>
                         <tr>
@@ -116,8 +114,10 @@
                                 <#list lastProGradeList as proGrade>
                                 <td>
                                     <#list prevProjectGradeList as prevGrade>
-                                        <#if proGrade.projectId== prevGrade.projectId>
+                                        <#if proGrade.projectId == prevGrade.projectId>
                                             ${prevGrade.projectGrade}
+                                        <#else>
+                                            0
                                         </#if>
                                     </#list>
                                 </td>
@@ -128,11 +128,15 @@
                             <td>增长值</td>
                             <#list lastProGradeList as proGrade>
                                 <td>
+                                    <#if prevProjectGradeList??>
                                     <#list prevProjectGradeList as prevGrade>
                                     <#if proGrade.projectId== prevGrade.projectId>
                                         ${proGrade.projectGrade - prevGrade.projectGrade!0}
                                     </#if>
                                     </#list>
+                                    <#else>
+                                        0
+                                    </#if>
                                 </td>
                             </#list>
                         </tr>
@@ -183,9 +187,6 @@
                     </div>
                 </td>
             </tr>
-            <tr>
-                <td colspan="10">
-                    <table class="table table-border" >
                         <#list lastProGradeList as proGrade>
                             <tr>
                                 <td colspan="2">${proGrade.projectType}<br/> ${proGrade.projectName}</td>
@@ -197,23 +198,19 @@
                             <td colspan="2">综合测评</td>
                             <td colspan="8">${lastStuGrade.suggestion!}</td>
                         </tr>
-                  </td>
-            </tr>
-        </table>
-        <table class="table table-bordered">
             <tr>
-                <td colspan="5" style="background-color: yellow;text-align: center">测试评价结果</td>
+                <td colspan="10" style="background-color: yellow;text-align: center">测试评价结果</td>
             </tr>
             <tr>
-                <td>
+                <td colspan="3">
                     本次体能测试结果评价为
                 </td>
-                <td><span style="font-color: red;text-align: center;">${passDesc}</span></td>
-                <td>你的测评成绩为</td>
-                <td><span style="font-color: red;text-align: center">${scoreDesc}</span></td>
+                <td colspan="2"><span style="font-color: red;text-align: center;">${passDesc}</span></td>
+                <td colspan="3">你的测评成绩为</td>
+                <td colspan="2"><span style="font-color: red;text-align: center">${scoreDesc}</span></td>
             </tr>
             <tr>
-                <td colspan="5" style="text-align: center;">
+                <td colspan="10" style="text-align: center;">
                     既然选择了踏上这条道路，那么，任何东西都不应该妨碍我沿着这条路走下去！请保持良好的出勤！
                 </td>
             </tr>
@@ -222,7 +219,6 @@
                     用运动，改变未来
                 </td>
             </tr>
-        </table>
     </div>
 
 </div>

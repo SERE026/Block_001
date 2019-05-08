@@ -27,4 +27,13 @@
             #{projectId}
         </foreach>
     </select>
+
+    <select id="getByFullScoreByProjectIds" resultMap="projectConfigMap">
+        select * from sport_project_config
+        where  score_level = (SELECT MAX(score_level) FROM sport_project_config)
+        and project_id in
+        <foreach collection="projectIds" item="projectId" open="(" close=")" separator=",">
+            #{projectId}
+        </foreach>
+    </select>
 </mapper>

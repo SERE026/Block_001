@@ -38,4 +38,9 @@ public class ProjectConfigServiceImpl extends ServiceImpl<ProjectConfigMapper, P
         return this.baseMapper.getByProjectIds(projectIds);
     }
 
+    @Override
+    public List<ProjectConfig> getByFullScoreByProjectIds(List<Integer> projectIds) {
+        return this.baseMapper.getByFullScoreByProjectIds(projectIds);
+    }
+
 }

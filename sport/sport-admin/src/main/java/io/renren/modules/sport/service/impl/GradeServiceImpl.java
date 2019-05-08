@@ -203,10 +203,14 @@ public class GradeServiceImpl implements GradeService {
 
         //最近两次身体素质测评数据
         List<StudentGrade> stuGradeList = studentGradeService.getLastTwoGrade(studentId);
-
-        StudentGrade lastStuGrade = stuGradeList.stream().max(Comparator.comparing(StudentGrade::getId)).get();
-        StudentGrade prevStuGrade = stuGradeList.stream().min(Comparator.comparing(StudentGrade::getId)).get();
-
+        StudentGrade lastStuGrade = StudentGrade.builder().build();
+        StudentGrade prevStuGrade = StudentGrade.builder().build();
+        if(stuGradeList.size() == 1){
+            lastStuGrade = stuGradeList.get(0);
+        }else {
+            lastStuGrade = stuGradeList.stream().max(Comparator.comparing(StudentGrade::getId)).get();
+            prevStuGrade = stuGradeList.stream().min(Comparator.comparing(StudentGrade::getId)).get();
+        }
         //List<Integer> gradeIds = stuGradeList.stream().map(StudentGrade::getId).collect(Collectors.toList());
         List<Integer> gradeIds = Lists.newArrayList();
         gradeIds.add(lastStuGrade.getId());
@@ -214,8 +218,10 @@ public class GradeServiceImpl implements GradeService {
 
         //满分配置信息
         List<Integer> projectIds = lastProGradeList.stream().map(ProjectGradeDTO::getProjectId).collect(Collectors.toList());
-        List<ProjectConfig> projectList = projectConfigService.getByProjectIds(projectIds);
-        List<ProjectConfig> proConfigList = projectList.stream().filter(tg -> tg.getMinAge() <=age && tg.getMaxAge()>=age).collect(Collectors.toList());
+        List<ProjectConfig> projectList = projectConfigService.getByFullScoreByProjectIds(projectIds);
+        List<ProjectConfig> proConfigList = projectList.stream()
+                .filter(tg -> tg.getMinAge() <=age && tg.getMaxAge()>=age )
+                .collect(Collectors.toList());
 
 
         //上次项目成绩信息

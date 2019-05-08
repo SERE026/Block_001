@@ -18,4 +18,6 @@ import java.util.List;
 public interface ProjectConfigMapper extends BaseMapper<ProjectConfig> {
 
     List<ProjectConfig> getByProjectIds(@Param("projectIds") List<Integer> projectIds);
+
+    List<ProjectConfig> getByFullScoreByProjectIds(@Param("projectIds")List<Integer> projectIds);
 }
