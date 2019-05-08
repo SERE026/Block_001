@@ -43,8 +43,8 @@
                 <th>${student.gender}</th>
                 <th>${age}</th>
                 <th>${lastStuGrade.ageRange}</th>
-                <th>${student.birthday}</th>
-                <th>${lastStuGrade.checkTime}</th>
+                <th>${student.birthday?date('yyyy-MM-dd')}</th>
+                <th> ${lastStuGrade.checkTime?date('yyyy-MM-dd')} </th>
                 <th>${lastStuGrade.trainHours}</th>
                 <th>${lastStuGrade.attendance} %</th>
                 <th>${lastStuGrade.teacherName}</th>
