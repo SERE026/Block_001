@@ -27,8 +27,8 @@ function print(){
 
 function jqPrint(id) {
 
-    $("#"+id).css("width","305mm");
-    $("#"+id).css("height","405mm");
+    $("#"+id).css("width","155mm");
+    $("#"+id).css("height","205mm");
 
     document.getElementById('barChartImg').style.display="block";
     document.getElementById('bmiChartImg').style.display="block";

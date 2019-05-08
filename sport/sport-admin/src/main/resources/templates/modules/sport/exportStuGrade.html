@@ -12,6 +12,15 @@
     <script src="https://cdn.bootcss.com/echarts/4.2.1-rc1/echarts.js"></script>
     <script src="${request.contextPath}/statics/libs/jquery.jqprint-0.3.js"></script>
     <script src="${request.contextPath}/statics/js/print.js"></script>
+    <style>
+        table{table-layout:fixed;word-break:break-all;}
+        .table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
+            padding: 2px;
+            line-height: -0.529;
+            height: 26px;
+            vertical-align: top;
+            border-top: 1px solid #ddd;
+    </style>
 </head>
 <body>
 
@@ -19,11 +28,11 @@
     <button class='btn btn-primary ' onclick="jqPrint('main')" >打印</button>
     <br/>
 </div>
-<div class="container" id="main" style="width:650px;height:978px">
+<div class="container" id="main" style="width:850px;height:978px">
     <div class="row">
         <table class="table table-bordered">
             <tr>
-                <td colspan="10" style="align-content: center; background-color: yellow;"> <h2 class="text-center" >梦锐体能测评报告</h2></td>
+                <td colspan="10" style="align-content: center; background-color: yellow;"> <h3 class="text-center" >梦锐体能测评报告</h3></td>
             </tr>
             <tr>
                 <th>门店</th>
@@ -55,31 +64,24 @@
                 <td colspan="5" style="background-color: yellow; text-align: center">身体形态测评</td>
             </tr>
             <tr>
-                <td colspan="5" style="width: 384px">
-                    <div style=" word-wrap:break-word">
-                      ${trainGoal.trainGoal}
-                    </div>
-
+                <td colspan="5" style="width: 384px; height: 30px;word-wrap:break-word; font-size: 18px;solid-color: #00ca6d">
+                     &nbsp;&nbsp; ${trainGoal.trainGoal}
                 </td>
                 <td colspan="5" style="width: 384px">
                     <table class="table table-border">
                         <tr>
-                            <td colspan="2">身高</td>
-                            <td colspan="2">${lastBmiGrade.height} cm</td>
-                            <td rowspan="2" colspan="2">
-                                <span style="color: red; font-size: 18px;">BMI：</span><br/>
-                                <span style="color: red;">${lastBmiGrade.bmiGrade!}</span>
+                            <td colspan="2">身高: <span style="color: red; font-size: 16px;">${lastBmiGrade.height} </span>cm</td>
+                            <td colspan="2">体重: <span style="color: red; font-size: 16px;">${lastBmiGrade.weight} </span>KG</td>
+                            <td colspan="2">
+                                BMI:
+                                <span style="color: red; font-size: 18px;">${lastBmiGrade.bmiGrade!}</span>
                             </td>
                         </tr>
                         <tr>
-                            <td colspan="2">体重</td>
-                            <td colspan="2">${lastBmiGrade.weight}KG</td>
-                        </tr>
-                        <tr>
-                            <td colspan="2" style="text-align: center">身体质量指数评价</td>
-                            <td colspan="6">
+                            <td colspan="1" style="text-align: center">身体质量指数</td>
+                            <td colspan="5">
                                 <img id="bmiChartImg" style="width:100%;display:none;" >
-                                <div id="bmiChart" style="width: 300px;height:200px;">
+                                <div id="bmiChart" style="width: 270px;height:280px;top: -20px;left:10px">
                                     柱状图
                                 </div>
                             </td>
@@ -186,14 +188,14 @@
                     <table class="table table-border" >
                         <#list lastProGradeList as proGrade>
                             <tr>
-                                <td>${proGrade.projectType} <br/>  ${proGrade.projectName}</td>
-                                <td>${proGrade.suggestion}</td>
+                                <td colspan="2">${proGrade.projectType}<br/> ${proGrade.projectName}</td>
+                                <td colspan="8">${proGrade.suggestion}</td>
                             </tr>
                         </#list>
 
                         <tr>
-                            <td>综合测评</td>
-                            <td>${lastStuGrade.suggestion!}</td>
+                            <td colspan="2">综合测评</td>
+                            <td colspan="8">${lastStuGrade.suggestion!}</td>
                         </tr>
                   </td>
             </tr>
@@ -244,7 +246,7 @@
 
     var prevScore = 0;
     <#list prevProjectGradeList as item>
-        barDataX.push("${item.checkTime}");
+        barDataX.push("${item.checkTime?date('MM-dd')}");
         if('tgmd3_check' == "${item.projectType}"){
             prevScore = "${item.score}";
         }

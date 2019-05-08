@@ -45,7 +45,7 @@ function radarChartFun (radarCharData) {
 						}
 					}
 				},
-				symbolSize :6,
+				symbolSize :3,
 				data : [{
 					value:dataVal
 				}]
@@ -64,7 +64,7 @@ function barChartFun(dataX,fullDataY,checkDataY) {
 	// 指定图表的配置项和数据
 	var barOption = {
 		title: {
-			text: 'TMD3测试'
+			text: ''
 		},
 		tooltip : {
 			trigger : 'axis',
@@ -103,7 +103,7 @@ function barChartFun(dataX,fullDataY,checkDataY) {
 				name:'满分数据',
 				type:'bar',
 				stack: 'sum',
-				barWidth : 30,//柱图宽度
+				barWidth : 20,//柱图宽度
 				barCategoryGap: '50%',
 				/*itemStyle : { normal: {label : {show: true, position: 'insideTop',textStyle:{color:'#000'}}}},*/
 				data:fullDataY
@@ -124,11 +124,11 @@ function bmiChartFun(bmiDataY) {
 		// 指定图表的配置项和数据
 		var bmiOption = {
 			title: {
-				text: 'BMI指标'
+				text: ''
 			},
 			tooltip: {},
 			legend: {
-				data:['BMI']
+				data:['']
 			},
 			xAxis: {
 				data: ["",""]

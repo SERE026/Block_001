@@ -22,7 +22,7 @@ $(function () {
             { label: '操作', name: 'state', index: 'state', width: 200, edittype:"button",
                 formatter: function(cellVal,grid,rows,id){
                     let addGradeBtn = "<button class='btn btn-primary ' onclick='vm.addGrade("+rows.id+")' >添加数据</button>" ;
-                    let queryGrade =  "<a class='btn btn-warning' href='/admin/sport/grade/page?studentId="+rows.id+"'>查看</a>" ;
+                    let queryGrade =  "<a class='btn btn-warning' target='_blank' href='/admin/sport/grade/page?studentId="+rows.id+"'>查看</a>" ;
                     return addGradeBtn + queryGrade;
                 }
             }
@@ -80,7 +80,6 @@ var vm = new Vue({
 	    this.layDateRegisterTime();
 	    this.layDateBirthday();
 	    this.layDateFun();
-	    this.getProvince();
     },
 	methods: {
 		query: function () {
@@ -90,6 +89,7 @@ var vm = new Vue({
 			vm.showList = false;
 			vm.title = "新增";
 			vm.student = {};
+            vm.getProvince();
 		},
 		update: function (event) {
 			var id = getSelectedRow();
@@ -218,7 +218,6 @@ var vm = new Vue({
 		    //vm.inputGradeParam = {};
 		    vm.showGrade = false;
             vm.getProjectInfo(id);
-
             vm.layerIndex = layer.open({
                 type: 1,
                 skin: 'layui-layer-rim', //加上边框
@@ -252,6 +251,8 @@ var vm = new Vue({
                     height: $("#height").val(),
                     weight: $("#weight").val(),
                     teacherName: $("#teacherName").val(),
+                    trainHours: $("#trainHours").val(),
+                    attendance:$("#attendance").val(),
                     checkTime: $("#checkTime").val(),
                     proList: proList
                 };
@@ -316,29 +317,10 @@ var vm = new Vue({
         },
 
         getProvince: function(){
-            /*$.get(baseURL + "sport/area/listByParentId?parentId=0", function(data){
-                var jsonobj = data.areaList;
-                if (jsonobj != null) {
-                    var length=jsonobj.length;
-                    $.each(jsonobj, function(i){
-                        $("<option value='" + jsonobj[i].areaName + "' dataId='"+jsonobj[i].id+"'>" + jsonobj[i].areaName+ "</option>").appendTo($("#province"));
-                    });
-                }
-            });*/
             loadProvince($("#province"),'');
         },
         fillCityByParentId: function(){
             $("#city").empty();
-            /*var parentId = $('#province option:selected').attr("dataId");
-            $.get(baseURL + "sport/area/listByParentId?parentId="+parentId, function(data){
-                var jsonobj = data.areaList;
-                if (jsonobj != null) {
-                    var length=jsonobj.length;
-                    $.each(jsonobj, function(i){
-                        $("<option value='" + jsonobj[i].areaName + "'>" + jsonobj[i].areaName+ "</option>").appendTo($("#city"));
-                    });
-                }
-            });*/
             doProvAndCityRelation($("#province"),$("#city"),null,'');
         }
 	}
