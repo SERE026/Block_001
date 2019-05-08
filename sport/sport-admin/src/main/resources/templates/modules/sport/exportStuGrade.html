@@ -78,6 +78,7 @@
                         <tr>
                             <td colspan="2" style="text-align: center">身体质量指数评价</td>
                             <td colspan="6">
+                                <img id="bmiChartImg" style="width:100%;display:none;" >
                                 <div id="bmiChart" style="width: 300px;height:200px;">
                                     柱状图
                                 </div>
@@ -167,12 +168,14 @@
             </tr>
             <tr>
                 <td colspan="5">
+                    <img id="radarImg" style="width:100%;display:none;" >
                     <div class="four-body" id="radarId" style="width:223px; height:210px;text-align: center;">
                         雷达图
                     </div>
 
                 </td>
                 <td colspan="5">
+                    <img id="barChartImg" style="width:100%;display:none;" >
                     <div class="four-right-body" id="barChart" style="width:223px; height:210px;text-align: center;">
                         柱状图
                     </div>
@@ -230,7 +233,7 @@
     var lastCheckTime;
     <#list lastProGradeList as item>
         radarChartData.push({projectType:"${item.projectType}",score:"${item.score}"});
-        lastCheckTime = "${item.checkTime}";
+        lastCheckTime = "${item.checkTime?date('MM-dd')}";
         if('tgmd3_check' == "${item.projectType}"){
             lastScore = "${item.score}";
         }

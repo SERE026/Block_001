@@ -26,6 +26,17 @@ function print(){
 
 
 function jqPrint(id) {
+
+    $("#"+id).css("width","305mm");
+    $("#"+id).css("height","405mm");
+
+    document.getElementById('barChartImg').style.display="block";
+    document.getElementById('bmiChartImg').style.display="block";
+    document.getElementById('radarImg').style.display="block";
+
+    document.getElementById('radarId').style.display="none";
+    document.getElementById('barChart').style.display="none";
+    document.getElementById('bmiChart').style.display="none";
     $("#"+id).jqprint({
         debug: false,
         importCSS: true,

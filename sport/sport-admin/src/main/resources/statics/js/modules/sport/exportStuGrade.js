@@ -54,7 +54,7 @@ function radarChartFun (radarCharData) {
 	}
 	radarChart.setOption(radarOption);
 
-	echartToImg(radarChart)
+	echartToImg(radarChart,"radarImg")
 }
 
 function barChartFun(dataX,fullDataY,checkDataY) {
@@ -114,7 +114,7 @@ function barChartFun(dataX,fullDataY,checkDataY) {
 	// 使用刚指定的配置项和数据显示图表。
 	barChart.setOption(barOption);
 
-	echartToImg(barChart)
+	echartToImg(barChart,"barChartImg")
 }
 
 function bmiChartFun(bmiDataY) {
@@ -148,11 +148,11 @@ function bmiChartFun(bmiDataY) {
 		// 使用刚指定的配置项和数据显示图表。
 		bmiChart.setOption(bmiOption);
 
-		echartToImg(bmiChart)
+		echartToImg(bmiChart,"bmiChartImg")
 }
 
-function echartToImg(echart){
-	var img = new Image();
+function echartToImg(echart,imgId){
+	var img = document.getElementById(imgId);
 	var imgSrc = echart.getDataURL();
 	// 渲染到图表上面，遮住图表
 	img.src = imgSrc;
