@@ -114,6 +114,6 @@ public class StudentGrade implements Serializable {
 	@JsonFormat( pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
 	private LocalDateTime updateTime;
 
-	private BigDecimal trainHours;
+	private String trainHours;
 	private BigDecimal attendance;
 }

@@ -1,8 +1,10 @@
 package io.renren.modules.sport.controller;
 
+import com.alibaba.fastjson.JSON;
 import io.renren.common.utils.Result;
 import io.renren.modules.sport.dto.GradeParam;
 import io.renren.modules.sport.service.GradeService;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,6 +22,7 @@ import javax.servlet.http.HttpServletRequest;
  * @email ${email}
  * @date 2019-04-25 15:56:20
  */
+@Slf4j
 @RestController
 @RequestMapping("sport/grade")
 public class GradeController {
@@ -34,6 +37,7 @@ public class GradeController {
     @RequestMapping("/save")
     @RequiresPermissions("sport:studentgrade:save")
     public Result save(HttpServletRequest request, @RequestBody GradeParam grade){
+        log.info("保存成绩信息:{}", JSON.toJSONString(grade));
         System.out.println("--------------");
         return gradeService.saveGrade(grade);
     }

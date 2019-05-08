@@ -48,10 +48,6 @@ public class ScoreSuggestion implements Serializable {
 	 */
 	private String suggestion;
 	/**
-	 * 性别1：男 2：女
-	 */
-	private Integer gender;
-	/**
 	 * 备注
 	 */
 	private String remark;

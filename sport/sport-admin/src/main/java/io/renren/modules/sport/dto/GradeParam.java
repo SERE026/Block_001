@@ -19,7 +19,7 @@ public class GradeParam implements Serializable {
     private String teacherName;
     private BigDecimal height;
     private BigDecimal weight;
-    private BigDecimal trainHours;
+    private String trainHours;
     private BigDecimal attendance;
     List<ProGradeParam> proList;
 }

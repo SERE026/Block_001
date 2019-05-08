@@ -54,11 +54,13 @@ public class GradeServiceImpl implements GradeService {
         Integer age = AgeUtils.getAgeByBirthday(stu.getBirthday());
         LocalDateTime checkTime = LocalDateTime.parse(grade.getCheckTime(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
 
+        BigDecimal hh = grade.getHeight().multiply(grade.getHeight());
         BmiGrade bmiGrade = BmiGrade.builder()
                 .checkTime(checkTime)
                 .height(grade.getHeight())
                 .weight(grade.getWeight())
-                .bmiGrade(grade.getWeight().divide((grade.getHeight().multiply(grade.getHeight()))).setScale(2,BigDecimal.ROUND_HALF_UP))
+                .bmiGrade(grade.getWeight().divide(hh,10,BigDecimal.ROUND_HALF_UP)
+                        .multiply(new BigDecimal("10000")).setScale(2,BigDecimal.ROUND_HALF_UP))
                 .studentId(grade.getStudentId())
                 .teacherName(grade.getTeacherName())
                 .createTime(LocalDateTime.now())

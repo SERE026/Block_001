@@ -11,7 +11,6 @@
         <result property="minScore" column="min_score"/>
         <result property="maxScore" column="max_score"/>
         <result property="suggestion" column="suggestion"/>
-        <result property="gender" column="gender"/>
         <result property="remark" column="remark"/>
         <result property="createTime" column="create_time"/>
         <result property="updateTime" column="update_time"/>
