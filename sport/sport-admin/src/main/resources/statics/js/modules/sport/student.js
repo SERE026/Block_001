@@ -251,6 +251,8 @@ var vm = new Vue({
                     height: $("#height").val(),
                     weight: $("#weight").val(),
                     teacherName: $("#teacherName").val(),
+                    trainHours: $("#trainHours").val(),
+                    attendance:$("#attendance").val(),
                     checkTime: $("#checkTime").val(),
                     proList: proList
                 };
