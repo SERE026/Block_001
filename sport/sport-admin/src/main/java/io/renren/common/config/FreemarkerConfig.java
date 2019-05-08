@@ -8,11 +8,15 @@
 
 package io.renren.common.config;
 
+import freemarker.core.Environment;
 import io.renren.modules.sys.shiro.ShiroTag;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.freemarker.FreeMarkerProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
 
+import javax.annotation.Resource;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
@@ -25,10 +29,15 @@ import java.util.Properties;
 @Configuration
 public class FreemarkerConfig {
 
+    @Resource
+    FreeMarkerProperties properties;
+
     @Bean
     public FreeMarkerConfigurer freeMarkerConfigurer(ShiroTag shiroTag){
         FreeMarkerConfigurer configurer = new FreeMarkerConfigurer();
-        configurer.setTemplateLoaderPath("classpath:/templates");
+
+//        configurer.setTemplateLoaderPath("classpath:/templates");
+        configurer.setTemplateLoaderPaths(properties.getTemplateLoaderPath());
         Map<String, Object> variables = new HashMap<>(1);
         variables.put("shiro", shiroTag);
         configurer.setFreemarkerVariables(variables);

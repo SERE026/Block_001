@@ -36,6 +36,7 @@ spring:
     request-context-attribute: request
     settings:
       classic_compatible: true
+    template-loader-path: /data/server/web/templates/,classpath:/templates
   resources:
     static-locations: classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/,/data/server/web/static/,/data/server/web/public/
 
