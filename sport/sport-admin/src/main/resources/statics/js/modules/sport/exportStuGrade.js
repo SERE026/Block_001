@@ -1,5 +1,5 @@
 
-function radarChartFun (radarCharData) {
+function radarChartFun (radarChartData) {
 	let indicatorType=[];
 	let dataVal = [];
 
@@ -120,11 +120,11 @@ function barChartFun(dataX,fullDataY,checkDataY) {
 function bmiChartFun(bmiDataY) {
 	// 基于准备好的dom，初始化echarts实例
 	var bmiChart = echarts.init(document.getElementById('bmiChart'));
-
+	debugger;
 	// 指定图表的配置项和数据
 	var bmiOption = {
 		title:{
-			text:"带统计的堆叠柱状图"
+			text:""
 		},
 		legend: {
 			data:['正常','偏瘦','偏胖','肥胖']
@@ -164,7 +164,7 @@ function bmiChartFun(bmiDataY) {
 			{
 				name:'正常',
 				type:'bar',
-				barWidth : 35,
+				barWidth : 30,
 				stack: '搜索引擎',
 				data:[bmiDataY.bmiConf.normWeightRange.split('-')]
 			},
@@ -223,14 +223,13 @@ function bmiChartFun(bmiDataY) {
 		echartToImg(bmiChart,"bmiChartImg")
 }
 
-function tgmdChartFun(dataX,dataY1,dataY2,) {
+function tgmdChartFun(dataX,dataY,fullDataY,) {
 	// 基于准备好的dom，初始化echarts实例
-	var bmiChart = echarts.init(document.getElementById('barChart'));
-
+	var tgmdChart = echarts.init(document.getElementById('barChart'));
 	// 指定图表的配置项和数据
 	var tgmdOption = {
 		title:{
-			text:"带统计的堆叠柱状图"
+			text:""
 		},
 		legend: {
 			data:['满分','测试']
@@ -272,13 +271,13 @@ function tgmdChartFun(dataX,dataY1,dataY2,) {
 				type:'bar',
 				barWidth : 35,
 				stack: '搜索引擎',
-				data:[dataY1[1],dataY2[1]]
+				data: fullDataY
 			},
 			{
 				name:'测试',
 				type:'bar',
 				stack: '搜索引擎',
-				data:[dataY1[0],dataY2[0]]
+				data: dataY
 			}
 			/*{
 				name:'统计',

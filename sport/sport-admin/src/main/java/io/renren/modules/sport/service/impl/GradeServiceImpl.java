@@ -237,10 +237,10 @@ public class GradeServiceImpl implements GradeService {
         gradeIds.clear();
         gradeIds.add(prevStuGrade.getId());
         List<ProjectGradeDTO> prevProGradeList = projectGradeService.getInGradeIds(gradeIds);
-        Map prevProGradeMap = Maps.newHashMap();
-        if(!CollectionUtils.isEmpty(prevProGradeList)){
-            prevProGradeMap = prevProGradeList.stream().collect(Collectors.toMap(ProjectGradeDTO::getProjectId,Function.identity(),(o1,o2)->o1));
-        }
+//        Map prevProGradeMap = Maps.newHashMap();
+//        if(!CollectionUtils.isEmpty(prevProGradeList)){
+//            prevProGradeMap = prevProGradeList.stream().collect(Collectors.toMap(ProjectGradeDTO::getProjectId,Function.identity(),(o1,o2)->o1));
+//        }
 
         //计算最近两次的平均分
          /*身体素质测试总分÷项目数≤2					差
@@ -273,7 +273,7 @@ public class GradeServiceImpl implements GradeService {
                 .put("lastBmiGrade",lastBmiGrade)  //最近一次
                 .put("proFullScore",proFullScore)  //满配
                 .put("lastProGradeList",lastProGradeList)  //最近一次项目成绩
-                .put("prevProGradeMap",prevProGradeMap)
+                .put("prevProGradeList",prevProGradeList)
                 .put("passDesc",passDesc)
                 .put("scoreDesc",scoreDesc)
                 .put("radarChart",radarChart)
@@ -320,38 +320,42 @@ public class GradeServiceImpl implements GradeService {
     private Map tgmdChart(List<ProjectGradeDTO> lastProGradeList,List<ProjectGradeDTO> prevProGradeList,Map<Integer,ProjectConfig> fullScoreMap) {
         Map tgmd3Chart = Maps.newHashMap();
         //横坐标
-        String[] tgmd3DataX = new String[2];
-        tgmd3DataX[0] = lastProGradeList.get(0).getCheckTime().format(DateTimeFormatter.ofPattern("MM/dd"));
+        List tgmd3DataX = Lists.newArrayList();
+        tgmd3DataX.add(lastProGradeList.get(0).getCheckTime().format(DateTimeFormatter.ofPattern("yyyy.MM.dd")));
         if(!CollectionUtils.isEmpty(prevProGradeList)){
-            tgmd3DataX[1] = prevProGradeList.get(0).getCheckTime().format(DateTimeFormatter.ofPattern("MM/dd"));
+            tgmd3DataX.add(prevProGradeList.get(0).getCheckTime().format(DateTimeFormatter.ofPattern("yyyy.MM.dd")));
         }
         tgmd3Chart.put("tgmd3DataX",tgmd3DataX);
-        BigDecimal[] tgmd3DataScore = new BigDecimal[]{BigDecimal.ZERO,BigDecimal.ZERO};
+
+        List tgmd3DataScore = Lists.newArrayList();
 
         //最近一次纵坐标
-        for (ProjectGradeDTO pg : prevProGradeList){
-            ProjectConfig config = fullScoreMap.get(pg.getProjectId());
-            tgmd3DataScore[1] = Objects.isNull(config) ? new BigDecimal("100") : config.getMinScore();
+        Integer projectId = 0;
+        for (ProjectGradeDTO pg : lastProGradeList){
             if("tgmd3_check".equals(pg.getProjectCode())){
-                tgmd3DataScore[0] = pg.getProjectGrade();
+                tgmd3DataScore.add(pg.getProjectGrade());
+                projectId = pg.getProjectId();
                 break;
             }
         }
-        tgmd3Chart.put("tgmd3ScoreY",tgmd3DataScore);
-
-        //上次纵坐标
-        BigDecimal[] prevTgmd3DataScore = new BigDecimal[]{BigDecimal.ZERO,BigDecimal.ZERO};
         if(!CollectionUtils.isEmpty(prevProGradeList)){
             for (ProjectGradeDTO pg : prevProGradeList){
-                ProjectConfig config = fullScoreMap.get(pg.getProjectId());
-                prevTgmd3DataScore[1] = Objects.isNull(config) ? new BigDecimal("100") : config.getMinScore();
                 if("tgmd3_check".equals(pg.getProjectCode())){
-                    prevTgmd3DataScore[0] = pg.getProjectGrade();
+                    tgmd3DataScore.add(pg.getProjectGrade());
+                    projectId = pg.getProjectId();
                     break;
                 }
             }
         }
-        tgmd3Chart.put("prevTgmd3ScoreY",prevTgmd3DataScore);
+        tgmd3Chart.put("tgmd3ScoreY",tgmd3DataScore);
+        ProjectConfig config = fullScoreMap.get(projectId);
+        BigDecimal fullScore = Objects.isNull(config) ? new BigDecimal("100") : config.getMinScore();
+        //上次纵坐标
+        List fullTgmd3Score = Lists.newArrayList();
+        while(fullTgmd3Score.size() < tgmd3DataScore.size()){
+            fullTgmd3Score.add(fullScore);
+        }
+        tgmd3Chart.put("fullTgmd3ScoreY",fullTgmd3Score);
 
         return tgmd3Chart;
     }
