@@ -114,7 +114,11 @@
 
                                 <#list lastProGradeList as proGrade>
                                 <td>
+                                    <#if prevProGradeMap??>
                                     ${prevProGradeMap[proGrade.projectId].projectGrade}
+                                    <#else>
+                                      0
+                                    </#if>
                                 </td>
                                 </#list>
 
@@ -123,7 +127,11 @@
                             <td>增长值</td>
                             <#list lastProGradeList as proGrade>
                                 <td>
+                                    <#if prevProGradeMap??>
                                     ${proGrade.projectGrade - prevProGradeMap[proGrade.projectId].projectGrade!0}
+                                    <#else>
+                                        0
+                                    </#if>
                                 </td>
                             </#list>
                         </tr>
@@ -139,9 +147,13 @@
                             <td>评分</td>
                             <#list lastProGradeList as proGrade>
                             <td>
+                                <#if prevProGradeMap??>
                                 ${(proGrade.projectGrade + prevProGradeMap[proGrade.projectId]?.projectGrade!0)/2}
+                                <#else>
+                                   ${proGrade.projectGrade}
+                                </#if>
                             </td>
-                        </#list>
+                            </#list>
                         </tr>
                     </table>
                 </td>
