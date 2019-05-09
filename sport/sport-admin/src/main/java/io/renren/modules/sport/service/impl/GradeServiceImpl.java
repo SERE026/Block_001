@@ -220,7 +220,7 @@ public class GradeServiceImpl implements GradeService {
         List<Integer> projectIds = lastProGradeList.stream().map(ProjectGradeDTO::getProjectId).collect(Collectors.toList());
         List<ProjectConfig> projectList = projectConfigService.getByFullScoreByProjectIds(projectIds);
         List<ProjectConfig> proConfigList = projectList.stream()
-                .filter(tg -> tg.getMinAge() <=age && tg.getMaxAge()>=age )
+                .filter(tg -> tg.getMinAge() <=age && tg.getMaxAge()>=age && tg.getGender().equals(stu.getGender()))
                 .collect(Collectors.toList());
 
 

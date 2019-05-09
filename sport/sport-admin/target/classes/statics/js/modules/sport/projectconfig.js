@@ -7,8 +7,12 @@ $(function () {
             { label: '项目ID', name: 'projectId', index: 'project_id', width: 80 },
             { label: '项目类型', name: 'projectType', index: 'project_type', width: 80 },
 			{ label: '训练项目', name: 'projectName', index: 'project_name', width: 150  },
-			{ label: '分值范围最低值', name: 'minScore', index: 'min_score', width: 80 }, 			
-			{ label: '分值范围最高值', name: 'maxScore', index: 'max_score', width: 80 }, 			
+			{ label: '分值范围', name: 'score', index: 'min_score', width: 80,
+                formatter: function (cellvalue, options, rowObject) {
+                    return rowObject.minScore+"-"+rowObject.maxScore;
+                }
+            },
+			//{ label: '分值范围最高值', name: 'maxScore', index: 'max_score', width: 80 },
 			{ label: '综合评分级别', name: 'scoreLevel', index: 'score_level', width: 80 }, 			
 			{ label: '年龄段', name: 'age', index: 'age', width: 80 ,
                 formatter: function (cellvalue, options, rowObject) {
@@ -79,6 +83,7 @@ var vm = new Vue({
 			vm.showList = false;
 			vm.title = "新增";
 			vm.projectConfig = {};
+            vm.getProjectList();
 		},
 		update: function (event) {
 			var id = getSelectedRow();
@@ -162,7 +167,7 @@ var vm = new Vue({
                     if (jsonobj != null) {
                         var length=jsonobj.length;
                         $.each(jsonobj, function(i){
-                            $("<option value='" + jsonobj[i].id + "'>" + jsonobj[i].schoolName+ "</option>").appendTo($("#projectId"));
+                            $("<option value='" + jsonobj[i].id + "'>" + jsonobj[i].projectName+ "</option>").appendTo($("#projectId"));
                         });
                     }
                 }
