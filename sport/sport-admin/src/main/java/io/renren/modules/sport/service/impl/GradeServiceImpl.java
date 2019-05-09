@@ -1,6 +1,7 @@
 package io.renren.modules.sport.service.impl;
 
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import io.renren.common.utils.Result;
 import io.renren.modules.sport.dto.GradeParam;
 import io.renren.modules.sport.dto.ProjectGradeDTO;
@@ -199,7 +200,9 @@ public class GradeServiceImpl implements GradeService {
         BmiGrade lastBmiGrade = bmiGradeList.stream().max(Comparator.comparing(BmiGrade::getId)).get();
         //BMI config
         List<BmiConfig> bmiConfigList = bmiConfigService.list();
-        List<BmiConfig> bmiConfigs = bmiConfigList.stream().filter(tg -> tg.getMinAge() <=age && tg.getMaxAge()>=age).collect(Collectors.toList());
+        List<BmiConfig> bmiConfigs = bmiConfigList.stream()
+                .filter(tg -> tg.getMinAge() <=age && tg.getMaxAge()>=age && tg.getGender().equals(stu.getGender()))
+                .collect(Collectors.toList());
 
         //最近两次身体素质测评数据
         List<StudentGrade> stuGradeList = studentGradeService.getLastTwoGrade(studentId);
@@ -215,40 +218,90 @@ public class GradeServiceImpl implements GradeService {
         List<Integer> gradeIds = Lists.newArrayList();
         gradeIds.add(lastStuGrade.getId());
         List<ProjectGradeDTO> lastProGradeList = projectGradeService.getInGradeIds(gradeIds);
-
+        Map<Integer,ProjectGradeDTO> lastProGradeMap = lastProGradeList.stream().collect(Collectors.toMap(ProjectGradeDTO::getProjectId,Function.identity(),(o1,o2)->o1));
         //满分配置信息
-        List<Integer> projectIds = lastProGradeList.stream().map(ProjectGradeDTO::getProjectId).collect(Collectors.toList());
+        //List<Integer> projectIds = lastProGradeList.stream().map(ProjectGradeDTO::getProjectId).collect(Collectors.toList());
+        List<Integer> projectIds = lastProGradeMap.keySet().stream().collect(Collectors.toList());
         List<ProjectConfig> projectList = projectConfigService.getByFullScoreByProjectIds(projectIds);
-        List<ProjectConfig> proConfigList = projectList.stream()
-                .filter(tg -> tg.getMinAge() <=age && tg.getMaxAge()>=age && tg.getGender().equals(stu.getGender()))
-                .collect(Collectors.toList());
-
+        Map<Integer,ProjectConfig> proFullScore = Maps.newHashMap();
+        for (ProjectConfig pc : projectList) {
+            if(pc.getMinAge() <=age && pc.getMaxAge()>=age && pc.getGender().equals(stu.getGender())){
+                ProjectGradeDTO dto = lastProGradeMap.get(pc.getProjectId());
+                if(Objects.nonNull(dto)){
+                    proFullScore.put(pc.getProjectId(),pc);
+                }
+            }
+        }
 
         //上次项目成绩信息
         gradeIds.clear();
         gradeIds.add(prevStuGrade.getId());
         List<ProjectGradeDTO> prevProGradeList = projectGradeService.getInGradeIds(gradeIds);
+        Map prevProGradeMap = Maps.newHashMap();
+        if(!CollectionUtils.isEmpty(prevProGradeList)){
+            prevProGradeMap = prevProGradeList.stream().collect(Collectors.toMap(ProjectGradeDTO::getProjectId,Function.identity(),(o1,o2)->o1));
+        }
 
         //计算最近两次的平均分
-        Map<Integer, Double> averageMap = lastProGradeList.stream().collect(Collectors.groupingBy(ProjectGradeDTO::getStuGradeId,
-                Collectors.averagingDouble(GradeServiceImpl::applyGradeAsDouble)));
-
-        //测评结果判断
-        /*身体素质测试总分÷项目数≤2					差
+         /*身体素质测试总分÷项目数≤2					差
         身体素质测试总分÷项目数=2~3					较差
         身体素质测试总分÷项目数=3~4					一般
         身体素质测试总分÷项目数=4~5					良好
         身体素质测试总分÷项目数=5					优秀
         */
+        Map<Integer, Double> averageMap = lastProGradeList.stream().collect(Collectors.groupingBy(ProjectGradeDTO::getStuGradeId,
+                Collectors.averagingDouble(GradeServiceImpl::applyGradeAsDouble)));
+
+        //测评结果判断
         Optional<Integer> averageKey = averageMap.keySet().stream().max(Comparator.naturalOrder());
-        Double score = 0.0D;
-        if(averageKey.isPresent()){
-            score = averageMap.get(averageKey.get());
-        }
-        String passDesc = "通过";
-        if(score < 3){
-            passDesc = "不通过";
-        }
+        Double score = averageKey.isPresent() ? averageMap.get(averageKey.get()) : 0.0D;
+        String passDesc = score < 3 ? "不通过" : "通过";
+        String scoreDesc = getString(score);
+
+        //Radar chart
+        List<Map<String, Object>> radarChart = radarChart(lastProGradeList);
+        //BMI chart
+        Map bmiChart = bmiChart(lastBmiGrade,bmiConfigs);
+        //Bar chart
+        Map tgmd3Chart = tgmdChart(lastProGradeList,prevProGradeList,proFullScore);
+
+
+        return Result.ok()
+                .put("student",stu)
+                .put("trainGoal",trainGoal)
+                .put("lastStuGrade",lastStuGrade)  //最近一次成绩
+                .put("lastBmiGrade",lastBmiGrade)  //最近一次
+                .put("proFullScore",proFullScore)  //满配
+                .put("lastProGradeList",lastProGradeList)  //最近一次项目成绩
+                .put("prevProGradeMap",prevProGradeMap)
+                .put("passDesc",passDesc)
+                .put("scoreDesc",scoreDesc)
+                .put("radarChart",radarChart)
+                .put("tgmd3Chart",tgmd3Chart)
+                .put("bmiChart",bmiChart)
+                ;
+    }
+
+    private Map bmiChart(BmiGrade lastBmiGrade, List<BmiConfig> bmiConfigs) {
+        Map bmiChart = Maps.newHashMap();
+        // 判断lastBmiGrade 处于那个范围
+        bmiChart.put("bmiConf",bmiConfigs.get(0));
+        bmiChart.put("lastBmiGrade",lastBmiGrade);
+        return bmiChart;
+    }
+
+    private List<Map<String, Object>> radarChart(List<ProjectGradeDTO> lastProGradeList) {
+        List<Map<String,Object>> radarChart = Lists.newArrayList();
+        lastProGradeList.forEach(pg -> {
+            Map map = Maps.newHashMap();
+            map.put("projectType",pg.getProjectType());
+            map.put("score",pg.getScore());
+            radarChart.add(map);
+        });
+        return radarChart;
+    }
+
+    private String getString(Double score) {
         String scoreDesc = "";
         if(score <= 2){
             scoreDesc = "差";
@@ -261,21 +314,45 @@ public class GradeServiceImpl implements GradeService {
         }else if(score > 5){
             scoreDesc = "优秀";
         }
+        return scoreDesc;
+    }
 
-        return Result.ok()
-                .put("student",stu)
-                .put("age",age)
-                .put("trainGoal",trainGoal)
-                .put("lastStuGrade",lastStuGrade)
-                .put("prevStuGrade",prevStuGrade)
-                .put("bmiGradeList",bmiGradeList)
-                .put("bmiConfigs",bmiConfigs)
-                .put("lastBmiGrade",lastBmiGrade)
-                .put("projectFullScore",proConfigList)
-                .put("lastProGradeList",lastProGradeList)
-                .put("prevProjectGradeList",prevProGradeList)
-                .put("average",averageMap.get(averageKey))
-                .put("passDesc",passDesc)
-                .put("scoreDesc",scoreDesc);
+    private Map tgmdChart(List<ProjectGradeDTO> lastProGradeList,List<ProjectGradeDTO> prevProGradeList,Map<Integer,ProjectConfig> fullScoreMap) {
+        Map tgmd3Chart = Maps.newHashMap();
+        //横坐标
+        String[] tgmd3DataX = new String[2];
+        tgmd3DataX[0] = lastProGradeList.get(0).getCheckTime().format(DateTimeFormatter.ofPattern("MM/dd"));
+        if(!CollectionUtils.isEmpty(prevProGradeList)){
+            tgmd3DataX[1] = prevProGradeList.get(0).getCheckTime().format(DateTimeFormatter.ofPattern("MM/dd"));
+        }
+        tgmd3Chart.put("tgmd3DataX",tgmd3DataX);
+        BigDecimal[] tgmd3DataScore = new BigDecimal[]{BigDecimal.ZERO,BigDecimal.ZERO};
+
+        //最近一次纵坐标
+        for (ProjectGradeDTO pg : prevProGradeList){
+            ProjectConfig config = fullScoreMap.get(pg.getProjectId());
+            tgmd3DataScore[1] = Objects.isNull(config) ? new BigDecimal("100") : config.getMinScore();
+            if("tgmd3_check".equals(pg.getProjectCode())){
+                tgmd3DataScore[0] = pg.getProjectGrade();
+                break;
+            }
+        }
+        tgmd3Chart.put("tgmd3ScoreY",tgmd3DataScore);
+
+        //上次纵坐标
+        BigDecimal[] prevTgmd3DataScore = new BigDecimal[]{BigDecimal.ZERO,BigDecimal.ZERO};
+        if(!CollectionUtils.isEmpty(prevProGradeList)){
+            for (ProjectGradeDTO pg : prevProGradeList){
+                ProjectConfig config = fullScoreMap.get(pg.getProjectId());
+                prevTgmd3DataScore[1] = Objects.isNull(config) ? new BigDecimal("100") : config.getMinScore();
+                if("tgmd3_check".equals(pg.getProjectCode())){
+                    prevTgmd3DataScore[0] = pg.getProjectGrade();
+                    break;
+                }
+            }
+        }
+        tgmd3Chart.put("prevTgmd3ScoreY",prevTgmd3DataScore);
+
+        return tgmd3Chart;
     }
 }

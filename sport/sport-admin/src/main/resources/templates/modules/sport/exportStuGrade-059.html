@@ -20,7 +20,6 @@
             height: 26px;
             vertical-align: top;
             border-top: 1px solid #ddd;
-        }
     </style>
 </head>
 <body>
@@ -50,7 +49,7 @@
                 <th>${student.schoolName}</th>
                 <th>${student.realname}</th>
                 <th>${student.gender}</th>
-                <th>${student.age}</th>
+                <th>${age}</th>
                 <th>${lastStuGrade.ageRange}</th>
                 <th>${student.birthday?date('yyyy-MM-dd')}</th>
                 <th> ${lastStuGrade.checkTime?date('yyyy-MM-dd')} </th>
@@ -114,7 +113,13 @@
 
                                 <#list lastProGradeList as proGrade>
                                 <td>
-                                    ${prevProGradeMap[proGrade.projectId].projectGrade}
+                                    <#list prevProjectGradeList as prevGrade>
+                                        <#if proGrade.projectId == prevGrade.projectId>
+                                            ${prevGrade.projectGrade}
+                                        <#else>
+                                            0
+                                        </#if>
+                                    </#list>
                                 </td>
                                 </#list>
 
@@ -123,7 +128,15 @@
                             <td>增长值</td>
                             <#list lastProGradeList as proGrade>
                                 <td>
-                                    ${proGrade.projectGrade - prevProGradeMap[proGrade.projectId].projectGrade!0}
+                                    <#if prevProjectGradeList??>
+                                    <#list prevProjectGradeList as prevGrade>
+                                    <#if proGrade.projectId== prevGrade.projectId>
+                                        ${proGrade.projectGrade - prevGrade.projectGrade!0}
+                                    </#if>
+                                    </#list>
+                                    <#else>
+                                        0
+                                    </#if>
                                 </td>
                             </#list>
                         </tr>
@@ -131,7 +144,11 @@
                             <td>满分成绩</td>
                             <#list lastProGradeList as proGrade>
                             <td>
-                                ${proFullScore[proGrade.projectId]??.minScore}
+                                <#list projectFullScore as fullScore>
+                                    <#if proGrade.projectId == fullScore.projectId>
+                                        ${fullScore.minScore} <#break>
+                                    </#if>
+                                </#list>
                             </td>
                             </#list>
                         </tr>
@@ -139,7 +156,11 @@
                             <td>评分</td>
                             <#list lastProGradeList as proGrade>
                             <td>
-                                ${(proGrade.projectGrade + prevProGradeMap[proGrade.projectId]?.projectGrade!0)/2}
+                                <#list prevProjectGradeList as prevGrade>
+                                <#if proGrade.projectId== prevGrade.projectId>
+                                    ${(proGrade.projectGrade + prevGrade.projectGrade!0)/2}
+                                </#if>
+                            </#list>
                             </td>
                         </#list>
                         </tr>
@@ -203,14 +224,56 @@
 </div>
 <script src="${request.contextPath}/statics/js/modules/sport/exportStuGrade.js?_${.now?long}"></script>
 <script>
-    var radarChartData="${radarChart}";
+    var radarChartData=[];
+    var barCheckDataY =[];
+    var barDataX =[];
+    var lastScore=0;
+    var lastCheckTime;
+    <#list lastProGradeList as item>
+        radarChartData.push({projectType:"${item.projectType}",score:"${item.score}"});
+        lastCheckTime = "${item.checkTime?date('MM-dd')}";
+        if('tgmd3_check' == "${item.projectType}"){
+            lastScore = "${item.score}";
+        }
+    </#list>
+    barDataX.push(lastCheckTime);
+    barCheckDataY.push(lastScore);
     radarChartFun(radarChartData);
 
-    var tgmdChart = "${tgmd3Chart}";
-    tgmdChartFun(tgmdChart.tgmd3DataX,tgmdChart.tgmd3ScoreY,tgmdChart.prevTgmd3ScoreY);
+    var prevScore = 0;
+    <#list prevProjectGradeList as item>
+        barDataX.push("${item.checkTime?date('MM-dd')}");
+        if('tgmd3_check' == "${item.projectType}"){
+            prevScore = "${item.score}";
+        }
+    </#list>
+    barCheckDataY.push(prevScore);
+    var barFullDataY = [];
+    fullScore = "100";
+    <#list projectFullScore as item>
+        if('tgmd3_check' == "${item.projectType}"){
+            fullScore = "${item.minScore}";
+        }
+    </#list>
+    barFullDataY.push(fullScore);
+    barFullDataY.push(fullScore);
+    barChartFun(barDataX,barFullDataY,barCheckDataY)
 
-    var bmiChart = "${bmiChart}";
-    bmiChartFun(bmiChart);
+    var bmiDataY=[];
+    var bmiFullDataY=[];
+    var checkDataY ="${lastBmiGrade.bmiGrade!'0'}";
+    <#list bmiConfigs as item>
+        var bmi = "${item.normWeightRange}".split("-");
+        bmiFullDataY.push((bmi[0]+bmi[1])/2);
+    </#list>
+    for(let fd in bmiFullDataY){
+        bmiDataY.push(bmiFullDataY[fd])
+    }
+    bmiDataY.push(checkDataY);
+    for(let fd in bmiFullDataY){
+        bmiDataY.push(bmiFullDataY[fd])
+    }
+    bmiChartFun(bmiDataY);
 </script>
 
 
