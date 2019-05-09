@@ -121,6 +121,10 @@ function bmiChartFun(bmiDataY) {
 	// 基于准备好的dom，初始化echarts实例
 	var bmiChart = echarts.init(document.getElementById('bmiChart'));
 	debugger;
+	var normalData = bmiDataY.bmiConf.normWeightRange.split('-');
+	var lowData = bmiDataY.bmiConf.lowWeightRange.split('-');
+	var overData = bmiDataY.bmiConf.overWeightRange.split('-')
+	var fatData = bmiDataY.bmiConf.fatWeightRange.split('-')
 	// 指定图表的配置项和数据
 	var bmiOption = {
 		title:{
@@ -165,26 +169,26 @@ function bmiChartFun(bmiDataY) {
 				name:'正常',
 				type:'bar',
 				barWidth : 30,
-				stack: '搜索引擎',
-				data:[bmiDataY.bmiConf.normWeightRange.split('-')]
+				stack: 'BMI',
+				data: normalData
 			},
 			{
 				name:'偏瘦',
 				type:'bar',
-				stack: '搜索引擎',
-				data:[bmiDataY.bmiConf.lowWeightRange.split('-')]
+				stack: 'BMI',
+				data: lowData
 			},
 			{
 				name:'偏胖',
 				type:'bar',
-				stack: '搜索引擎',
-				data:[bmiDataY.bmiConf.overWeightRange.split('-')]
+				stack: 'BMI',
+				data: overData
 			},
 			{
 				name:'肥胖',
 				type:'bar',
-				stack: '搜索引擎',
-				data:[bmiDataY.bmiConf.fatWeightRange.split('-')]
+				stack: 'BMI',
+				data: fatData
 			},
 			/*{
 				name:'统计',
