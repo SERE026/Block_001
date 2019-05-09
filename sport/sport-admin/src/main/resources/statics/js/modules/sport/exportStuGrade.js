@@ -166,25 +166,25 @@ function bmiChartFun(bmiDataY) {
 				type:'bar',
 				barWidth : 35,
 				stack: '搜索引擎',
-				data:[620, 732, 701, 734, 1090, 1130, 1120]
+				data:[bmiDataY.bmiConf.normWeightRange.split('-')]
 			},
 			{
 				name:'偏瘦',
 				type:'bar',
 				stack: '搜索引擎',
-				data:[120, 132, 101, 134, 290, 230, 220]
+				data:[bmiDataY.bmiConf.lowWeightRange.split('-')]
 			},
 			{
 				name:'偏胖',
 				type:'bar',
 				stack: '搜索引擎',
-				data:[60, 72, 71, 74, 190, 130, 110]
+				data:[bmiDataY.bmiConf.overWeightRange.split('-')]
 			},
 			{
 				name:'肥胖',
 				type:'bar',
 				stack: '搜索引擎',
-				data:[62, 82, 91, 84, 109, 110, 120]
+				data:[bmiDataY.bmiConf.fatWeightRange.split('-')]
 			},
 			/*{
 				name:'统计',
