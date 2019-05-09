@@ -267,17 +267,17 @@ function tgmdChartFun(dataX,dataY,fullDataY,) {
 		series : [
 
 			{
-				name:'满分',
-				type:'bar',
-				barWidth : 35,
-				stack: '搜索引擎',
-				data: fullDataY
-			},
-			{
 				name:'测试',
 				type:'bar',
-				stack: '搜索引擎',
+				barWidth : 35,
+				stack: '大肌肉',
 				data: dataY
+			},
+			{
+				name:'满分',
+				type:'bar',
+				stack: '大肌肉',
+				data: fullDataY
 			}
 			/*{
 				name:'统计',

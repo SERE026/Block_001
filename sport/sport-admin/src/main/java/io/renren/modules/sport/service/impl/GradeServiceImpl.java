@@ -327,7 +327,8 @@ public class GradeServiceImpl implements GradeService {
         }
         tgmd3Chart.put("tgmd3DataX",tgmd3DataX);
 
-        List tgmd3DataScore = Lists.newArrayList();
+
+        List<BigDecimal> tgmd3DataScore = Lists.newArrayList();
 
         //最近一次纵坐标
         Integer projectId = 0;
@@ -347,14 +348,15 @@ public class GradeServiceImpl implements GradeService {
                 }
             }
         }
-        tgmd3Chart.put("tgmd3ScoreY",tgmd3DataScore);
         ProjectConfig config = fullScoreMap.get(projectId);
         BigDecimal fullScore = Objects.isNull(config) ? new BigDecimal("100") : config.getMinScore();
-        //上次纵坐标
         List fullTgmd3Score = Lists.newArrayList();
-        while(fullTgmd3Score.size() < tgmd3DataScore.size()){
+        for(int i=0; i<tgmd3DataScore.size();i++){
+            BigDecimal checkScore = tgmd3DataScore.get(i);
+            //计算满分和测试值，两者相加为100的比例(待确定）
             fullTgmd3Score.add(fullScore);
         }
+        tgmd3Chart.put("tgmd3ScoreY",tgmd3DataScore);
         tgmd3Chart.put("fullTgmd3ScoreY",fullTgmd3Score);
 
         return tgmd3Chart;
