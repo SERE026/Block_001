@@ -117,7 +117,7 @@ function barChartFun(dataX,fullDataY,checkDataY) {
 	echartToImg(barChart,"barChartImg")
 }
 
-function bmiChartFun(bmiDataY) {
+function bmiChartFun(bmiDataY,bmiGrade) {
 	// 基于准备好的dom，初始化echarts实例
 	var bmiChart = echarts.init(document.getElementById('bmiChart'));
 	debugger;
@@ -189,6 +189,11 @@ function bmiChartFun(bmiDataY) {
 				type:'bar',
 				stack: 'BMI',
 				data: fatData
+			},
+			{
+				name:'BMI指标',
+				type:'bar',
+				data: bmiGrade
 			},
 			/*{
 				name:'统计',

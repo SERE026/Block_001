@@ -39,7 +39,7 @@ var vm = new Vue({
                 radarChartFun(r.radarChart);
                 var tgmdChart = r.tgmd3Chart;
                 tgmdChartFun(tgmdChart.tgmd3DataX,tgmdChart.tgmd3ScoreY,tgmdChart.fullTgmd3ScoreY);
-                bmiChartFun(r.bmiChart);
+                bmiChartFun(r.bmiChart,r.lastBmiGrade.bmiGrade);
             });
         },
         loadData: function(){
