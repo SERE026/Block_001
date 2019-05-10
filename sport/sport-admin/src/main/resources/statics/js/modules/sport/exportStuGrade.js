@@ -155,7 +155,7 @@ function bmiChartFun(bmiDataY,bmiGrade) {
 		xAxis : [
 			{
 				type : 'category',
-				data : ['','']
+				data : ['参考','']
 			}
 		],
 		yAxis : [
@@ -168,7 +168,7 @@ function bmiChartFun(bmiDataY,bmiGrade) {
 			{
 				name:'正常',
 				type:'bar',
-				barWidth : 35,
+				barWidth : 30,
 				stack: 'BMI',
 				data: [normalData]
 			},
@@ -193,7 +193,7 @@ function bmiChartFun(bmiDataY,bmiGrade) {
 			{
 				name:'BMI指标',
 				type:'bar',
-				barWidth: 35,
+				barWidth: 30,
 				data: [bmiGrade]
 			},
 			/*{
@@ -336,4 +336,100 @@ function echartToImg(echart,imgId){
 		// 执行打印
 		console.log("pic is cover");
 	}
+}
+
+
+
+function testBmi(){
+	option = {
+		title : {
+			text: 'BMI',
+			subtext: '测试数据'
+		},
+		tooltip : {
+			trigger: 'axis'
+		},
+		legend: {
+			data:[
+				'正常','偏瘦','偏胖','肥胖'
+			]
+		},
+		toolbox: {
+			show : true,
+			feature : {
+				mark : {show: true},
+				dataView : {show: true, readOnly: false},
+				magicType : {show: true, type: ['参考', '测试']},
+				restore : {show: true},
+				saveAsImage : {show: true}
+			}
+		},
+		calculable : true,
+		grid: {y: 70, y2:40, x2:50},
+		xAxis : [
+			{
+				type : 'category',
+				data : ['参考', '测试']
+			},
+			{
+				type : 'category',
+				axisLine: {show:false},
+				axisTick: {show:false},
+				axisLabel: {show:false},
+				splitArea: {show:false},
+				splitLine: {show:false},
+				data : ['参考', '测试']
+			}
+		],
+		yAxis : [
+			{
+				type : 'value',
+				axisLabel:{formatter:'{value} ms' 	}
+			}
+		],
+		series : [
+
+			{
+				name:'偏瘦',
+				type:'bar',
+				stack: 'BMI',
+				xAxisIndex:1,
+				itemStyle: {normal: {color:'rgb(241, 237, 117)', label:{show:true}}},
+				data: [15.57]
+			},
+			{
+				name:'正常',
+				type:'bar',
+				xAxisIndex:1,
+				itemStyle: {normal: {color:'rgb(54, 228, 124)', label:{show:true,formatter:function(p){return p.value > 0 ? (p.value +'+'):'';}}}},
+				stack: 'BMI',
+				data: [20.29-15.57]
+			},
+			{
+				name:'偏胖',
+				type:'bar',
+				stack: 'BMI',
+				xAxisIndex:1,
+				itemStyle: {normal: {color:'rgb(243, 174, 190)', label:{show:true}}},
+				data: [21.12-20.29]
+			},
+			{
+				name:'肥胖',
+				type:'bar',
+				stack: 'BMI',
+				xAxisIndex:1,
+				itemStyle: {normal: {color:'rgba(199,35,43,1)', label:{show:true}}},
+
+				data: [30-21.12]
+			},
+			{
+				name:'BMI指标',
+				type:'bar',
+				xAxisIndex:1,
+				itemStyle: {normal: {color:'rgba(197,35,43,1)', label:{show:true}}},
+				data: [19.83]
+			},
+		]
+	};
+
 }
