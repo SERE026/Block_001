@@ -168,7 +168,7 @@ function bmiChartFun(bmiDataY,bmiGrade) {
 			{
 				name:'正常',
 				type:'bar',
-				barWidth : 30,
+				barWidth : 35,
 				stack: 'BMI',
 				data: [normalData]
 			},
@@ -193,6 +193,7 @@ function bmiChartFun(bmiDataY,bmiGrade) {
 			{
 				name:'BMI指标',
 				type:'bar',
+				barWidth: 35
 				data: [bmiGrade]
 			},
 			/*{
