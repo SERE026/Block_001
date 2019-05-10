@@ -170,30 +170,30 @@ function bmiChartFun(bmiDataY,bmiGrade) {
 				type:'bar',
 				barWidth : 30,
 				stack: 'BMI',
-				data: normalData
+				data: [normalData]
 			},
 			{
 				name:'偏瘦',
 				type:'bar',
 				stack: 'BMI',
-				data: lowData
+				data: [lowData]
 			},
 			{
 				name:'偏胖',
 				type:'bar',
 				stack: 'BMI',
-				data: overData
+				data: [overData]
 			},
 			{
 				name:'肥胖',
 				type:'bar',
 				stack: 'BMI',
-				data: fatData
+				data: [fatData]
 			},
 			{
 				name:'BMI指标',
 				type:'bar',
-				data: bmiGrade
+				data: [bmiGrade]
 			},
 			/*{
 				name:'统计',
