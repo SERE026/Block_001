@@ -121,10 +121,10 @@ function bmiChartFun(bmiDataY) {
 	// 基于准备好的dom，初始化echarts实例
 	var bmiChart = echarts.init(document.getElementById('bmiChart'));
 	debugger;
-	var normalData = bmiDataY.bmiConf.normWeightRange.split('-');
-	var lowData = bmiDataY.bmiConf.lowWeightRange.split('-');
-	var overData = bmiDataY.bmiConf.overWeightRange.split('-')
-	var fatData = bmiDataY.bmiConf.fatWeightRange.split('-')
+	var normalData = bmiDataY.bmiConf.normWeightRange.split('-')[1];
+	var lowData = bmiDataY.bmiConf.lowWeightRange.split('-')[1];
+	var overData = bmiDataY.bmiConf.overWeightRange.split('-')[1]
+	var fatData = bmiDataY.bmiConf.fatWeightRange.split('-')[1]
 	// 指定图表的配置项和数据
 	var bmiOption = {
 		title:{
