@@ -349,7 +349,7 @@ function tgmdChartFun(tgmdData) {
 							formatter:function(p){
 								return '满分';
 							}
-						}}},
+						}}}
 			},
 			{
 				type:'bar',
@@ -360,10 +360,9 @@ function tgmdChartFun(tgmdData) {
 							formatter:function(p){
 								return p.value;
 							}
-						}}},
+						}}}
 
-			},
-
+			}
 		]
 	};
 
