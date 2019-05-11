@@ -327,37 +327,36 @@ public class GradeServiceImpl implements GradeService {
 				['2017', 86.4, 65.2],
 				['2018', 72.4, 53.9]*/
 
-        Object[] header = new Object[]{"product", "满分", "测试"};
+        Object[] header = new Object[]{"product", "测试","满分"};
         tgmd3Chart.add(header);
         Object[] lastProGrade = new Object[3];
         lastProGrade[0] = lastProGradeList.get(0).getCheckTime().format(DateTimeFormatter.ofPattern("yyyy.MM.dd"));
-        lastProGrade[2] = BigDecimal.ZERO;
+        lastProGrade[1] = BigDecimal.ZERO;
         Integer projectId = 0;
         for (ProjectGradeDTO pg : lastProGradeList){
             if("tgmd3_check".equals(pg.getProjectCode())){
-                lastProGrade[2] = pg.getProjectGrade();
+                lastProGrade[1] = pg.getProjectGrade();
                 projectId = pg.getProjectId();
                 break;
             }
         }
         ProjectConfig config = fullScoreMap.get(projectId);
         BigDecimal fullScore = Objects.isNull(config) ? new BigDecimal("100") : config.getMinScore();
-        BigDecimal checkScore = (BigDecimal) lastProGrade[2];
-        lastProGrade[1] = fullScore.subtract(checkScore).setScale(2,BigDecimal.ROUND_HALF_UP);
+        BigDecimal checkScore = (BigDecimal) lastProGrade[1];
+        lastProGrade[2] = fullScore.subtract(checkScore).setScale(2,BigDecimal.ROUND_HALF_UP);
         tgmd3Chart.add(lastProGrade);
 
         if(!CollectionUtils.isEmpty(prevProGradeList)){
             Object[] prevProGrade = new Object[3];
             prevProGrade[0] = prevProGradeList.get(0).getCheckTime().format(DateTimeFormatter.ofPattern("yyyy.MM.dd"));
-            prevProGrade[1] = fullScore;
             for (ProjectGradeDTO pg : prevProGradeList){
                 if("tgmd3_check".equals(pg.getProjectCode())){
-                    prevProGrade[2] = pg.getProjectGrade();
+                    prevProGrade[1] = pg.getProjectGrade();
                     break;
                 }
             }
             BigDecimal checkPrevScore = (BigDecimal) lastProGrade[2];
-            prevProGrade[1] = fullScore.subtract(checkPrevScore).setScale(2,BigDecimal.ROUND_HALF_UP);
+            prevProGrade[2] = fullScore.subtract(checkPrevScore).setScale(2,BigDecimal.ROUND_HALF_UP);
             tgmd3Chart.add(prevProGrade);
         }
         //最近一次纵坐标
