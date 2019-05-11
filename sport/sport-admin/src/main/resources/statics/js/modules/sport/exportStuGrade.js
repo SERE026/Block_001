@@ -313,7 +313,7 @@ function tgmdChartFun(tgmdData) {
 			formatter: function (params) {
 				debugger
 				if(params.seriesName=='满分'){
-					return '满分: '+fullScore;
+					return '满分: ';
 				}
 				return params.seriesName + ': ' + params.value + ' ';
 			}
