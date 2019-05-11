@@ -29,30 +29,30 @@ function jqPrint(id) {
 
     $("#"+id).css("width","155mm");
     $("#"+id).css("height","205mm");
-    radarChart, bmiChart,tgmdChart
 
-    var tgmdCharImg = document.getElementById("barChartImg");
-    // 渲染到图表上面，遮住图表
-    tgmdCharImg.src = tgmdChart.getDataURL();
-    // 图片加载完成之后
-    tgmdCharImg.onload = function() {
-    }
-    // 执行打印
-    document.getElementById("bmiChartImg").src = bmiChart.getDataURL();
+    $('#barChartImg').attr("src",tgmdChart.getDataURL());
+    $('#barChartImg').on('load', function() {
+        $('#bmiChartImg').attr("src",bmiChart.getDataURL());
+        $('#bmiChartImg').on('load', function() {
+            $('#radarImg').attr('src',radarChart.getDataURL());
+            $('#radarImg').on('load', function() {
+                $('#barChartImg').show();
+                $('#bmiChartImg').show();
+                $('#radarImg').show();
 
-    document.getElementById("radarImg").src = radarChart.getDataURL();
-
-    document.getElementById('barChartImg').style.display="block";
-    document.getElementById('bmiChartImg').style.display="block";
-    document.getElementById('radarImg').style.display="block";
-
-    document.getElementById('radarId').style.display="none";
-    document.getElementById('barChart').style.display="none";
-    document.getElementById('bmiChart').style.display="none";
-    $("#"+id).jqprint({
-        debug: false,
-        importCSS: true,
-        printContainer: true,
-        operaSupport: false
+                $('#radarId').hide();
+                $('#barChart').hide();
+                $('#bmiChart').hide();
+                $("#"+id).jqprint({
+                    debug: false,
+                    importCSS: true,
+                    printContainer: true,
+                    operaSupport: false
+                });
+            })
+        })
     });
+    // 图片加载完成之后
+
 }
+
