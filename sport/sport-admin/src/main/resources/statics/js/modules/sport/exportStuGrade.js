@@ -347,7 +347,7 @@ function testBmi(){
 			subtext: '测试数据'
 		},
 		tooltip : {
-			trigger: 'axis'
+
 		},
 		legend: {
 			data:[
@@ -369,16 +369,18 @@ function testBmi(){
 		xAxis : [
 			{
 				type : 'category',
-				data : ['参考', '测试']
+				boundaryGap : [0, 0],
+				data : ['', '']
 			},
 			{
 				type : 'category',
+				boundaryGap : [0, 0],
 				axisLine: {show:false},
 				axisTick: {show:false},
-				axisLabel: {show:false},
+				axisLabel: {show:true},
 				splitArea: {show:false},
 				splitLine: {show:false},
-				data : ['参考', '测试']
+				data : ['', '']
 			}
 		],
 		yAxis : [
@@ -394,14 +396,26 @@ function testBmi(){
 				type:'bar',
 				stack: 'BMI',
 				xAxisIndex:1,
-				itemStyle: {normal: {color:'rgb(241, 237, 117)', label:{show:true}}},
+				itemStyle: {normal: {color:'rgb(241, 237, 117)', label:{
+							show:true,
+							position: 'inside',
+							formatter:function(p){
+								return '偏瘦';
+							}
+						}}},
 				data: [15.57]
 			},
 			{
 				name:'正常',
 				type:'bar',
 				xAxisIndex:1,
-				itemStyle: {normal: {color:'rgb(54, 228, 124)', label:{show:true,formatter:function(p){return p.value > 0 ? (p.value +'+'):'';}}}},
+				itemStyle: {normal: {color:'rgb(54, 228, 124)', label:{
+							show:true,
+							position: 'inside',
+							formatter:function(p){
+								return '正常';
+							}
+						}}},
 				stack: 'BMI',
 				data: [20.29-15.57]
 			},
@@ -410,7 +424,13 @@ function testBmi(){
 				type:'bar',
 				stack: 'BMI',
 				xAxisIndex:1,
-				itemStyle: {normal: {color:'rgb(243, 174, 190)', label:{show:true}}},
+				itemStyle: {normal: {color:'rgb(243, 174, 190)', label:{
+							show:true,
+							position: 'right',
+							formatter:function(p){
+								return '偏胖';
+							}
+						}}},
 				data: [21.12-20.29]
 			},
 			{
@@ -418,7 +438,13 @@ function testBmi(){
 				type:'bar',
 				stack: 'BMI',
 				xAxisIndex:1,
-				itemStyle: {normal: {color:'rgba(199,35,43,1)', label:{show:true}}},
+				itemStyle: {normal: {color:'rgba(199,35,43,1)', label:{
+							show:true,
+							position: 'inside',
+							formatter:function(p){
+								return '肥胖';
+							}
+						}}},
 
 				data: [30-21.12]
 			},
@@ -426,10 +452,26 @@ function testBmi(){
 				name:'BMI指标',
 				type:'bar',
 				xAxisIndex:1,
-				itemStyle: {normal: {color:'rgba(197,35,43,1)', label:{show:true}}},
+				itemStyle: {normal: {color:'rgba(197,35,43,1)', label:{
+							show:true,
+							position: 'inside',
+							formatter:function(p){
+								if(p.value<15.7){
+									return '肥胖';
+								}else if(p.value<20.29){
+									return '正常';
+								}else if(p.value<21.12){
+									return '偏胖';
+								}else{
+									return '肥胖';
+								}
+							}
+						}}},
+
 				data: [19.83]
 			},
 		]
 	};
+
 
 }
