@@ -295,7 +295,7 @@ function bmiChartFun(bmiDataY,bmiGrade) {
 	echartToImg(bmiChart,"bmiChartImg")
 }
 
-function tgmdChartFun(dataX,dataY) {
+function tgmdChartFun(tgmdData) {
 	// 基于准备好的dom，初始化echarts实例
 	var tgmdChart = echarts.init(document.getElementById('barChart'));
 	// 指定图表的配置项和数据
@@ -326,7 +326,7 @@ function tgmdChartFun(dataX,dataY) {
 			containLabel: true
 		},
 		dataset: {
-			source: dataY
+			source: tgmdData
 		},
 		xAxis : [
 			{
