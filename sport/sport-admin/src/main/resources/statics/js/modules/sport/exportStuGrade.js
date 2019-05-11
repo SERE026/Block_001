@@ -132,6 +132,12 @@ function bmiChartFun(bmiDataY,bmiGrade) {
 			subtext: '测试数据'
 		},
 		legend: {
+			orient: 'horizontal', // 'vertical'
+			x: 'right', // 'center' | 'left' | {number},
+			y: 'top', // 'center' | 'bottom' | {number}
+			itemWidth: 20,
+			itemHeight: 10,
+			itemGap: 10,
 			data:['正常','偏瘦','偏胖','肥胖']
 		},
 		tooltip : {//过滤掉统计的series
@@ -182,7 +188,6 @@ function bmiChartFun(bmiDataY,bmiGrade) {
 			{
 				name:'偏瘦',
 				type:'bar',
-				barWidth:20,
 				stack: 'BMI',
 				xAxisIndex:1,
 				itemStyle: {normal: {color:'rgb(241, 237, 117)', label:{
@@ -307,6 +312,12 @@ function tgmdChartFun(tgmdData) {
 			subtext: '大肌肉测试'
 		},
 		legend: {
+			orient: 'horizontal', // 'vertical'
+			x: 'right', // 'center' | 'left' | {number},
+			y: 'top', // 'center' | 'bottom' | {number}
+			itemWidth: 20,
+			itemHeight: 10,
+			itemGap: 10,
 			data:['满分','测试']
 		},
 		tooltip : {//过滤掉统计的series
