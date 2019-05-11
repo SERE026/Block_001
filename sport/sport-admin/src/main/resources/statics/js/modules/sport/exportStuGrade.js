@@ -256,7 +256,7 @@ function bmiChartFun(bmiDataY,bmiGrade) {
 							}
 						}}},
 
-				data: [bmiGrade.bmiGrade]
+				data: [bmiGrade]
 			},
 			/*{
 				name:'统计',
@@ -309,14 +309,14 @@ function tgmdChartFun(tgmdData) {
 			data:['满分','测试']
 		},
 		tooltip : {//过滤掉统计的series
-			trigger: 'item',
+			trigger: 'item'/*,
 			formatter: function (params) {
 				debugger
 				if(params.seriesName=='满分'){
 					return '满分: ';
 				}
 				return params.seriesName + ': ' + params.value + ' ';
-			}
+			}*/
 		},
 		calculable : true,
 		grid: {
@@ -342,25 +342,25 @@ function tgmdChartFun(tgmdData) {
 		series : [
 			{
 				type:'bar',
-				stack: 'TGMD',
+				stack: 'TGMD'/*,
 				itemStyle: {normal: {color:'rgb(241, 237, 117)', label:{
 							show:true,
 							position: 'inside',
 							formatter:function(p){
 								return '满分';
 							}
-						}}}
+						}}}*/
 			},
 			{
 				type:'bar',
-				stack: 'TGMD',
+				stack: 'TGMD'/*,
 				itemStyle: {normal: {color:'rgba(197,35,43,1)', label:{
 							show:true,
 							position: 'inside',
 							formatter:function(p){
 								return p.value;
 							}
-						}}}
+						}}}*/
 
 			}
 		]
