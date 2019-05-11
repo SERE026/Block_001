@@ -263,7 +263,7 @@ public class GradeServiceImpl implements GradeService {
         //BMI chart
         Map bmiChart = bmiChart(lastBmiGrade,bmiConfigs);
         //Bar chart
-        Map tgmd3Chart = tgmdChart(lastProGradeList,prevProGradeList,proFullScore);
+        List tgmd3Chart = tgmdChart(lastProGradeList,prevProGradeList,proFullScore);
 
 
         return Result.ok()
@@ -317,48 +317,50 @@ public class GradeServiceImpl implements GradeService {
         return scoreDesc;
     }
 
-    private Map tgmdChart(List<ProjectGradeDTO> lastProGradeList,List<ProjectGradeDTO> prevProGradeList,Map<Integer,ProjectConfig> fullScoreMap) {
-        Map tgmd3Chart = Maps.newHashMap();
-        //横坐标
-        List tgmd3DataX = Lists.newArrayList();
-        tgmd3DataX.add(lastProGradeList.get(0).getCheckTime().format(DateTimeFormatter.ofPattern("yyyy.MM.dd")));
-        if(!CollectionUtils.isEmpty(prevProGradeList)){
-            tgmd3DataX.add(prevProGradeList.get(0).getCheckTime().format(DateTimeFormatter.ofPattern("yyyy.MM.dd")));
-        }
-        tgmd3Chart.put("tgmd3DataX",tgmd3DataX);
+    private List<Object[]> tgmdChart(List<ProjectGradeDTO> lastProGradeList,List<ProjectGradeDTO> prevProGradeList,Map<Integer,ProjectConfig> fullScoreMap) {
+        List tgmd3Chart = Lists.newArrayList();
 
+        //[3] 三维数组
+                /*['product', '满分', '测试'],
+				['2015', 43.3, 85.8],
+				['2016', 83.1, 73.4],
+				['2017', 86.4, 65.2],
+				['2018', 72.4, 53.9]*/
 
-        List<BigDecimal> tgmd3DataScore = Lists.newArrayList();
-
-        //最近一次纵坐标
+        Object[] header = new Object[]{"product", "满分", "测试"};
+        tgmd3Chart.add(header);
+        Object[] lastProGrade = new Object[3];
+        lastProGrade[0] = lastProGradeList.get(0).getCheckTime().format(DateTimeFormatter.ofPattern("yyyy.MM.dd"));
+        lastProGrade[2] = BigDecimal.ZERO;
         Integer projectId = 0;
         for (ProjectGradeDTO pg : lastProGradeList){
             if("tgmd3_check".equals(pg.getProjectCode())){
-                tgmd3DataScore.add(pg.getProjectGrade());
+                lastProGrade[2] = pg.getProjectGrade();
                 projectId = pg.getProjectId();
                 break;
             }
         }
+        ProjectConfig config = fullScoreMap.get(projectId);
+        BigDecimal fullScore = Objects.isNull(config) ? new BigDecimal("100") : config.getMinScore();
+        BigDecimal checkScore = (BigDecimal) lastProGrade[2];
+        lastProGrade[1] = fullScore.subtract(checkScore).setScale(2,BigDecimal.ROUND_HALF_UP);
+        tgmd3Chart.add(lastProGrade);
+
         if(!CollectionUtils.isEmpty(prevProGradeList)){
+            Object[] prevProGrade = new Object[3];
+            prevProGrade[0] = prevProGradeList.get(0).getCheckTime().format(DateTimeFormatter.ofPattern("yyyy.MM.dd"));
+            prevProGrade[1] = fullScore;
             for (ProjectGradeDTO pg : prevProGradeList){
                 if("tgmd3_check".equals(pg.getProjectCode())){
-                    tgmd3DataScore.add(pg.getProjectGrade());
-                    projectId = pg.getProjectId();
+                    prevProGrade[2] = pg.getProjectGrade();
                     break;
                 }
             }
+            BigDecimal checkPrevScore = (BigDecimal) lastProGrade[2];
+            prevProGrade[1] = fullScore.subtract(checkPrevScore).setScale(2,BigDecimal.ROUND_HALF_UP);
+            tgmd3Chart.add(prevProGrade);
         }
-        ProjectConfig config = fullScoreMap.get(projectId);
-        BigDecimal fullScore = Objects.isNull(config) ? new BigDecimal("100") : config.getMinScore();
-        List fullTgmd3Score = Lists.newArrayList();
-        for(int i=0; i<tgmd3DataScore.size();i++){
-            BigDecimal checkScore = tgmd3DataScore.get(i);
-            //计算满分和测试值，两者相加为100的比例(待确定）
-            fullTgmd3Score.add(fullScore);
-        }
-        tgmd3Chart.put("tgmd3ScoreY",tgmd3DataScore);
-        tgmd3Chart.put("fullTgmd3ScoreY",fullTgmd3Score);
-
+        //最近一次纵坐标
         return tgmd3Chart;
     }
 }
