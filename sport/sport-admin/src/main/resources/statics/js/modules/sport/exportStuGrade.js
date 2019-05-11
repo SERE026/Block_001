@@ -182,6 +182,7 @@ function bmiChartFun(bmiDataY,bmiGrade) {
 			{
 				name:'偏瘦',
 				type:'bar',
+				barWidth:20,
 				stack: 'BMI',
 				xAxisIndex:1,
 				itemStyle: {normal: {color:'rgb(241, 237, 117)', label:{
