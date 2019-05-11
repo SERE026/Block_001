@@ -298,7 +298,6 @@ function bmiChartFun(bmiDataY,bmiGrade) {
 function tgmdChartFun(dataX,dataY) {
 	// 基于准备好的dom，初始化echarts实例
 	var tgmdChart = echarts.init(document.getElementById('barChart'));
-	var fullScore = fullDataY[0];
 	// 指定图表的配置项和数据
 
 	var tgmdOption = {
