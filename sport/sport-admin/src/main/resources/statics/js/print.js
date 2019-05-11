@@ -29,6 +29,18 @@ function jqPrint(id) {
 
     $("#"+id).css("width","155mm");
     $("#"+id).css("height","205mm");
+    radarChart, bmiChart,tgmdChart
+
+    var tgmdCharImg = document.getElementById("barChartImg");
+    // 渲染到图表上面，遮住图表
+    tgmdCharImg.src = tgmdChart.getDataURL();
+    // 图片加载完成之后
+    tgmdCharImg.onload = function() {
+    }
+    // 执行打印
+    document.getElementById("bmiChartImg").src = bmiChart.getDataURL();
+
+    document.getElementById("radarImg").src = radarChart.getDataURL();
 
     document.getElementById('barChartImg').style.display="block";
     document.getElementById('bmiChartImg').style.display="block";

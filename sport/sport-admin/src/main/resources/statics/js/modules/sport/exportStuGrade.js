@@ -1,4 +1,4 @@
-
+var radarChart, bmiChart,tgmdChart;
 function radarChartFun (radarChartData) {
 	let indicatorType=[];
 	let dataVal = [];
@@ -10,7 +10,7 @@ function radarChartFun (radarChartData) {
 		indicatorType.push(indType);
 		dataVal.push(radarChartData[index].score);
 	}
-	var radarChart = echarts.init(document.getElementById('radarId'));
+	radarChart = echarts.init(document.getElementById('radarId'));
 	var radarOption = {
 		title : {
 		},
@@ -54,7 +54,7 @@ function radarChartFun (radarChartData) {
 	}
 	radarChart.setOption(radarOption);
 
-	echartToImg(radarChart,"radarImg")
+	//echartToImg(radarChart,"radarImg")
 }
 
 function barChartFun(dataX,fullDataY,checkDataY) {
@@ -117,9 +117,9 @@ function barChartFun(dataX,fullDataY,checkDataY) {
 	echartToImg(barChart,"barChartImg")
 }
 
-function bmiChartFun(bmiDataY,bmiGrade) {
+function bmiChartFun(bmiDataY,bmiGrade){
 	// 基于准备好的dom，初始化echarts实例
-	var bmiChart = echarts.init(document.getElementById('bmiChart'));
+	bmiChart = echarts.init(document.getElementById('bmiChart'));
 	debugger;
 	var normalData = bmiDataY.bmiConf.normWeightRange.split('-');
 	var lowData = bmiDataY.bmiConf.lowWeightRange.split('-');
@@ -298,12 +298,12 @@ function bmiChartFun(bmiDataY,bmiGrade) {
 	// 使用刚指定的配置项和数据显示图表。
 	bmiChart.setOption(bmiOption);
 
-	echartToImg(bmiChart,"bmiChartImg")
+	//echartToImg(bmiChart,"bmiChartImg")
 }
 
 function tgmdChartFun(tgmdData) {
 	// 基于准备好的dom，初始化echarts实例
-	var tgmdChart = echarts.init(document.getElementById('barChart'));
+	tgmdChart = echarts.init(document.getElementById('barChart'));
 	// 指定图表的配置项和数据
 
 	var tgmdOption = {
@@ -381,7 +381,7 @@ function tgmdChartFun(tgmdData) {
 	// 使用刚指定的配置项和数据显示图表。
 	tgmdChart.setOption(tgmdOption);
 
-	echartToImg(tgmdChart,"barChartImg")
+	//echartToImg(tgmdChart,"barChartImg")
 }
 
 function echartToImg(echart,imgId){
