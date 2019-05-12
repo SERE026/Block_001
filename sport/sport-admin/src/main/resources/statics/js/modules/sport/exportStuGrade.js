@@ -137,7 +137,7 @@ function bmiChartFun(bmiDataY,bmiGrade){
 			y: 'top', // 'center' | 'bottom' | {number}
 			itemWidth: 20,
 			itemHeight: 10,
-			itemGap: 10,
+			itemGap: 50,
 			data:['正常','偏瘦','偏胖','肥胖']
 		},
 		tooltip : {//过滤掉统计的series
@@ -189,6 +189,8 @@ function bmiChartFun(bmiDataY,bmiGrade){
 				name:'偏瘦',
 				type:'bar',
 				stack: 'BMI',
+                barGap:'30%',
+                barCategoryGap:'30%',
 				xAxisIndex:1,
 				itemStyle: {normal: {color:'rgb(241, 237, 117)', label:{
 							show:true,
@@ -203,6 +205,8 @@ function bmiChartFun(bmiDataY,bmiGrade){
 				name:'正常',
 				type:'bar',
 				xAxisIndex:1,
+                barGap:'30%',
+                barCategoryGap:'30%',
 				itemStyle: {normal: {color:'rgb(54, 228, 124)', label:{
 							show:true,
 							position: 'inside',
@@ -217,6 +221,8 @@ function bmiChartFun(bmiDataY,bmiGrade){
 				name:'偏胖',
 				type:'bar',
 				stack: 'BMI',
+                barGap:'30%',
+                barCategoryGap:'30%',
 				xAxisIndex:1,
 				itemStyle: {normal: {color:'rgb(243, 174, 190)', label:{
 							show:true,
@@ -232,6 +238,8 @@ function bmiChartFun(bmiDataY,bmiGrade){
 				type:'bar',
 				stack: 'BMI',
 				xAxisIndex:1,
+                barGap:'30%',
+                barCategoryGap:'30%',
 				itemStyle: {normal: {color:'rgba(199,35,43,1)', label:{
 							show:true,
 							position: 'inside',
@@ -245,6 +253,8 @@ function bmiChartFun(bmiDataY,bmiGrade){
 			{
 				name:'BMI指标',
 				type:'bar',
+                barGap:'30%',
+                barCategoryGap:'30%',
 				xAxisIndex:1,
 				itemStyle: {normal: {color:'rgba(197,35,43,1)', label:{
 							show:true,
