@@ -78,5 +78,6 @@ public class Student implements Serializable {
 	private String city;
 	private String address;
 	private Integer schoolId;
+	private Integer gradeFlag;
 
 }

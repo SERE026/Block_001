@@ -21,6 +21,7 @@
         <result property="city" column="city"/>
         <result property="address" column="address"/>
         <result property="schoolId" column="school_id"/>
+        <result property="gradeFlag" column="grade_flag"/>
     </resultMap>
 
     <resultMap id="studentWithSchoolNameMap" extends="studentMap" type="io.renren.modules.sport.dto.StudentDTO">

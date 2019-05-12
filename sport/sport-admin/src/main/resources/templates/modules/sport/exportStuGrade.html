@@ -52,8 +52,8 @@
                 <th>{{student.gender}}</th>
                 <th>{{student.age}}</th>
                 <th>{{lastStuGrade.ageRange}}</th>
-                <th>${student.birthday?date('yyyy-MM-dd')}</th>
-                <th>${lastStuGrade.checkTime?date('yyyy-MM-dd')} </th>
+                <th>{{student.birthday | fromatDate}}</th>
+                <th>{{lastStuGrade.checkTime | formatDate} </th>
                 <th>{{lastStuGrade.trainHours}}</th>
                 <th>{{lastStuGrade.attendance}} %</th>
                 <th>{{lastStuGrade.teacherName}}</th>
@@ -80,8 +80,8 @@
                         <tr>
                             <td colspan="1" style="text-align: center">身体质量指数</td>
                             <td colspan="5">
-                                <img id="bmiChartImg" style="width:150px;height:150px;display:none;" >
-                                <div id="bmiChart" style="width: 250px;height:250px;top: -5px;left:10px">
+                                <img id="bmiChartImg" style="width:220px;height:220px;display:none;" >
+                                <div id="bmiChart" style="width: 220px;height:220px;top: -5px;left:10px">
                                     柱状图
                                 </div>
                             </td>
@@ -118,7 +118,7 @@
                             <td v-for="pg in lastProGradeList">
                                 <span v-if="prevProGradeList.length > 0">
                                     <span v-for="prev in prevProGradeList" v-if="pg.projectId == prev.projectId" >
-                                        {{pg.projectGrade-prev.projectGrade}}
+                                        {{pg.projectGrade-prev.projectGrade | numFilter}}
                                     </span>
                                 </span>
                                 <span v-else>{{pg.projectGrade}}</span>
@@ -135,12 +135,7 @@
                         <tr>
                             <td>评分</td>
                             <td v-for="pg in lastProGradeList">
-                                <span v-if="prevProGradeList.length > 0">
-                                    <span v-for="prev in prevProGradeList" v-if="pg.projectId == prev.projectId">
-                                        {{(pg.projectGrade + prev.projectGrade)/2}}
-                                    </span>
-                                </span>
-                                <span v-else>{{pg.projectGrade}}</span>
+                                {{pg.score}}
                             </td>
                         </tr>
                     </table>
@@ -153,21 +148,24 @@
             </tr>
             <tr>
                 <td colspan="5">
-                    <img id="radarImg" style="width:150px;height:150px;display:none;" >
+                    <img id="radarImg" style="width:220px;height:220px;display:none;" >
                     <div class="four-body" id="radarId" style="width:220px; height:220px;text-align: center;">
                         雷达图
                     </div>
 
                 </td>
                 <td colspan="5">
-                    <img id="barChartImg" style="width:150px;height:150px;display:none;" >
-                    <div class="four-right-body" id="barChart" style="width:250px; height:250px;text-align: center;">
+                    <img id="barChartImg" style="width:220px;height:220px;display:none;" >
+                    <div class="four-right-body" id="barChart" style="width:220px; height:220px;text-align: center;">
                         柱状图
                     </div>
                 </td>
             </tr>
+            <tr>
+                <td colspan="10">根据测评结果训练建议 </td>
+            </tr>
             <tr v-for="proGrade in lastProGradeList">
-                <td colspan="2">{{proGrade.projectType}}<br/> {{proGrade.projectName}}</td>
+                <td colspan="2">{{proGrade.projectType}}</td>
                 <td colspan="8">{{proGrade.suggestion}}</td>
             </tr>
 

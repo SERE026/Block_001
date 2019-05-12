@@ -19,6 +19,17 @@ var vm = new Vue({
         this.getInfo(url("studentId"));
         this.loadData();
     },
+    filters: {
+        numFilter(value) {
+            // 截取当前数据到小数点后两位
+            let realVal = parseFloat(value).toFixed(2)
+            return realVal
+        },
+        formatDate(val) {
+            let date = new Date(val);
+            return formatDate(date,'yyyy-MM-dd')
+        }
+    },
     methods: {
         getInfo: function(studentId){
             $.get(baseURL + "sport/grade/info?studentId="+studentId, function(r){
@@ -35,7 +46,6 @@ var vm = new Vue({
                 vm.tgmd3Chart = r.tgmd3Chart;
                 vm.bmiChart = r.bmiChart;
 
-                debugger;
                 radarChartFun(r.radarChart);
                 tgmdChartFun(r.tgmd3Chart);
                 bmiChartFun(r.bmiChart,r.lastBmiGrade.bmiGrade);

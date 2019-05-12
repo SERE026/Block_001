@@ -19,5 +19,7 @@ public interface BmiGradeService extends IService<BmiGrade> {
     PageResult queryPage(Map<String, Object> params);
 
     List<BmiGrade> getByStudentId(Integer studentId);
+
+    BmiGrade getLastByStuGradeId(Integer stuGradeId);
 }
 

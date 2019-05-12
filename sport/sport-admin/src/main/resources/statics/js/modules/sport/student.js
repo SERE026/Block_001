@@ -21,9 +21,14 @@ $(function () {
 			{ label: '修改时间', name: 'updateTime', index: 'update_time', width: 80 },
             { label: '操作', name: 'state', index: 'state', width: 200, edittype:"button",
                 formatter: function(cellVal,grid,rows,id){
-                    let addGradeBtn = "<button class='btn btn-primary ' onclick='vm.addGrade("+rows.id+")' >添加数据</button>" ;
+                    let addGradeBtn = "<button class='btn btn-primary ' onclick='vm.addGrade("+rows.id+")' >添加成绩</button>" ;
+
+                    let updateLastGradeBtn = "<button class='btn btn-primary ' onclick='vm.updateGrade("+rows.id+")' >修改成绩</button>" ;
                     let queryGrade =  "<a class='btn btn-warning' target='_blank' href='/admin/sport/grade/page?studentId="+rows.id+"'>查看</a>" ;
-                    return addGradeBtn + queryGrade;
+                    if(row.gradeFlag == 1){
+                        return addGradeBtn + updateLastGradeBtn + queryGrade;
+                    }
+                    return addGradeBtn;
                 }
             }
         ],
@@ -73,7 +78,11 @@ var vm = new Vue({
         studentId: null,
         layerIndex: null,
         checkTime: null,
-        schoolList: {}
+        schoolList: {},
+        lastProGradeList: {},
+        bmiGrade: {},
+        lastStuGrade:{},
+        isUpdateProGrade: false
 	},
     mounted: function(){
 	    this.getSchoolList();
@@ -124,35 +133,7 @@ var vm = new Vue({
                 });
 			});
 		},
-		del: function (event) {
-			var ids = getSelectedRows();
-			if(ids == null){
-				return ;
-			}
-			var lock = false;
-            layer.confirm('确定要删除选中的记录？', {
-                btn: ['确定','取消'] //按钮
-            }, function(){
-               if(!lock) {
-                    lock = true;
-		            $.ajax({
-                        type: "POST",
-                        url: baseURL + "sport/student/delete",
-                        contentType: "application/json",
-                        data: JSON.stringify(ids),
-                        success: function(r){
-                            if(r.code == 0){
-                                layer.msg("操作成功", {icon: 1});
-                                $("#jqGrid").trigger("reloadGrid");
-                            }else{
-                                layer.alert(r.msg);
-                            }
-                        }
-				    });
-			    }
-             }, function(){
-             });
-		},
+
 		getInfo: function(id){
 			$.get(baseURL + "sport/student/info/"+id, function(r){
                 vm.student = r.student;
@@ -214,7 +195,49 @@ var vm = new Vue({
                 }
             });
         },
+        getLastProjectGradeList: function(id){
+            vm.isUpdateProGrade = true;
+            vm.rowData = getSelectedRowData(id);
+            var birthday = vm.rowData.birthday;
+            vm.studentId = vm.rowData.id;
+            $.get(baseURL + "sport/project/listByBirthday?birthday="+birthday, function(r){
+                vm.project = r.data;
+                $.get(baseURL + "sport/project/listByBirthday?birthday="+birthday, function(resultData){
+                    vm.lastProGradeList = resultData.lastProGradeList;
+                    vm.bmiGrade = resultData.bmiGrade;
+                    vm.lastStuGrade = resultData.lastStuGrade;
+                    $("#form-project-group").empty();
+                    $("#form-project-group").append("<div class=\"form-group\">")
+                    for(var i=0; i<r.data.length;i++) {
+                        var pro = r.data[i];
+                        var proGradeVal = '';
+                        for(var j=0;j<resultData.lastProGradeList.length;j++){
+                            var prevPro = resultData.lastProGradeList[j];
+                            if(r.pro.id== prevPro.id){
+                                proGradeVal = prevPro.projectGrade;
+                                vm.inputGradeParam[prevPro.projectCode] = prevPro.projectGrade;
+                            }
+                        }
+
+                        let input = "<div class='col-sm-3 control-label'>"+pro.projectName+"</div> <div class='col-sm-3'>" +
+                            "<input type='text' class='form-control' value='"+proGradeVal+"' projectCode='"+pro.projectCode+"' projectId='"+pro.id+"' onchange='vm.getGradeParams(this)' placeholder='请输入'/>" +
+                            "</div>"
+                        if(i>0 && i%2==0){
+                            $("#form-project-group").append("</div><div class=\"form-group\">")
+                            $("#form-project-group").append(input);
+                        }else{
+                            $("#form-project-group").append(input);
+                        }
+                        if(i==r.data.length-1){
+                            $("#form-project-group").append("</div>");
+                        }
+                    }
+                });
+
+            });
+        },
         addGrade: function(id){
+            vm.isUpdateProGrade=false;
 		    //vm.inputGradeParam = {};
 		    vm.showGrade = false;
             vm.getProjectInfo(id);
@@ -226,6 +249,21 @@ var vm = new Vue({
                 anim: 2,
                 shadeClose: true, //开启遮罩关闭
                 title: '添加体测数据',
+                content: $("#addGradeId")
+            });
+        },
+        updateGrade: function(id){
+            vm.showGrade = false;
+            //获取最近一次测试成绩
+            vm.getLastProjectGradeList(id);
+            vm.layerIndex = layer.open({
+                type: 1,
+                skin: 'layui-layer-rim', //加上边框
+                area: ['80%', '450px'], //宽高
+                closeBtn: 1, //不显示关闭按钮
+                anim: 2,
+                shadeClose: true, //开启遮罩关闭
+                title: '修改体测数据',
                 content: $("#addGradeId")
             });
         },
@@ -257,7 +295,7 @@ var vm = new Vue({
                     proList: proList
                 };
             $('#btnSaveOrUpdate').button('loading').delay(1000).queue(function() {
-                let url = baseURL + "sport/grade/save";
+                let url = baseURL + vm.isUpdateProGrade?"sport/grade/update":"sport/grade/save";
                 $.ajax({
                     type: "POST",
                     url: url,

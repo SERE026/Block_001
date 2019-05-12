@@ -43,12 +43,29 @@ public class GradeController {
     }
 
     /**
+     * 保存
+     */
+    @RequestMapping("/save")
+    @RequiresPermissions("sport:studentgrade:update")
+    public Result update(HttpServletRequest request, @RequestBody GradeParam grade){
+        log.info("保存成绩信息:{}", JSON.toJSONString(grade));
+        System.out.println("--------------");
+        return gradeService.updateGrade(grade);
+    }
+
+    /**
      *
      */
     @RequestMapping("/info")
     @RequiresPermissions("sport:studentgrade:info")
     public Result detail(Integer studentId){
         return gradeService.queryDetail(studentId);
+    }
+
+    @RequestMapping("/lastProGradeList")
+    @RequiresPermissions("sport:studentgrade:info")
+    public Result lastProGradeList(Integer studentId){
+        return gradeService.getLastGrade(studentId);
     }
 
     @RequestMapping("/page")

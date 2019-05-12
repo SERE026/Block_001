@@ -17,4 +17,6 @@ import java.util.List;
 public interface BmiGradeMapper extends BaseMapper<BmiGrade> {
 
     List<BmiGrade> selectByStudentId(Integer studentId);
+
+    BmiGrade selectLastByStuGradeId(Integer stuGradeId);
 }

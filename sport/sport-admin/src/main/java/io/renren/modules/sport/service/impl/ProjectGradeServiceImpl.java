@@ -14,6 +14,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import io.renren.common.utils.Query;
 
 import io.renren.modules.sport.service.ProjectGradeService;
+import org.springframework.util.CollectionUtils;
 
 
 @Service("projectGradeService")
@@ -32,6 +33,15 @@ public class ProjectGradeServiceImpl extends ServiceImpl<ProjectGradeMapper, Pro
     @Override
     public List<ProjectGradeDTO> getInGradeIds(List<Integer> gradeIds) {
         return this.baseMapper.getInGradeIds(gradeIds);
+    }
+
+    @Override
+    public ProjectGrade getByStuGradeIdWithProjectId(Integer stuGradeId, Integer projectId) {
+        ProjectGrade pg = ProjectGrade.builder().stuGradeId(stuGradeId).projectId(projectId).build();
+        QueryWrapper wrapper = new QueryWrapper();
+        wrapper.setEntity(pg);
+        List<ProjectGrade> list = this.baseMapper.selectList(wrapper);
+        return CollectionUtils.isEmpty(list)? null: list.get(0);
     }
 
 }

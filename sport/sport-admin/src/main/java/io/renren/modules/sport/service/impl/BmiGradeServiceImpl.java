@@ -35,4 +35,9 @@ public class BmiGradeServiceImpl extends ServiceImpl<BmiGradeMapper, BmiGrade> i
         return this.baseMapper.selectByStudentId(studentId);
     }
 
+    @Override
+    public BmiGrade selectLastByStuGradeId(Integer stuGradeId) {
+        return this.baseMapper.selectLastByStuGradeId(stuGradeId);
+    }
+
 }

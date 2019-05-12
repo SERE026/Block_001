@@ -158,8 +158,8 @@ function bmiChartFun(bmiDataY,bmiGrade){
 		},
 		calculable : true,
 		grid: {
-			left: '3%',
-			right: '2%',
+			left: '1%',
+			right: '1%',
 			bottom: '1%',
 			containLabel: true
 		},
@@ -342,8 +342,8 @@ function tgmdChartFun(tgmdData) {
 		},
 		calculable : true,
 		grid: {
-			left: '3%',
-			right: '2%',
+			left: '1%',
+			right: '1%',
 			bottom: '1%',
 			containLabel: true
 		},

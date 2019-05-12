@@ -15,7 +15,7 @@
             <a class="btn btn-primary" @click="update"><i class="fa fa-pencil-square-o"></i>&nbsp;修改</a>
 			</#if>
 			<#if shiro.hasPermission("sport:student:delete")>
-            <a class="btn btn-primary" @click="del"><i class="fa fa-trash-o"></i>&nbsp;删除</a>
+            <a class="btn btn-primary" @click="del"><i class="fa fa-trash-o"></i>&nbsp;查询</a>
 			</#if>
         </div>
         <table id="jqGrid"></table>
@@ -111,21 +111,21 @@
             <div class="form-group">
                 <div class="col-sm-3 control-label">身高</div>
                 <div class="col-sm-3">
-                    <input type="text" class="form-control" name="height" id="height" placeholder="身高"/>
+                    <input type="text" class="form-control" v-model="bmiGrade.height" name="height" id="height" placeholder="身高"/>
                 </div>
                 <div class="col-sm-3 control-label">体重</div>
                 <div class="col-sm-3">
-                    <input type="text" class="form-control" name="weight" id="weight" placeholder="体重"/>
+                    <input type="text" class="form-control" v-model="bmiGrade.weight" name="weight" id="weight" placeholder="体重"/>
                 </div>
             </div>
             <div class="form-group">
                 <div class="col-sm-3 control-label">训练时长</div>
                 <div class="col-sm-3">
-                    <input type="text" class="form-control" name="trainHours" id="trainHours" placeholder="训练时长"/>
+                    <input type="text" class="form-control" v-model="lastStuGrade.trainHours" name="trainHours" id="trainHours" placeholder="训练时长"/>
                 </div>
                 <div class="col-sm-3 control-label">出勤率</div>
                 <div class="col-sm-3">
-                    <input type="text" class="form-control" name="attendance" id="attendance" placeholder="出勤率"/>
+                    <input type="text" class="form-control" v-model="lastStuGrade.attendance" name="attendance" id="attendance" placeholder="出勤率"/>
                 </div>
             </div>
             <div id="form-project-group" >
@@ -133,11 +133,11 @@
             <div class="form-group">
                 <div class="col-sm-3 control-label">测试员</div>
                 <div class="col-sm-3">
-                    <input type="text" class="form-control" name="teacherName" id="teacherName" placeholder="测试员"/>
+                    <input type="text" class="form-control" v-model="lastStuGrade.teacherName" name="teacherName" id="teacherName" placeholder="测试员"/>
                 </div>
                 <div class="col-sm-3 control-label">检测时间</div>
                 <div class="col-sm-3">
-                    <input type="text" class="form-control" v-on:focus='layDateFun'  name="checkTime" id="checkTime" placeholder="检测时间"/>
+                    <input type="text" class="form-control" v-model="lastStuGrade.checkTime" v-on:focus='layDateFun'  name="checkTime" id="checkTime" placeholder="检测时间"/>
                 </div>
             </div>
 

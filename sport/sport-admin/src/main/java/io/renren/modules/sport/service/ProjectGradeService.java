@@ -20,5 +20,7 @@ public interface ProjectGradeService extends IService<ProjectGrade> {
     PageResult queryPage(Map<String, Object> params);
 
     List<ProjectGradeDTO> getInGradeIds(List<Integer> gradeIds);
+
+    ProjectGrade getByStuGradeIdWithProjectId(Integer stuGradeId, Integer projectId);
 }
 
