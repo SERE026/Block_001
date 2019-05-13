@@ -227,7 +227,7 @@ var vm = new Vue({
                                     projectCode: prevPro.projectCode,
                                     proGrade: proGradeVal
                                 }
-                                vm.inputGradeParam[proCode] = project;
+                                vm.inputGradeParam[prevPro.projectCode] = project;
                             }
                         }
 
