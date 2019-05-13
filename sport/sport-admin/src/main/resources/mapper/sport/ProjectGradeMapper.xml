@@ -8,6 +8,7 @@
         <result property="id" column="id"/>
         <result property="studentId" column="student_id"/>
         <result property="stuGradeId" column="stu_grade_id"/>
+        <result property="projectConfigId" column="project_config_id"/>
         <result property="age" column="age"/>
         <result property="ageRange" column="age_range"/>
         <result property="teacherName" column="teacher_name"/>

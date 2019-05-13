@@ -37,8 +37,14 @@ public class BmiGrade implements Serializable {
 	 * 学号
 	 */
 	private Integer studentId;
-
+	/**
+	 * studentGrade 表ＩＤ
+	 */
 	private Integer stuGradeId;
+	/**
+	 * 基准配置表ID
+	 */
+	private Integer bmiConfigId;
 	private Integer age;
 	/**
 	 * 年龄段

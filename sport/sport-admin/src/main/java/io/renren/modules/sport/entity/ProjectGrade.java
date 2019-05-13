@@ -60,6 +60,10 @@ public class ProjectGrade implements Serializable {
 	 */
 	private BigDecimal projectGrade;
 	/**
+	 * 项目配置ID
+	 */
+	private Integer projectConfigId;
+	/**
 	 * 检测时间
 	 */
 	@JsonFormat( pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")

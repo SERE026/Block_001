@@ -5,6 +5,7 @@ import com.google.common.collect.Maps;
 import io.renren.common.utils.Result;
 import io.renren.modules.sport.constants.SportConstants;
 import io.renren.modules.sport.dto.GradeParam;
+import io.renren.modules.sport.dto.ProGradeParam;
 import io.renren.modules.sport.dto.ProjectGradeDTO;
 import io.renren.modules.sport.dto.StudentDTO;
 import io.renren.modules.sport.entity.*;
@@ -49,17 +50,37 @@ public class GradeServiceImpl implements GradeService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public Result saveGrade(GradeParam grade) {
+
         //todo
-        List<ProjectConfig> projectConfigList = projectConfigService.list();
-        List<ScoreSuggestion> suggestionList = suggestionService.list();
+        Result checkResult = checkParam(grade);
+        if(!checkResult.isOk()){
+            return checkResult;
+        }
         Student stu = studentService.getById(grade.getStudentId());
         stu.setGradeFlag(1);
         studentService.updateById(stu);
         Integer age = AgeUtils.getAgeByBirthday(stu.getBirthday());
         LocalDateTime checkTime = LocalDateTime.parse(grade.getCheckTime(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
 
+        List<ProjectGrade> gradeList = Lists.newArrayList();
+
+        StudentGrade studentGrade = StudentGrade.builder()
+                .studentId(grade.getStudentId())
+                .createTime(LocalDateTime.now())
+                .checkTime(checkTime)
+                .height(grade.getHeight())
+                .weight(grade.getWeight())
+                .trainHours(grade.getTrainHours())
+                .attendance(grade.getAttendance())
+                .age(age)
+                .teacherName(grade.getTeacherName())
+                .build();
+        //先保存
+        studentGradeService.save(studentGrade);
         BigDecimal hh = grade.getHeight().multiply(grade.getHeight());
+        BmiConfig bmiConfig = getBmiConfig(age,stu.getGender());
         BmiGrade bmiGrade = BmiGrade.builder()
+                .bmiConfigId(bmiConfig.getId())
                 .checkTime(checkTime)
                 .height(grade.getHeight())
                 .weight(grade.getWeight())
@@ -71,35 +92,21 @@ public class GradeServiceImpl implements GradeService {
                 .age(age)
                 .build();
         bmiGrade.setScore(bmiGrade.getBmiGrade());
-
-        List<ProjectGrade> gradeList = Lists.newArrayList();
-
+        bmiGrade.setStuGradeId(studentGrade.getId());
+        bmiGradeService.save(bmiGrade);
         if(!CollectionUtils.isEmpty(grade.getProList())){
+            List<ScoreSuggestion> suggestionList = suggestionService.list();
             grade.getProList().forEach(g ->{
                 //获取评分等级项
-                ProjectConfig pcconf = projectConfigList.stream().filter(pc ->{
-                    boolean flag = false;
-                    if(g.getProjectId().equals(pc.getProjectId())) {
-                        if (SportConstants.GenderEnum.UNKNOW.getVal().equals(pc.getGender())) {
-                            flag = (age>=pc.getMinAge() && age<=pc.getMaxAge() && g.getProGrade().compareTo(pc.getMinScore())>=0
-                                    && g.getProGrade().compareTo(pc.getMaxScore())<=0);
-                        }else{
-                            flag = (age>=pc.getMinAge() && age<=pc.getMaxAge() && g.getProGrade().compareTo(pc.getMinScore())>=0
-                                    && g.getProGrade().compareTo(pc.getMaxScore())<=0) && pc.getGender().equals(stu.getGender());
-                        }
-                    }
-                    return flag;
-                }).findFirst().get();
-
-                Optional<ScoreSuggestion> optSug = suggestionList.stream().filter(s -> {
-                    return s.getMaxScore().compareTo(pcconf.getScoreLevel())>=0 && s.getMinScore().compareTo(pcconf.getScoreLevel())<=0;
-                }).findFirst();
+                ProjectConfig pcconf = getProjectConfigByAgeWithGradeRange(stu, age, g);
+                String optSug = getScoreSuggestion(suggestionList, pcconf);
                 ProjectGrade pg = ProjectGrade.builder()
                         .projectGrade(g.getProGrade())
                         .projectId(g.getProjectId())
                         .studentId(grade.getStudentId())
                         .score(pcconf.getScoreLevel())
-                        .suggestion(optSug.isPresent() ? optSug.get().getSuggestion() : "满分")
+                        .projectConfigId(pcconf.getId())
+                        .suggestion(optSug)
                         .age(age)
                         .ageRange(pcconf.getMinAge()+"-"+pcconf.getMaxAge())
                         .checkTime(checkTime)
@@ -109,34 +116,10 @@ public class GradeServiceImpl implements GradeService {
                 gradeList.add(pg);
                 bmiGrade.setAgeRange(pg.getAgeRange());
             });
-            Map<Integer,ProjectGrade> gradeMapGroupById = gradeList.stream().collect(Collectors.toMap(ProjectGrade::getProjectId, Function.identity()));
-            List<Project> projectList = projectService.list();
-            Map<String, BigDecimal> gradeMap = new HashMap<>();
-            projectList.forEach(p -> {
-                ProjectGrade pg = gradeMapGroupById.get(p.getId());
-                if(Objects.isNull(pg)){
-                    return;
-                }
-                gradeMap.put(underlineToCamel(p.getProjectCode()),pg.getProjectGrade());
-            });
-            StudentGrade studentGrade = StudentGrade.builder()
-                    .studentId(grade.getStudentId())
-                    .createTime(LocalDateTime.now())
-                    .checkTime(checkTime)
-                    .height(grade.getHeight())
-                    .weight(grade.getWeight())
-                    .trainHours(grade.getTrainHours())
-                    .attendance(grade.getAttendance())
-                    .age(age)
-                    .ageRange(bmiGrade.getAgeRange())
-                    .teacherName(grade.getTeacherName())
-                    .build();
-            //
+            Map<String, BigDecimal> gradeMap = getGradeMapGroupByProjectCode(gradeList);
             try {
                 BeanUtils.populate(studentGrade,gradeMap);
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
-            } catch (InvocationTargetException e) {
+            } catch (IllegalAccessException | InvocationTargetException e) {
                 e.printStackTrace();
             }
             //测评结果判断
@@ -146,20 +129,92 @@ public class GradeServiceImpl implements GradeService {
             //        身体素质测试总分÷项目数=4~5					良好
             //        身体素质测试总分÷项目数=5					优秀
             //        */
-            Double avg = gradeList.stream().mapToDouble(projectGrade -> projectGrade.getScore().doubleValue()).average().getAsDouble();
-            studentGrade.setScore(new BigDecimal(avg));
-
-            Optional<ScoreSuggestion> optSug = suggestionList.stream().filter(s -> {
-                return s.getMaxScore().compareTo(new BigDecimal(avg))>=0
-                        && s.getMinScore().compareTo(new BigDecimal(avg))<=0
-                        && "all".equals(s.getProjectCode());
-            }).findFirst();
-            studentGrade.setSuggestion(optSug.isPresent() ? optSug.get().getSuggestion(): "满分");
-            studentGradeService.save(studentGrade);
-            bmiGrade.setStuGradeId(studentGrade.getId());
-            bmiGradeService.save(bmiGrade);
+            combineScoreSuggestion(suggestionList, gradeList, studentGrade);
+            studentGrade.setAgeRange(bmiGrade.getAgeRange());
+            studentGradeService.updateById(studentGrade);
+            bmiGradeService.updateById(bmiGrade);
             gradeList.forEach(e ->e.setStuGradeId(studentGrade.getId()));
             projectGradeService.saveBatch(gradeList);
+        }
+        return Result.ok();
+    }
+
+    /**
+     * 根据年龄性别 获取BMI基准
+     * @param age
+     * @param gender
+     * @return
+     */
+    private BmiConfig getBmiConfig(Integer age,Integer gender) {
+        List<BmiConfig> bmiConfigList = bmiConfigService.list();
+        return bmiConfigList.stream()
+                .filter(tg -> tg.getMinAge() <=age && tg.getMaxAge()>=age && tg.getGender().equals(gender))
+                .findFirst().get();
+
+    }
+
+    //综合评分
+    private void combineScoreSuggestion(List<ScoreSuggestion> suggestionList, List<ProjectGrade> gradeList, StudentGrade studentGrade) {
+        Double avg = gradeList.stream().mapToDouble(projectGrade -> projectGrade.getScore().doubleValue()).average().getAsDouble();
+        studentGrade.setScore(new BigDecimal(avg));
+
+
+        Optional<ScoreSuggestion> optSug = suggestionList.stream().filter(s -> {
+            return s.getMaxScore().compareTo(new BigDecimal(avg)) >= 0
+                    && s.getMinScore().compareTo(new BigDecimal(avg)) <= 0
+                    && "all".equals(s.getProjectCode());
+        }).findFirst();
+        String sug =  optSug.isPresent() ? optSug.get().getSuggestion(): "满分";
+        studentGrade.setSuggestion(sug);
+    }
+
+    //将成绩转换成Map<key/*属性*/,val/*成绩*/>
+    private Map<String, BigDecimal> getGradeMapGroupByProjectCode(List<ProjectGrade> gradeList) {
+        Map<Integer, ProjectGrade> gradeMapGroupById = gradeList.stream().collect(Collectors.toMap(ProjectGrade::getProjectId, Function.identity()));
+        List<Project> projectList = projectService.list();
+        Map<String, BigDecimal> gradeMap = new HashMap<>();
+        projectList.forEach(p -> {
+            ProjectGrade pg = gradeMapGroupById.get(p.getId());
+            if (Objects.isNull(pg)) {
+                return;
+            }
+            gradeMap.put(underlineToCamel(p.getProjectCode()), pg.getProjectGrade());
+        });
+        return gradeMap;
+    }
+
+    /*获取单项评分建议*/
+    private String getScoreSuggestion(List<ScoreSuggestion> suggestionList, ProjectConfig pcconf) {
+        Optional<ScoreSuggestion> optSug = suggestionList.stream().filter(s -> {
+            return s.getMaxScore().compareTo(pcconf.getScoreLevel()) >= 0 && s.getMinScore().compareTo(pcconf.getScoreLevel()) <= 0;
+        }).findFirst();
+        return optSug.isPresent() ? optSug.get().getSuggestion() : "满分";
+    }
+
+    /** 根据年龄,性别,成绩 获取 基准信息*/
+    private ProjectConfig getProjectConfigByAgeWithGradeRange(Student stu, Integer age, ProGradeParam proGrade) {
+        List<ProjectConfig> projectConfigList = projectConfigService.list();
+        return projectConfigList.stream().filter(pc -> {
+            boolean flag = false;
+            if (proGrade.getProjectId().equals(pc.getProjectId())) {
+                if (SportConstants.GenderEnum.UNKNOW.getVal().equals(pc.getGender())) {
+                    flag = (age >= pc.getMinAge() && age <= pc.getMaxAge() && proGrade.getProGrade().compareTo(pc.getMinScore()) >= 0
+                            && proGrade.getProGrade().compareTo(pc.getMaxScore()) <= 0);
+                } else {
+                    flag = (age >= pc.getMinAge() && age <= pc.getMaxAge() && proGrade.getProGrade().compareTo(pc.getMinScore()) >= 0
+                            && proGrade.getProGrade().compareTo(pc.getMaxScore()) <= 0) && pc.getGender().equals(stu.getGender());
+                }
+            }
+            return flag;
+        }).findFirst().get();
+    }
+
+    private Result checkParam(GradeParam grade) {
+        if(Objects.isNull(grade.getCheckTime())){
+            return Result.error("检测时间不能为空");
+        }
+        if(Objects.isNull(grade.getHeight()) || Objects.isNull(grade.getWeight())){
+            return Result.error("身高或者体重不能为空");
         }
         return Result.ok();
     }
@@ -167,19 +222,20 @@ public class GradeServiceImpl implements GradeService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public Result updateGrade(GradeParam grade) {
-        //todo
-        List<ProjectConfig> projectConfigList = projectConfigService.list();
-        List<ScoreSuggestion> suggestionList = suggestionService.list();
         Student stu = studentService.getById(grade.getStudentId());
         Integer age = AgeUtils.getAgeByBirthday(stu.getBirthday());
-        LocalDateTime checkTime = LocalDateTime.parse(grade.getCheckTime(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
 
-        BigDecimal hh = grade.getHeight().multiply(grade.getHeight());
-        //todo 查询
+        //日期为空,从数据库获取
         StudentGrade lastStuGrade = studentGradeService.getLastGrade(stu.getId());
+        LocalDateTime checkTime = lastStuGrade.getCheckTime();
+        if(Objects.nonNull(grade.getCheckTime())){
+            checkTime = LocalDateTime.parse(grade.getCheckTime(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        }
+        //todo 查询
         BmiGrade oldbmiGrade = bmiGradeService.getLastByStuGradeId(lastStuGrade.getId());
+        BigDecimal hh = grade.getHeight().multiply(grade.getHeight());
         BmiGrade bmiGrade = BmiGrade.builder()
-                .id(oldbmiGrade!= null?oldbmiGrade.getId():null)
+                .id(oldbmiGrade.getId())
                 .checkTime(checkTime)
                 .height(grade.getHeight())
                 .weight(grade.getWeight())
@@ -191,75 +247,51 @@ public class GradeServiceImpl implements GradeService {
         bmiGrade.setScore(bmiGrade.getBmiGrade());
 
         List<ProjectGrade> gradeList = Lists.newArrayList();
-
         if(!CollectionUtils.isEmpty(grade.getProList())){
+            List<ScoreSuggestion> suggestionList = suggestionService.list();
+            LocalDateTime finalCheckTime = checkTime;
             grade.getProList().forEach(g ->{
                 //获取评分等级项
-                ProjectConfig pcconf = projectConfigList.stream().filter(pc ->{
-                    boolean flag = false;
-                    if(g.getProjectId().equals(pc.getProjectId())) {
-                        if (SportConstants.GenderEnum.UNKNOW.getVal().equals(pc.getGender())) {
-                            flag = (age>=pc.getMinAge() && age<=pc.getMaxAge() && g.getProGrade().compareTo(pc.getMinScore())>=0
-                                    && g.getProGrade().compareTo(pc.getMaxScore())<=0);
-                        }else{
-                            flag = (age>=pc.getMinAge() && age<=pc.getMaxAge() && g.getProGrade().compareTo(pc.getMinScore())>=0
-                                    && g.getProGrade().compareTo(pc.getMaxScore())<=0) && pc.getGender().equals(stu.getGender());
-                        }
-                    }
-                    return flag;
-                }).findFirst().get();
-
-                Optional<ScoreSuggestion> optSug = suggestionList.stream().filter(s -> {
-                    return s.getMaxScore().compareTo(pcconf.getScoreLevel())>=0 && s.getMinScore().compareTo(pcconf.getScoreLevel())<=0;
-                }).findFirst();
-
-                //todo 查询
+                ProjectConfig pcconf = getProjectConfigByAgeWithGradeRange(stu, age, g);
+                String optSug = getScoreSuggestion(suggestionList, pcconf);
+                //查询
                 ProjectGrade oldPg = projectGradeService.getByStuGradeIdWithProjectId(lastStuGrade.getId(),g.getProjectId());
                 ProjectGrade pg = ProjectGrade.builder()
                         .id(oldPg !=null ? oldPg.getId() : null)
                         .projectGrade(g.getProGrade())
                         .projectId(g.getProjectId())
                         .studentId(grade.getStudentId())
+                        .projectConfigId(pcconf.getId())
                         .score(pcconf.getScoreLevel())
-                        .suggestion(optSug.isPresent() ? optSug.get().getSuggestion() : "满分")
+                        .suggestion(optSug)
                         .age(age)
                         .ageRange(pcconf.getMinAge()+"-"+pcconf.getMaxAge())
-                        .checkTime(checkTime)
+                        .checkTime(finalCheckTime)
                         .teacherName(grade.getTeacherName())
-                        .createTime(LocalDateTime.now())
                         .build();
+                if(oldPg == null){
+                    pg.setCreateTime(LocalDateTime.now());
+                }
                 gradeList.add(pg);
                 bmiGrade.setAgeRange(pg.getAgeRange());
             });
-            Map<Integer,ProjectGrade> gradeMapGroupById = gradeList.stream().collect(Collectors.toMap(ProjectGrade::getProjectId, Function.identity()));
-            List<Project> projectList = projectService.list();
-            Map<String, BigDecimal> gradeMap = new HashMap<>();
-            projectList.forEach(p -> {
-                ProjectGrade pg = gradeMapGroupById.get(p.getId());
-                if(Objects.isNull(pg)){
-                    return;
-                }
-                gradeMap.put(underlineToCamel(p.getProjectCode()),pg.getProjectGrade());
-            });
+            Map<String, BigDecimal> gradeMap = getGradeMapGroupByProjectCode(gradeList);
             //查询TODO
             StudentGrade studentGrade = StudentGrade.builder()
+                    .id(lastStuGrade.getId())
                     .studentId(grade.getStudentId())
-                    .createTime(LocalDateTime.now())
                     .checkTime(checkTime)
                     .height(grade.getHeight())
                     .weight(grade.getWeight())
                     .trainHours(grade.getTrainHours())
                     .attendance(grade.getAttendance())
-                    .age(age)
                     .ageRange(bmiGrade.getAgeRange())
                     .teacherName(grade.getTeacherName())
                     .build();
             //
             try {
                 BeanUtils.populate(studentGrade,gradeMap);
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
-            } catch (InvocationTargetException e) {
+            } catch (IllegalAccessException | InvocationTargetException e) {
                 e.printStackTrace();
             }
             //测评结果判断
@@ -269,29 +301,13 @@ public class GradeServiceImpl implements GradeService {
             //        身体素质测试总分÷项目数=4~5					良好
             //        身体素质测试总分÷项目数=5					优秀
             //        */
-            Double avg = gradeList.stream().mapToDouble(projectGrade -> projectGrade.getScore().doubleValue()).average().getAsDouble();
-            studentGrade.setScore(new BigDecimal(avg));
+            combineScoreSuggestion(suggestionList, gradeList, studentGrade);
 
-            Optional<ScoreSuggestion> optSug = suggestionList.stream().filter(s -> {
-                return s.getMaxScore().compareTo(new BigDecimal(avg))>=0
-                        && s.getMinScore().compareTo(new BigDecimal(avg))<=0
-                        && "all".equals(s.getProjectCode());
-            }).findFirst();
-            studentGrade.setSuggestion(optSug.isPresent() ? optSug.get().getSuggestion(): "满分");
             studentGradeService.updateById(studentGrade);
-            if(bmiGrade.getId() == null){
-                bmiGrade.setStuGradeId(studentGrade.getId());
-                bmiGradeService.save(bmiGrade);
-            }else {
-                bmiGradeService.updateById(bmiGrade);
-            }
+            bmiGradeService.updateById(bmiGrade);
             gradeList.forEach(e ->{
                 e.setStuGradeId(studentGrade.getId());
-                if(e.getId() == null){
-                    projectGradeService.save(e);
-                }else {
-                    projectGradeService.updateById(e);
-                }
+                projectGradeService.saveOrUpdate(e);
             });
         }
         return Result.ok();
@@ -361,10 +377,7 @@ public class GradeServiceImpl implements GradeService {
         List<BmiGrade> bmiGradeList = bmiGradeService.getByStudentId(studentId);
         BmiGrade lastBmiGrade = bmiGradeList.stream().max(Comparator.comparing(BmiGrade::getId)).get();
         //BMI config
-        List<BmiConfig> bmiConfigList = bmiConfigService.list();
-        List<BmiConfig> bmiConfigs = bmiConfigList.stream()
-                .filter(tg -> tg.getMinAge() <=age && tg.getMaxAge()>=age && tg.getGender().equals(stu.getGender()))
-                .collect(Collectors.toList());
+
 
         //最近两次身体素质测评数据
         List<StudentGrade> stuGradeList = studentGradeService.getLastTwoGrade(studentId);
@@ -423,7 +436,7 @@ public class GradeServiceImpl implements GradeService {
         //Radar chart
         List<Map<String, Object>> radarChart = radarChart(lastProGradeList);
         //BMI chart
-        Map bmiChart = bmiChart(lastBmiGrade,bmiConfigs);
+        Map bmiChart = bmiChart(lastBmiGrade);
         //Bar chart
         List tgmd3Chart = tgmdChart(lastProGradeList,prevProGradeList,proFullScore);
 
@@ -444,10 +457,11 @@ public class GradeServiceImpl implements GradeService {
                 ;
     }
 
-    private Map bmiChart(BmiGrade lastBmiGrade, List<BmiConfig> bmiConfigs) {
+    private Map bmiChart(BmiGrade lastBmiGrade) {
+        BmiConfig bmiConfig = bmiConfigService.getById(lastBmiGrade.getBmiConfigId());
         Map bmiChart = Maps.newHashMap();
         // 判断lastBmiGrade 处于那个范围
-        bmiChart.put("bmiConf",bmiConfigs.get(0));
+        bmiChart.put("bmiConf",bmiConfig);
         bmiChart.put("lastBmiGrade",lastBmiGrade);
         return bmiChart;
     }
