@@ -34,7 +34,7 @@ spring:
         wall:
           config:
             multi-statement-allow: true
-  thymeleaf:
+  freemarker:
     cache: false
 
 
