@@ -21,6 +21,11 @@ function radarChartFun (radarChartData) {
 			data:['满分', '测试']
 		},
 		calculable : true,
+		grid: { // 控制图的大小，调整下面这些值就可以，
+			x: 40,
+			x2: 100,
+			y2: 150,// y2可以控制 X轴跟Zoom控件之间的间隔，避免以为倾斜后造成 label重叠到zoom上
+		},
 		polar : [
 			{
 				name: { show: true,textStyle:{fontSize:16,color:"#32cd32"}},
@@ -128,14 +133,14 @@ function bmiChartFun(bmiDataY,bmiGrade){
 	// 指定图表的配置项和数据
 	var bmiOption = {
 		title:{
-			text: 'BMI',
-			subtext: '测试数据'
+			text: '身体质量指数',
+			subtext: 'BMI测试数据'
 		},
 		legend: {
 			orient: 'horizontal', // 'vertical'
 			x: 'right', // 'center' | 'left' | {number},
 			y: 'top', // 'center' | 'bottom' | {number}
-			itemWidth: 5,
+			itemWidth: 10,
 			itemHeight: 5,
 			itemGap: 5,
 			data:['正常','偏瘦','偏胖','肥胖']

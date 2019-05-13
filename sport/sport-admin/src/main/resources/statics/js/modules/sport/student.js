@@ -197,7 +197,6 @@ var vm = new Vue({
             });
         },
         getLastProjectGradeList: function(id){
-            vm.isUpdateProGrade = true;
             vm.rowData = getSelectedRowData(id);
             var birthday = vm.rowData.birthday;
             var studentId = vm.rowData.id;
@@ -245,11 +244,18 @@ var vm = new Vue({
             });
         },
         addGrade: function(id){
+		    $("#formId").reset();
             vm.isUpdateProGrade=false;
 		    vm.inputGradeParam = {};
 		    vm.showGrade = false;
 		    vm.lastBmiGrade = {};
 		    vm.studentGrade={};
+            $("#height").val();
+            $("#weight").val();
+            $("#teacherName").val();
+            $("#trainHours").val();
+            $("#attendance").val();
+            $("#checkTime").val();
             vm.getProjectInfo(id);
             vm.layerIndex = layer.open({
                 type: 1,
@@ -263,6 +269,7 @@ var vm = new Vue({
             });
         },
         updateGrade: function(id){
+            vm.isUpdateProGrade = true;
             vm.showGrade = false;
             //获取最近一次测试成绩
             vm.getLastProjectGradeList(id);
@@ -288,7 +295,7 @@ var vm = new Vue({
             }
 		    vm.inputGradeParam[proCode] = project;
         },
-        saveAllProjectGrade: function (event) {
+        saveOrUpdateProjectGrade: function (event) {
 		    let proList = []
             for(let k in vm.inputGradeParam){
                 proList.push(vm.inputGradeParam[k]);
@@ -304,7 +311,7 @@ var vm = new Vue({
                     proList: proList
                 };
             $('#btnSaveOrUpdate').button('loading').delay(1000).queue(function() {
-                let url = baseURL + vm.isUpdateProGrade?"sport/grade/update":"sport/grade/save";
+                let url = baseURL + vm.isUpdateProGrade ? "sport/grade/update" : "sport/grade/save";
                 $.ajax({
                     type: "POST",
                     url: url,

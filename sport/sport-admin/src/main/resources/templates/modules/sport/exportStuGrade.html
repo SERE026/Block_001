@@ -52,7 +52,7 @@
                 <th>{{student.gender}}</th>
                 <th>{{student.age}}</th>
                 <th>{{lastStuGrade.ageRange}}</th>
-                <th>{{student.birthday | fromatDate}}</th>
+                <th>{{student.birthday | formatDate}}</th>
                 <th>{{lastStuGrade.checkTime | formatDate}} </th>
                 <th>{{lastStuGrade.trainHours}}</th>
                 <th>{{lastStuGrade.attendance}} %</th>
@@ -78,8 +78,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td colspan="1" style="text-align: center">身体质量指数</td>
-                            <td colspan="5">
+                            <td colspan="6">
                                 <img id="bmiChartImg" style="width:220px;height:220px;display:none;" >
                                 <div id="bmiChart" style="width: 220px;height:220px;top: -5px;left:10px">
                                     柱状图
@@ -97,8 +96,11 @@
                 <td colspan="10">
                     <table class="table table-border">
                         <tr>
-                            <td>测试项目</td>
-                            <td v-for="pg in lastProGradeList">{{pg.projectType }}/ {{pg.projectName}}</td>
+                            <td rowspan="2">测试项目</td>
+                            <td v-for="pg in lastProGradeList">{{pg.projectType }}</td>
+                        </tr>
+                        <tr>
+                            <td v-for="pg in lastProGradeList">{{pg.projectName}}</td>
                         </tr>
                         <tr>
                             <td>成绩</td>
