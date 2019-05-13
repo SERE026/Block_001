@@ -1,5 +1,6 @@
 package io.renren.modules.sport.service.impl;
 
+import com.alibaba.fastjson.JSON;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import io.renren.common.utils.Result;
@@ -11,6 +12,7 @@ import io.renren.modules.sport.dto.StudentDTO;
 import io.renren.modules.sport.entity.*;
 import io.renren.modules.sport.service.*;
 import io.renren.modules.sport.util.AgeUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.beanutils.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,6 +27,7 @@ import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service("gradeService")
 public class GradeServiceImpl implements GradeService {
 
@@ -196,6 +199,8 @@ public class GradeServiceImpl implements GradeService {
         List<ProjectConfig> projectConfigList = projectConfigService.list();
         return projectConfigList.stream().filter(pc -> {
             boolean flag = false;
+
+            log.info("获取PROJECT--age{},--gender{}-基准信息:{}",age, JSON.toJSON(pc));
             if (proGrade.getProjectId().equals(pc.getProjectId())) {
                 if (SportConstants.GenderEnum.UNKNOW.getVal().equals(pc.getGender())) {
                     flag = (age >= pc.getMinAge() && age <= pc.getMaxAge() && proGrade.getProGrade().compareTo(pc.getMinScore()) >= 0
