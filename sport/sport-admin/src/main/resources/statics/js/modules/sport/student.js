@@ -215,7 +215,7 @@ var vm = new Vue({
                         var proGradeVal = '';
                         for(var j=0;j<resultData.lastProGradeList.length;j++){
                             var prevPro = resultData.lastProGradeList[j];
-                            if(pro.id== prevPro.id){
+                            if(pro.id== prevPro.projectId){
                                 proGradeVal = prevPro.projectGrade;
                                 vm.inputGradeParam[prevPro.projectCode] = prevPro.projectGrade;
                             }
@@ -242,6 +242,8 @@ var vm = new Vue({
             vm.isUpdateProGrade=false;
 		    //vm.inputGradeParam = {};
 		    vm.showGrade = false;
+		    vm.lastBmiGrade = {};
+		    vm.studentGrade={};
             vm.getProjectInfo(id);
             vm.layerIndex = layer.open({
                 type: 1,
