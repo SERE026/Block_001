@@ -25,7 +25,7 @@ $(function () {
 
                     let updateLastGradeBtn = "<button class='btn btn-primary ' onclick='vm.updateGrade("+rows.id+")' >修改成绩</button>" ;
                     let queryGrade =  "<a class='btn btn-warning' target='_blank' href='/admin/sport/grade/page?studentId="+rows.id+"'>查看</a>" ;
-                    if(row.gradeFlag == 1){
+                    if(rows.gradeFlag == 1){
                         return addGradeBtn + updateLastGradeBtn + queryGrade;
                     }
                     return addGradeBtn;

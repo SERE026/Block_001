@@ -19,7 +19,6 @@ function loadCityData(){
     $.getJSON(
         "/admin/statics/js/modules/area/area.json",
         function (obj) {
-            debugger;
             cityJson=obj;
         }
     );
