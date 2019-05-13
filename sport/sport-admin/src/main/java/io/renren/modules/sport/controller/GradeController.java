@@ -35,7 +35,7 @@ public class GradeController {
      * 保存
      */
     @RequestMapping("/save")
-    @RequiresPermissions("sport:studentgrade:save")
+    @RequiresPermissions("sport:grade:save")
     public Result save(HttpServletRequest request, @RequestBody GradeParam grade){
         log.info("保存成绩信息:{}", JSON.toJSONString(grade));
         System.out.println("--------------");
@@ -43,10 +43,10 @@ public class GradeController {
     }
 
     /**
-     * 保存
+     * 更新最近一次
      */
-    @RequestMapping("/save")
-    @RequiresPermissions("sport:studentgrade:update")
+    @RequestMapping("/update")
+    @RequiresPermissions("sport:grade:update")
     public Result update(HttpServletRequest request, @RequestBody GradeParam grade){
         log.info("保存成绩信息:{}", JSON.toJSONString(grade));
         System.out.println("--------------");
@@ -54,27 +54,27 @@ public class GradeController {
     }
 
     /**
-     *
+     *获取详情信息
      */
     @RequestMapping("/info")
-    @RequiresPermissions("sport:studentgrade:info")
+    @RequiresPermissions("sport:grade:info")
     public Result detail(Integer studentId){
         return gradeService.queryDetail(studentId);
     }
 
     @RequestMapping("/lastProGradeList")
-    @RequiresPermissions("sport:studentgrade:info")
+    @RequiresPermissions("sport:grade:info")
     public Result lastProGradeList(Integer studentId){
         return gradeService.getLastGrade(studentId);
     }
 
     @RequestMapping("/page")
-    @RequiresPermissions("sport:studentgrade:info")
+    @RequiresPermissions("sport:grade:info")
     public ModelAndView page(Integer studentId){
         ModelAndView mv = new ModelAndView("modules/sport/exportStuGrade");
-        Result result = gradeService.queryDetail(studentId);
+        //Result result = gradeService.queryDetail(studentId);
         mv.addObject("studentId",studentId);
-        mv.addAllObjects(result);
+        //mv.addAllObjects(result);
         return mv;
     }
 
