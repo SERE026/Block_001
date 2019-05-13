@@ -18,5 +18,5 @@ public interface BmiGradeMapper extends BaseMapper<BmiGrade> {
 
     List<BmiGrade> selectByStudentId(Integer studentId);
 
-    BmiGrade selectLastByStuGradeId(Integer stuGradeId);
+    BmiGrade getLastByStuGradeId(Integer stuGradeId);
 }

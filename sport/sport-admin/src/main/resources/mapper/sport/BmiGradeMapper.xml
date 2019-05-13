@@ -8,6 +8,7 @@
         <result property="id" column="id"/>
         <result property="studentId" column="student_id"/>
         <result property="stuGradeId" column="stu_grade_id"/>
+        <result property="bmiConfigId" column="bmi_config_id"/>
         <result property="age" column="age"/>
         <result property="ageRange" column="age_range"/>
         <result property="teacherName" column="teacher_name"/>
@@ -23,7 +24,7 @@
     </resultMap>
     <sql id="Base_column_list">
          `id`, `stu_grade_id`,`student_id`,`age`,`age_range`,`teacher_name`,`height`,`weight`,`check_time`,`bmi_grade`,`score`,
-         `suggestion`,`remark`,`create_time`,`update_time`
+         `suggestion`,`remark`,`create_time`,`update_time`,bmi_config_id
     </sql>
     <select id="selectByStudentId" resultMap="bmiGradeMap">
         select <include refid="Base_column_list"/>
@@ -32,12 +33,13 @@
         order by id desc
         limit 4
     </select>
-    <select id="selectLastByStuGradeId" resultMap="bmiGradeMap">
+    <select id="getLastByStuGradeId" resultMap="bmiGradeMap">
         select <include refid="Base_column_list"/>
         from sport_bmi_grade
-        where student_id=#{stuGradeId}
+        where getLastByStuGradeId=#{stuGradeId}
         order by id desc
         limit 1
     </select>
+
 
 </mapper>
