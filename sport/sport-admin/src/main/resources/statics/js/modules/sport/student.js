@@ -208,6 +208,12 @@ var vm = new Vue({
                     vm.lastProGradeList = resultData.lastProGradeList;
                     vm.bmiGrade = resultData.bmiGrade;
                     vm.lastStuGrade = resultData.lastStuGrade;
+                     $("#height").val(resultData.bmiGrade.height);
+                     $("#weight").val(resultData.bmiGrade.weight);
+                     $("#teacherName").val(resultData.lastStuGrade.teacherName);
+                     $("#trainHours").val(resultData.lastStuGrade.trainHours);
+                     $("#attendance").val(resultData.lastStuGrade.attendance);
+                     $("#checkTime").val(resultData.lastStuGrade.checkTime);
                     $("#form-project-group").empty();
                     $("#form-project-group").append("<div class=\"form-group\">")
                     for(var i=0; i<r.data.length;i++) {
@@ -240,7 +246,7 @@ var vm = new Vue({
         },
         addGrade: function(id){
             vm.isUpdateProGrade=false;
-		    //vm.inputGradeParam = {};
+		    vm.inputGradeParam = {};
 		    vm.showGrade = false;
 		    vm.lastBmiGrade = {};
 		    vm.studentGrade={};
@@ -272,7 +278,6 @@ var vm = new Vue({
             });
         },
         getGradeParams: function(event){
-
 		    let proId = $(event).attr("projectId");
             let proCode = $(event).attr("projectCode");
 		    let value = $(event).val();

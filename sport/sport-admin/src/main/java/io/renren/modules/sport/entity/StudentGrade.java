@@ -116,4 +116,5 @@ public class StudentGrade implements Serializable {
 
 	private String trainHours;
 	private BigDecimal attendance;
+	private Integer status;
 }

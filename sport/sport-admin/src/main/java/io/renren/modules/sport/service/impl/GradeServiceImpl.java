@@ -51,7 +51,6 @@ public class GradeServiceImpl implements GradeService {
     @Transactional(rollbackFor = Exception.class)
     public Result saveGrade(GradeParam grade) {
 
-        //todo
         Result checkResult = checkParam(grade);
         if(!checkResult.isOk()){
             return checkResult;
@@ -131,6 +130,7 @@ public class GradeServiceImpl implements GradeService {
             //        */
             combineScoreSuggestion(suggestionList, gradeList, studentGrade);
             studentGrade.setAgeRange(bmiGrade.getAgeRange());
+
             studentGradeService.updateById(studentGrade);
             bmiGradeService.updateById(bmiGrade);
             gradeList.forEach(e ->e.setStuGradeId(studentGrade.getId()));
@@ -157,8 +157,8 @@ public class GradeServiceImpl implements GradeService {
     private void combineScoreSuggestion(List<ScoreSuggestion> suggestionList, List<ProjectGrade> gradeList, StudentGrade studentGrade) {
         Double avg = gradeList.stream().mapToDouble(projectGrade -> projectGrade.getScore().doubleValue()).average().getAsDouble();
         studentGrade.setScore(new BigDecimal(avg));
-
-
+        Integer passStatus = studentGrade.getScore().compareTo(new BigDecimal("3")) < 0 ? 0 : 1;
+        studentGrade.setStatus(passStatus);
         Optional<ScoreSuggestion> optSug = suggestionList.stream().filter(s -> {
             return s.getMaxScore().compareTo(new BigDecimal(avg)) >= 0
                     && s.getMinScore().compareTo(new BigDecimal(avg)) <= 0
@@ -231,7 +231,7 @@ public class GradeServiceImpl implements GradeService {
         if(Objects.nonNull(grade.getCheckTime())){
             checkTime = LocalDateTime.parse(grade.getCheckTime(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
         }
-        //todo 查询
+        //查询
         BmiGrade oldbmiGrade = bmiGradeService.getLastByStuGradeId(lastStuGrade.getId());
         BigDecimal hh = grade.getHeight().multiply(grade.getHeight());
         BmiGrade bmiGrade = BmiGrade.builder()
@@ -422,14 +422,14 @@ public class GradeServiceImpl implements GradeService {
         身体素质测试总分÷项目数=4~5					良好
         身体素质测试总分÷项目数=5					优秀
         */
-        Map<Integer, Double> averageMap = lastProGradeList.stream().collect(Collectors.groupingBy(ProjectGradeDTO::getStuGradeId,
-                Collectors.averagingDouble(GradeServiceImpl::applyGradeAsDouble)));
+//        Map<Integer, Double> averageMap = lastProGradeList.stream().collect(Collectors.groupingBy(ProjectGradeDTO::getStuGradeId,
+//                Collectors.averagingDouble(GradeServiceImpl::applyGradeAsDouble)));
 
         //测评结果判断
-        Optional<Integer> averageKey = averageMap.keySet().stream().max(Comparator.naturalOrder());
-        Double score = averageKey.isPresent() ? averageMap.get(averageKey.get()) : 0.0D;
-        String passDesc = score < 3 ? "不通过" : "通过";
-        String scoreDesc = getString(score);
+//        Optional<Integer> averageKey = averageMap.keySet().stream().max(Comparator.naturalOrder());
+//        Double score = averageKey.isPresent() ? averageMap.get(averageKey.get()) : 0.0D;
+        String passDesc = lastStuGrade.getStatus() == 1 ? "不通过" : "通过";
+        String scoreDesc = getString(lastStuGrade.getScore().doubleValue());
 
         //Radar chart
         List<Map<String, Object>> radarChart = radarChart(lastProGradeList);
@@ -529,7 +529,7 @@ public class GradeServiceImpl implements GradeService {
                     break;
                 }
             }
-            BigDecimal checkPrevScore = (BigDecimal) lastProGrade[1];
+            BigDecimal checkPrevScore = (BigDecimal) prevProGrade[1];
             prevProGrade[2] = fullScore.subtract(checkPrevScore).setScale(2,BigDecimal.ROUND_HALF_UP);
             tgmd3Chart.add(prevProGrade);
         }
