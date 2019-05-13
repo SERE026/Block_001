@@ -16,7 +16,7 @@ $(function () {
 			{ label: '家长姓名', name: 'familyName', index: 'family_name', width: 80 }, 			
 			{ label: '家长联系方式', name: 'familyMobile', index: 'family_mobile', width: 100 },
 			{ label: '注册/报名时间', name: 'registerTime', index: 'register_time', width: 100 },
-            { label: '备注', name: 'remark', index: 'remark', width: 120 },
+            //{ label: '备注', name: 'remark', index: 'remark', width: 120 },
             { label: '创建时间', name: 'createTime', index: 'create_time', width: 80 },
 			{ label: '修改时间', name: 'updateTime', index: 'update_time', width: 80 },
             { label: '操作', name: 'state', index: 'state', width: 200, edittype:"button",
@@ -143,7 +143,8 @@ var vm = new Vue({
 			vm.showList = true;
 			var page = $("#jqGrid").jqGrid('getGridParam','page');
 			$("#jqGrid").jqGrid('setGridParam',{ 
-                page:page
+                page:page,
+                realname: $("#realnameInput").val()
             }).trigger("reloadGrid");
 		},
         getSchoolList: function(){
