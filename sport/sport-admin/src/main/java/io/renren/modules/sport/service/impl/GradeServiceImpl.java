@@ -196,19 +196,18 @@ public class GradeServiceImpl implements GradeService {
 
     /** 根据年龄,性别,成绩 获取 基准信息*/
     private ProjectConfig getProjectConfigByAgeWithGradeRange(Student stu, Integer age, ProGradeParam proGrade) {
-        List<ProjectConfig> projectConfigList = projectConfigService.list();
+        List<Integer> projectIds = Arrays.asList(proGrade.getProjectId());
+        List<ProjectConfig> projectConfigList = projectConfigService.getByProjectIds(projectIds);
+
         return projectConfigList.stream().filter(pc -> {
             boolean flag = false;
-
-            log.info("获取PROJECT--age{},--gender{}-基准信息:{}",age, JSON.toJSON(pc));
-            if (proGrade.getProjectId().equals(pc.getProjectId())) {
-                if (SportConstants.GenderEnum.UNKNOW.getVal().equals(pc.getGender())) {
-                    flag = (age >= pc.getMinAge() && age <= pc.getMaxAge() && proGrade.getProGrade().compareTo(pc.getMinScore()) >= 0
-                            && proGrade.getProGrade().compareTo(pc.getMaxScore()) <= 0);
-                } else {
-                    flag = (age >= pc.getMinAge() && age <= pc.getMaxAge() && proGrade.getProGrade().compareTo(pc.getMinScore()) >= 0
-                            && proGrade.getProGrade().compareTo(pc.getMaxScore()) <= 0) && pc.getGender().equals(stu.getGender());
-                }
+            log.info("获取PROJECT--age{},--gender{}--grade{}基准信息:{}",age,stu.getGender(), proGrade.getProGrade(),JSON.toJSON(pc));
+            if (SportConstants.GenderEnum.UNKNOW.getVal().equals(pc.getGender())) {
+                flag = (age >= pc.getMinAge() && age <= pc.getMaxAge() && proGrade.getProGrade().compareTo(pc.getMinScore()) >= 0
+                        && proGrade.getProGrade().compareTo(pc.getMaxScore()) <= 0);
+            } else {
+                flag = (age >= pc.getMinAge() && age <= pc.getMaxAge() && proGrade.getProGrade().compareTo(pc.getMinScore()) >= 0
+                        && proGrade.getProGrade().compareTo(pc.getMaxScore()) <= 0) && pc.getGender().equals(stu.getGender());
             }
             return flag;
         }).findFirst().get();
