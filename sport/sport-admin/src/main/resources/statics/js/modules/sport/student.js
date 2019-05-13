@@ -182,7 +182,7 @@ var vm = new Vue({
                 for(i=0; i<r.data.length;i++) {
                     var pro = r.data[i];
                     let input = "<div class='col-sm-3 control-label'>"+pro.projectName+"</div> <div class='col-sm-3'>" +
-                        "<input type='text' class='form-control' projectCode='"+pro.projectCode+"' projectId='"+pro.id+"' onchange='vm.getGradeParams(this)' placeholder='请输入'/>" +
+                        "<input type='text' class='form-control' projectcode='"+pro.projectCode+"' projectid='"+pro.id+"' onchange='vm.getGradeParams(this)' placeholder='请输入'/>" +
                         "</div>"
                     if(i>0 && i%2==0){
                         $("#form-project-group").append("</div><div class=\"form-group\">")
@@ -227,7 +227,7 @@ var vm = new Vue({
                         }
 
                         let input = "<div class='col-sm-3 control-label'>"+pro.projectName+"</div> <div class='col-sm-3'>" +
-                            "<input type='text' class='form-control' value='"+proGradeVal+"' projectCode='"+pro.projectCode+"' projectId='"+pro.id+"' onchange='vm.getGradeParams(this)' placeholder='请输入'/>" +
+                            "<input type='text' class='form-control' value='"+proGradeVal+"' projectcode='"+pro.projectCode+"' projectid='"+pro.id+"' onchange='vm.getGradeParams(this)' placeholder='请输入'/>" +
                             "</div>"
                         if(i>0 && i%2==0){
                             $("#form-project-group").append("</div><div class=\"form-group\">")
@@ -284,8 +284,8 @@ var vm = new Vue({
             });
         },
         getGradeParams: function(event){
-		    let proId = $(event).attr("projectId");
-            let proCode = $(event).attr("projectCode");
+		    let proId = $(event).attr("projectid");
+            let proCode = $(event).attr("projectcode");
 		    let value = $(event).val();
 		    let project = {
 		        projectId: proId,
