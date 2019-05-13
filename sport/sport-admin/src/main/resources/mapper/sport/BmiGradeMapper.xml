@@ -36,7 +36,7 @@
     <select id="getLastByStuGradeId" resultMap="bmiGradeMap">
         select <include refid="Base_column_list"/>
         from sport_bmi_grade
-        where getLastByStuGradeId=#{stuGradeId}
+        where stu_grade_id=#{stuGradeId}
         order by id desc
         limit 1
     </select>
