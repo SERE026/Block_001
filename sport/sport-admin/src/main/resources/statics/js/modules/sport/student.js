@@ -244,7 +244,6 @@ var vm = new Vue({
             });
         },
         addGrade: function(id){
-		    $("#formId").reset();
             vm.isUpdateProGrade=false;
 		    vm.inputGradeParam = {};
 		    vm.showGrade = false;
@@ -311,10 +310,10 @@ var vm = new Vue({
                     proList: proList
                 };
             $('#btnSaveOrUpdate').button('loading').delay(1000).queue(function() {
-                let url = baseURL + vm.isUpdateProGrade ? "sport/grade/update" : "sport/grade/save";
+                let url = vm.isUpdateProGrade ? "sport/grade/update" : "sport/grade/save";
                 $.ajax({
                     type: "POST",
-                    url: url,
+                    url: baseURL+url,
                     contentType: "application/json",
                     //data: vm.inputGradeParam,
                     data:JSON.stringify(data),
