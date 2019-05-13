@@ -222,7 +222,12 @@ var vm = new Vue({
                             var prevPro = resultData.lastProGradeList[j];
                             if(pro.id== prevPro.projectId){
                                 proGradeVal = prevPro.projectGrade;
-                                vm.inputGradeParam[prevPro.projectCode] = prevPro.projectGrade;
+                                let project = {
+                                    projectId: prevPro.projectId,
+                                    projectCode: prevPro.projectCode,
+                                    proGrade: proGradeVal
+                                }
+                                vm.inputGradeParam[proCode] = project;
                             }
                         }
 
