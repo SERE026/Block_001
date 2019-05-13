@@ -376,8 +376,6 @@ public class GradeServiceImpl implements GradeService {
         //BMI测试值
         List<BmiGrade> bmiGradeList = bmiGradeService.getByStudentId(studentId);
         BmiGrade lastBmiGrade = bmiGradeList.stream().max(Comparator.comparing(BmiGrade::getId)).get();
-        //BMI config
-
 
         //最近两次身体素质测评数据
         List<StudentGrade> stuGradeList = studentGradeService.getLastTwoGrade(studentId);
