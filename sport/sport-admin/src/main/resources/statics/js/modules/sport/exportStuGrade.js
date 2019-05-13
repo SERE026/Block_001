@@ -135,15 +135,14 @@ function bmiChartFun(bmiDataY,bmiGrade){
 			orient: 'horizontal', // 'vertical'
 			x: 'right', // 'center' | 'left' | {number},
 			y: 'top', // 'center' | 'bottom' | {number}
-			itemWidth: 20,
-			itemHeight: 10,
-			itemGap: 50,
+			itemWidth: 5,
+			itemHeight: 5,
+			itemGap: 5,
 			data:['正常','偏瘦','偏胖','肥胖']
 		},
 		tooltip : {//过滤掉统计的series
 			trigger: 'item',
 			formatter: function (params) {
-				debugger
 				if(params.seriesName=='肥胖'){
 					return '肥胖: >'+fatData[0];
 				}if(params.seriesName=='偏胖'){
@@ -394,17 +393,6 @@ function tgmdChartFun(tgmdData) {
 	//echartToImg(tgmdChart,"barChartImg")
 }
 
-function echartToImg(echart,imgId){
-	var img = document.getElementById(imgId);
-	var imgSrc = echart.getDataURL();
-	// 渲染到图表上面，遮住图表
-	img.src = imgSrc;
-	// 图片加载完成之后
-	img.onload = function() {
-		// 执行打印
-		console.log("pic is cover");
-	}
-}
 
 
 
