@@ -29,7 +29,7 @@ public class ProjectConfigServiceImpl extends ServiceImpl<ProjectConfigMapper, P
                         .ge(params.get("age") !=null,"min_age",params.get("age"))
                         .le(params.get("age") !=null,"max_age",params.get("age"))
                         .eq(params.get("gender") != null,"gender",params.get("gender"))
-                        .eq(StringUtils.isNotBlank(projectName),"project_name",projectName)
+                        .like(StringUtils.isNotBlank(projectName),"project_name",projectName)
         );
 
         return new PageResult(page);
