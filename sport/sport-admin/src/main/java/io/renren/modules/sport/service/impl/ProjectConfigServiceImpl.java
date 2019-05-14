@@ -1,5 +1,6 @@
 package io.renren.modules.sport.service.impl;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -21,9 +22,16 @@ public class ProjectConfigServiceImpl extends ServiceImpl<ProjectConfigMapper, P
 
     @Override
     public PageResult queryPage(Map<String, Object> params) {
+        Integer age = params.get("age") != null ? (Integer) params.get("age") : 0;
+        Integer gender = params.get("gender") != null ? (Integer) params.get("gender") : 0;
+        String projectName = (String) params.get("projectName");
         IPage<ProjectConfig> page = this.page(
                 new Query<ProjectConfig>().getPage(params),
                 new QueryWrapper<ProjectConfig>()
+                        .ge(age !=0,"min_age",age)
+                        .le(age !=0,"max_age",age)
+                        .eq(gender != 0,"gender",gender)
+                        .eq(StringUtils.isNotBlank(projectName),"project_name",projectName)
         );
 
         return new PageResult(page);

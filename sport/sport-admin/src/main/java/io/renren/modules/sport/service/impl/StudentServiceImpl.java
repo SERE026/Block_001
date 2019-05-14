@@ -9,6 +9,7 @@ import io.renren.modules.sport.dao.StudentMapper;
 import io.renren.modules.sport.dto.StudentDTO;
 import io.renren.modules.sport.entity.Student;
 import io.renren.modules.sport.service.StudentService;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
@@ -19,9 +20,11 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
 
     @Override
     public PageResult queryPage(Map<String, Object> params) {
+        String realname = (String) params.get("realname");
         IPage<Student> page = this.page(
                 new Query<Student>().getPage(params),
                 new QueryWrapper<Student>()
+                        .eq(StringUtils.isNotBlank(realname),"realname",realname)
         );
 
         return new PageResult(page);

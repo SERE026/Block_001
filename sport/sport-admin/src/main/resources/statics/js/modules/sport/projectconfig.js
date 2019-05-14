@@ -118,35 +118,6 @@ var vm = new Vue({
                 });
 			});
 		},
-		del: function (event) {
-			var ids = getSelectedRows();
-			if(ids == null){
-				return ;
-			}
-			var lock = false;
-            layer.confirm('确定要删除选中的记录？', {
-                btn: ['确定','取消'] //按钮
-            }, function(){
-               if(!lock) {
-                    lock = true;
-		            $.ajax({
-                        type: "POST",
-                        url: baseURL + "sport/projectconfig/delete",
-                        contentType: "application/json",
-                        data: JSON.stringify(ids),
-                        success: function(r){
-                            if(r.code == 0){
-                                layer.msg("操作成功", {icon: 1});
-                                $("#jqGrid").trigger("reloadGrid");
-                            }else{
-                                layer.alert(r.msg);
-                            }
-                        }
-				    });
-			    }
-             }, function(){
-             });
-		},
 		getInfo: function(id){
 			$.get(baseURL + "sport/projectconfig/info/"+id, function(r){
                 vm.projectConfig = r.projectConfig;
@@ -177,7 +148,12 @@ var vm = new Vue({
 			vm.showList = true;
 			var page = $("#jqGrid").jqGrid('getGridParam','page');
 			$("#jqGrid").jqGrid('setGridParam',{ 
-                page:page
+                page:page,
+                postData:{
+                    'age':$("#ageInput").val(),
+                    'gender':$("#genderSelect").val(),
+                    'projectName':$("#projectNameInput").val()
+                }, //发送数据
             }).trigger("reloadGrid");
 		}
 	}

@@ -64,8 +64,6 @@ public class GradeServiceImpl implements GradeService {
         Integer age = AgeUtils.getAgeByBirthday(stu.getBirthday());
         LocalDateTime checkTime = LocalDateTime.parse(grade.getCheckTime(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
 
-        List<ProjectGrade> gradeList = Lists.newArrayList();
-
         StudentGrade studentGrade = StudentGrade.builder()
                 .studentId(grade.getStudentId())
                 .createTime(LocalDateTime.now())
@@ -93,9 +91,12 @@ public class GradeServiceImpl implements GradeService {
                 .createTime(LocalDateTime.now())
                 .age(age)
                 .build();
+        bmiGrade.setAgeRange(bmiConfig.getMinAge()+"-"+bmiConfig.getMaxAge());
         bmiGrade.setScore(bmiGrade.getBmiGrade());
         bmiGrade.setStuGradeId(studentGrade.getId());
         bmiGradeService.save(bmiGrade);
+
+        List<ProjectGrade> gradeList = Lists.newArrayList();
         if(!CollectionUtils.isEmpty(grade.getProList())){
             List<ScoreSuggestion> suggestionList = suggestionService.list();
             grade.getProList().forEach(g ->{
@@ -110,14 +111,14 @@ public class GradeServiceImpl implements GradeService {
                         .projectConfigId(pcconf.getId())
                         .suggestion(optSug)
                         .age(age)
-                        .ageRange(pcconf.getMinAge()+"-"+pcconf.getMaxAge())
                         .checkTime(checkTime)
                         .teacherName(grade.getTeacherName())
                         .createTime(LocalDateTime.now())
                         .build();
+                pg.setAgeRange(pcconf.getMinAge()+"-"+pcconf.getMaxAge());
                 gradeList.add(pg);
-                bmiGrade.setAgeRange(pg.getAgeRange());
             });
+
             Map<String, BigDecimal> gradeMap = getGradeMapGroupByProjectCode(gradeList);
             try {
                 BeanUtils.populate(studentGrade,gradeMap);
@@ -196,21 +197,13 @@ public class GradeServiceImpl implements GradeService {
 
     /** 根据年龄,性别,成绩 获取 基准信息*/
     private ProjectConfig getProjectConfigByAgeWithGradeRange(Student stu, Integer age, ProGradeParam proGrade) {
-        List<Integer> projectIds = Arrays.asList(proGrade.getProjectId());
         ProjectConfig projectConfig = projectConfigService.getByAgeWithGradeRange(proGrade.getProjectId(),proGrade.getProGrade(),age,stu.getGender());
+        if(projectConfig == null){
+            Project project = projectService.getById(proGrade.getProjectId());
+            log.error("学员ID:{},gender:{},age:{},proId:{},proGrade:{}",stu.getId(),stu.getGender(),age,proGrade.getProjectId(),proGrade.getProGrade());
+            throw new RuntimeException(project.getProjectName()+",在年龄:"+age+" 阶段配置有误");
+        }
         return projectConfig;
-        /*return projectConfigList.stream().filter(pc -> {
-            boolean flag = false;
-            log.info("获取PROJECT--age{},--gender{}--grade{}基准信息:{}",age,stu.getGender(), proGrade.getProGrade(),JSON.toJSON(pc));
-            if (SportConstants.GenderEnum.UNKNOW.getVal().equals(pc.getGender())) {
-                flag = (age >= pc.getMinAge() && age <= pc.getMaxAge() && proGrade.getProGrade().compareTo(pc.getMinScore()) >= 0
-                        && proGrade.getProGrade().compareTo(pc.getMaxScore()) <= 0);
-            } else {
-                flag = (age >= pc.getMinAge() && age <= pc.getMaxAge() && proGrade.getProGrade().compareTo(pc.getMinScore()) >= 0
-                        && proGrade.getProGrade().compareTo(pc.getMaxScore()) <= 0) && pc.getGender().equals(stu.getGender());
-            }
-            return flag;
-        }).findFirst().get();*/
     }
 
     private Result checkParam(GradeParam grade) {
@@ -238,6 +231,7 @@ public class GradeServiceImpl implements GradeService {
         //查询
         BmiGrade oldbmiGrade = bmiGradeService.getLastByStuGradeId(lastStuGrade.getId());
         BigDecimal hh = grade.getHeight().multiply(grade.getHeight());
+        BmiConfig bmiConfig = getBmiConfig(age,stu.getGender());
         BmiGrade bmiGrade = BmiGrade.builder()
                 .id(oldbmiGrade.getId())
                 .checkTime(checkTime)
@@ -248,8 +242,9 @@ public class GradeServiceImpl implements GradeService {
                 .studentId(grade.getStudentId())
                 .teacherName(grade.getTeacherName())
                 .build();
+        bmiGrade.setAgeRange(bmiConfig.getMinAge() + "-"+bmiConfig.getMaxAge());
+        bmiGrade.setBmiConfigId(bmiConfig.getId());
         bmiGrade.setScore(bmiGrade.getBmiGrade());
-
         List<ProjectGrade> gradeList = Lists.newArrayList();
         if(!CollectionUtils.isEmpty(grade.getProList())){
             List<ScoreSuggestion> suggestionList = suggestionService.list();
@@ -277,7 +272,6 @@ public class GradeServiceImpl implements GradeService {
                     pg.setCreateTime(LocalDateTime.now());
                 }
                 gradeList.add(pg);
-                bmiGrade.setAgeRange(pg.getAgeRange());
             });
             Map<String, BigDecimal> gradeMap = getGradeMapGroupByProjectCode(gradeList);
             //查询TODO

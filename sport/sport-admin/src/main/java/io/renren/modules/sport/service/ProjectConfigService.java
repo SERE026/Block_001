@@ -26,5 +26,6 @@ public interface ProjectConfigService extends IService<ProjectConfig> {
     List<ProjectConfig> getByFullScoreByProjectIds(List<Integer> projectIds);
 
     ProjectConfig getByAgeWithGradeRange(Integer projectId, BigDecimal proGrade, Integer age, Integer gender);
+
 }
 

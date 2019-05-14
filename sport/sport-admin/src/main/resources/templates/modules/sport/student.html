@@ -9,9 +9,9 @@
     <div v-show="showList">
 
         <div class="grid-btn">
-            姓名:<input id="realnameInput" class="form-control" type="text" name="realname"/>
             <#if shiro.hasPermission("sport:student:list")>
-            <a class="btn btn-primary" @click="reload"><i class="fa fa-search"></i>&nbsp;查询</a>
+            姓名:<input id="realnameInput" class="form-control" type="text" name="realname"/>
+            <a class="btn btn-default" @click="reload"><i class="fa fa-search"></i>&nbsp;查询</a>
             </#if>
 			<#if shiro.hasPermission("sport:student:save")>
             <a class="btn btn-primary" @click="add"><i class="fa fa-plus"></i>&nbsp;新增</a>

@@ -144,7 +144,9 @@ var vm = new Vue({
 			var page = $("#jqGrid").jqGrid('getGridParam','page');
 			$("#jqGrid").jqGrid('setGridParam',{ 
                 page:page,
-                realname: $("#realnameInput").val()
+                postData:{
+                    'realname':$("#realnameInput").val()
+                }, //发送数据
             }).trigger("reloadGrid");
 		},
         getSchoolList: function(){
@@ -314,7 +316,7 @@ var vm = new Vue({
                     checkTime: $("#checkTime").val(),
                     proList: proList
                 };
-            $('#btnSaveOrUpdate').button('loading').delay(1000).queue(function() {
+            $('#btnSaveGrade').button('loading').delay(1000).queue(function() {
                 let url = vm.isUpdateProGrade ? "sport/grade/update" : "sport/grade/save";
                 $.ajax({
                     type: "POST",
