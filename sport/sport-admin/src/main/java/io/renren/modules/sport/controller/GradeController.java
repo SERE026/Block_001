@@ -38,8 +38,11 @@ public class GradeController {
     @RequiresPermissions("sport:grade:save")
     public Result save(HttpServletRequest request, @RequestBody GradeParam grade){
         log.info("保存成绩信息:{}", JSON.toJSONString(grade));
-        System.out.println("--------------");
-        return gradeService.saveGrade(grade);
+        try{
+            return gradeService.saveGrade(grade);
+        }catch (Exception e){
+            return Result.error(e.getMessage());
+        }
     }
 
     /**
@@ -48,9 +51,12 @@ public class GradeController {
     @RequestMapping("/update")
     @RequiresPermissions("sport:grade:update")
     public Result update(HttpServletRequest request, @RequestBody GradeParam grade){
-        log.info("保存成绩信息:{}", JSON.toJSONString(grade));
-        System.out.println("--------------");
-        return gradeService.updateGrade(grade);
+        log.info("更新成绩信息:{}", JSON.toJSONString(grade));
+        try {
+            return gradeService.updateGrade(grade);
+        }catch (Exception e){
+            return Result.error(e.getMessage());
+        }
     }
 
     /**
