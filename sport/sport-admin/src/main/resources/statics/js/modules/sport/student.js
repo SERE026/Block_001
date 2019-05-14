@@ -315,32 +315,25 @@ var vm = new Vue({
                     attendance:$("#attendance").val(),
                     checkTime: $("#checkTime").val(),
                     proList: proList
-                };
-            $('#btnSaveGrade').button('loading').delay(1000).queue(function() {
-                let url = vm.isUpdateProGrade ? "sport/grade/update" : "sport/grade/save";
-                $.ajax({
-                    type: "POST",
-                    url: baseURL+url,
-                    contentType: "application/json",
-                    //data: vm.inputGradeParam,
-                    data:JSON.stringify(data),
-                    success: function(r){
-                        if(r.code === 0){
-                            layer.msg("操作成功", {icon: 1});
-                            vm.reload();
-                            $('#saveStudentGrade').button('reset');
-                            $('#saveStudentGrade').dequeue();
-                            layer.close(vm.layerIndex);
-                        }else{
-                            layer.alert(r.msg);
-                            $('#btnSaveOrUpdate').button('reset');
-                            $('#btnSaveOrUpdate').dequeue();
-                        }
-
+            };
+            let url = vm.isUpdateProGrade ? "sport/grade/update" : "sport/grade/save";
+            $.ajax({
+                type: "POST",
+                url: baseURL+url,
+                contentType: "application/json",
+                //data: vm.inputGradeParam,
+                data:JSON.stringify(data),
+                success: function(r){
+                    if(r.code === 0){
+                        layer.msg("操作成功", {icon: 1});
+                        vm.reload();
+                        layer.close(vm.layerIndex);
+                    }else{
+                        layer.alert(r.msg);
                     }
-                });
-            })
 
+                }
+            });
         },
         layDateFun: function (event) {
             layui.use('laydate', function(){
