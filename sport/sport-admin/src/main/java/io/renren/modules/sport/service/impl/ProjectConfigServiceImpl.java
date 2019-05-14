@@ -2,6 +2,7 @@ package io.renren.modules.sport.service.impl;
 
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -41,6 +42,11 @@ public class ProjectConfigServiceImpl extends ServiceImpl<ProjectConfigMapper, P
     @Override
     public List<ProjectConfig> getByFullScoreByProjectIds(List<Integer> projectIds) {
         return this.baseMapper.getByFullScoreByProjectIds(projectIds);
+    }
+
+    @Override
+    public ProjectConfig getByAgeWithGradeRange(Integer projectId, BigDecimal proGrade, Integer age, Integer gender) {
+        return this.baseMapper.getByAgeWithGradeRange(projectId,proGrade,age,gender);
     }
 
 }

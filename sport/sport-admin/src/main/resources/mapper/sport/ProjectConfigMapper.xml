@@ -36,4 +36,17 @@
             #{projectId}
         </foreach>
     </select>
+    <select id="getByAgeWithGradeRange" resultMap="projectConfigMap">
+      <![CDATA[
+        SELECT
+        *
+        FROM
+        sport_project_config
+        WHERE project_id = #{projectId}
+        AND (gender = 0 OR gender = #{gender})
+        AND (min_score <= #{proGrade} and max_score>=#{proGrade} )
+        AND ((min_age=-1 OR max_age=-1) OR (min_age <=#{age} and max_age >= #{age}) )
+        limit 1
+      ]]>
+    </select>
 </mapper>

@@ -197,9 +197,9 @@ public class GradeServiceImpl implements GradeService {
     /** 根据年龄,性别,成绩 获取 基准信息*/
     private ProjectConfig getProjectConfigByAgeWithGradeRange(Student stu, Integer age, ProGradeParam proGrade) {
         List<Integer> projectIds = Arrays.asList(proGrade.getProjectId());
-        List<ProjectConfig> projectConfigList = projectConfigService.getByProjectIds(projectIds);
-
-        return projectConfigList.stream().filter(pc -> {
+        ProjectConfig projectConfig = projectConfigService.getByAgeWithGradeRange(proGrade.getProjectId(),proGrade.getProGrade(),age,stu.getGender());
+        return projectConfig;
+        /*return projectConfigList.stream().filter(pc -> {
             boolean flag = false;
             log.info("获取PROJECT--age{},--gender{}--grade{}基准信息:{}",age,stu.getGender(), proGrade.getProGrade(),JSON.toJSON(pc));
             if (SportConstants.GenderEnum.UNKNOW.getVal().equals(pc.getGender())) {
@@ -210,7 +210,7 @@ public class GradeServiceImpl implements GradeService {
                         && proGrade.getProGrade().compareTo(pc.getMaxScore()) <= 0) && pc.getGender().equals(stu.getGender());
             }
             return flag;
-        }).findFirst().get();
+        }).findFirst().get();*/
     }
 
     private Result checkParam(GradeParam grade) {

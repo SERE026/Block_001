@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -20,4 +21,7 @@ public interface ProjectConfigMapper extends BaseMapper<ProjectConfig> {
     List<ProjectConfig> getByProjectIds(@Param("projectIds") List<Integer> projectIds);
 
     List<ProjectConfig> getByFullScoreByProjectIds(@Param("projectIds")List<Integer> projectIds);
+
+    ProjectConfig getByAgeWithGradeRange(@Param("projectId")Integer projectId, @Param("proGrade")BigDecimal proGrade,
+                                         @Param("age")Integer age, @Param("gender")Integer gender);
 }

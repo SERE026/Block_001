@@ -328,12 +328,13 @@ var vm = new Vue({
                             vm.reload();
                             $('#saveStudentGrade').button('reset');
                             $('#saveStudentGrade').dequeue();
+                            layer.close(vm.layerIndex);
                         }else{
                             layer.alert(r.msg);
                             $('#btnSaveOrUpdate').button('reset');
                             $('#btnSaveOrUpdate').dequeue();
                         }
-                        layer.close(vm.layerIndex);
+
                     }
                 });
             })

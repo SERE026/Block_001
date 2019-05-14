@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import io.renren.common.utils.PageResult;
 import io.renren.modules.sport.entity.ProjectConfig;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
@@ -23,5 +24,7 @@ public interface ProjectConfigService extends IService<ProjectConfig> {
     List<ProjectConfig> getByProjectIds(List<Integer> projectIds);
 
     List<ProjectConfig> getByFullScoreByProjectIds(List<Integer> projectIds);
+
+    ProjectConfig getByAgeWithGradeRange(Integer projectId, BigDecimal proGrade, Integer age, Integer gender);
 }
 
