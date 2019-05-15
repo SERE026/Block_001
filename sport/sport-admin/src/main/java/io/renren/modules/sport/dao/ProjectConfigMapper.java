@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Param;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 训练项目
@@ -24,4 +25,8 @@ public interface ProjectConfigMapper extends BaseMapper<ProjectConfig> {
 
     ProjectConfig getByAgeWithGradeRange(@Param("projectId")Integer projectId, @Param("proGrade")BigDecimal proGrade,
                                          @Param("age")Integer age, @Param("gender")Integer gender);
+
+    List<Map> importSheet1();
+    List<Map> importSheet2();
+    List<Map> importSheet3();
 }
