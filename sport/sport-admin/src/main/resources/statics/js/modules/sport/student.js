@@ -256,12 +256,12 @@ var vm = new Vue({
 		    vm.showGrade = false;
 		    vm.lastBmiGrade = {};
 		    vm.studentGrade={};
-            $("#height").val();
-            $("#weight").val();
-            $("#teacherName").val();
-            $("#trainHours").val();
-            $("#attendance").val();
-            $("#checkTime").val();
+            $("#height").val('');
+            $("#weight").val('');
+            $("#teacherName").val('');
+            $("#trainHours").val('');
+            $("#attendance").val('');
+            $("#checkTime").val('');
             vm.getProjectInfo(id);
             vm.layerIndex = layer.open({
                 type: 1,

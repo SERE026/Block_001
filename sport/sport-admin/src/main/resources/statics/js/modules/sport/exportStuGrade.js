@@ -4,9 +4,19 @@ function radarChartFun (radarChartData) {
 	let dataVal = [];
 
 	for(let index in radarChartData){
-		var indType={};
-		indType['text']=radarChartData[index].projectType;
-		indType['max']=5;
+		var indType = {
+			'text':radarChartData[index].projectType,
+			'max': 5,
+			//若将此属性放在radar下，则每条indicator都会显示圈上的数值，放在这儿，只在通信这条indicator上显示
+			// axisLabel: {
+			// 	show: true,
+			// 	fontSize: 12,
+			// 	color: '#838D9E',
+			// 	showMaxLabel: false, //不显示最大值，即外圈不显示数字30
+			// 	showMinLabel: true, //显示最小数字，即中心点显示0
+			// }
+		};
+		
 		indicatorType.push(indType);
 		dataVal.push(radarChartData[index].score);
 	}
@@ -15,25 +25,32 @@ function radarChartFun (radarChartData) {
 		title : {
 		},
 		tooltip : {
-			trigger: 'axis'
+			trigger: 'axis',
+			showDelay : 0, // 显示延迟，添加显示延迟可以避免频繁切换，单位ms
+			axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+				type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+			}
 		},
 		legend: {
 			data:['满分', '测试']
 		},
 		calculable : true,
 		grid: { // 控制图的大小，调整下面这些值就可以，
-			x: 40,
-			x2: 100,
-			y2: 150,// y2可以控制 X轴跟Zoom控件之间的间隔，避免以为倾斜后造成 label重叠到zoom上
+			position:'center'
+			// x: 60,
+			// x2: 100,
+			// y2: 150,// y2可以控制 X轴跟Zoom控件之间的间隔，避免以为倾斜后造成 label重叠到zoom上
 		},
+
 		polar : [
 			{
-				name: { show: true,textStyle:{fontSize:16,color:"#32cd32"}},
+				name: { show: true,textStyle:{fontSize:14,color:"#32cd32"}},
 				indicator : indicatorType,
 				center : ['50%','50%'],
-				radius : 50 //半径，可放大放小雷达图
+				radius : 70 //半径，可放大放小雷达图
 			}
 		],
+
 		series : [
 			{
 				name:'数据对比图',
@@ -125,13 +142,13 @@ function barChartFun(dataX,fullDataY,checkDataY) {
 function bmiChartFun(bmiDataY,bmiGrade){
 	// 基于准备好的dom，初始化echarts实例
 	bmiChart = echarts.init(document.getElementById('bmiChart'));
-	debugger;
 	var normalData = bmiDataY.bmiConf.normWeightRange.split('-');
 	var lowData = bmiDataY.bmiConf.lowWeightRange.split('-');
 	var overData = bmiDataY.bmiConf.overWeightRange.split('-')
 	var fatData = bmiDataY.bmiConf.fatWeightRange.split('-')
 	// 指定图表的配置项和数据
 	var bmiOption = {
+		//backgroundColor: '#1b1b1b',//背景色
 		title:{
 			text: '身体质量指数',
 			subtext: 'BMI测试数据'
@@ -139,10 +156,10 @@ function bmiChartFun(bmiDataY,bmiGrade){
 		legend: {
 			orient: 'horizontal', // 'vertical'
 			x: 'right', // 'center' | 'left' | {number},
-			y: 'top', // 'center' | 'bottom' | {number}
+			y: 'bottom', // 'center' | 'bottom' | {number}
 			itemWidth: 10,
-			itemHeight: 5,
-			itemGap: 5,
+			itemHeight: 10,
+			itemGap: 10,
 			data:['正常','偏瘦','偏胖','肥胖']
 		},
 		tooltip : {//过滤掉统计的series
@@ -162,9 +179,10 @@ function bmiChartFun(bmiDataY,bmiGrade){
 		},
 		calculable : true,
 		grid: {
-			left: '5%',
+			position:'center',
+			left: '1%',
 			right: '1%',
-			bottom: '1%',
+			bottom: '8%',
 			containLabel: true
 		},
 		xAxis : [
@@ -260,7 +278,20 @@ function bmiChartFun(bmiDataY,bmiGrade){
                 // barGap:'30%',
                 // barCategoryGap:'30%',
 				xAxisIndex:1,
-				itemStyle: {normal: {color:'rgba(197,35,43,1)', label:{
+				itemStyle: {
+					normal: {
+						color: function (p) {
+							if(p.value<15.7){
+								return 'rgb(241, 237, 117)';
+							}else if(p.value<20.29){
+								return 'rgb(54, 228, 124)';
+							}else if(p.value<21.12){
+								return 'rgb(243, 174, 190)';
+							}else{
+								return 'rgba(199,35,43,1)';
+							}
+						}, 
+						label:{
 							show:true,
 							position: 'inside',
 							formatter:function(p){
@@ -328,27 +359,26 @@ function tgmdChartFun(tgmdData) {
 		legend: {
 			orient: 'horizontal', // 'vertical'
 			x: 'right', // 'center' | 'left' | {number},
-			y: 'top', // 'center' | 'bottom' | {number}
+			y: 'bottom', // 'center' | 'bottom' | {number}
 			itemWidth: 20,
 			itemHeight: 10,
-			itemGap: 10,
+			itemGap: 30,
 			data:['满分','测试']
 		},
 		tooltip : {//过滤掉统计的series
-			trigger: 'item'/*,
+			trigger: 'item',
 			formatter: function (params) {
-				debugger
 				if(params.seriesName=='满分'){
-					return '满分: ';
+					return '满分: 96';
 				}
-				return params.seriesName + ': ' + params.value + ' ';
-			}*/
+				return  '测试: ' + params.value[1];
+			}
 		},
 		calculable : true,
 		grid: {
 			left: '5%',
 			right: '1%',
-			bottom: '1%',
+			bottom: '8%',
 			containLabel: true
 		},
 		dataset: {
@@ -368,26 +398,33 @@ function tgmdChartFun(tgmdData) {
 		series : [
 			{
 				type:'bar',
-				stack: 'TGMD'/*,
-				itemStyle: {normal: {color:'rgb(241, 237, 117)', label:{
+				stack: 'TGMD',
+				itemStyle: {
+					normal:{
+						color:'#8cbedc',
+						label:{
 							show:true,
 							position: 'inside',
 							formatter:function(p){
-								return '满分';
+								debugger;
+								return p.value[1];
 							}
-						}}}*/
+						}}}
+
 			},
 			{
 				type:'bar',
-				stack: 'TGMD'/*,
-				itemStyle: {normal: {color:'rgba(197,35,43,1)', label:{
+				stack: 'TGMD',
+				itemStyle: {
+					normal: {
+						color:'#e08665',
+						label:{
 							show:true,
 							position: 'inside',
 							formatter:function(p){
-								return p.value;
+								return '96';
 							}
-						}}}*/
-
+						}}}
 			}
 		]
 	};
