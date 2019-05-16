@@ -27,8 +27,9 @@ function print(){
 
 function jqPrint(id) {
 
-    $("#"+id).css("width","155mm");
-    $("#"+id).css("height","205mm");
+    //210×297；
+    $("#"+id).css("width","210mm");
+    $("#"+id).css("height","297mm");
 
     $('#barChartImg').attr("src",tgmdChart.getDataURL());
     $('#barChartImg').on('load', function() {
@@ -50,6 +51,7 @@ function jqPrint(id) {
                     printContainer: true,
                     operaSupport: false
                 });
+                window.location.reload();
             })
         })
     });
