@@ -27,6 +27,10 @@
                 background-color: yellow;text-align: center;height: 22px;
                 font-weight: bold;
             }
+            .check-res-title{
+                text-align: center;height: 22px;
+                font-weight: bold;
+            }
             .future-text{
                 height: 18px;
                 font-weight: bold;
@@ -38,7 +42,7 @@
                 padding: 0px;
             }
             .train-goal{
-                width: 384px; word-wrap:break-word;
+                height: 190px; word-wrap:break-word;
                 color: #07ca8f;
                 font-size: 16px;solid-color: #07ca8f;
                 vertical-align: middle !important;
@@ -49,6 +53,10 @@
         }
         .pro-title{
             background-color: yellow;text-align: center;height: 22px;
+            font-weight: bold;
+        }
+        .check-res-title{
+            text-align: center;height: 22px;
             font-weight: bold;
         }
         .future-text{
@@ -170,29 +178,29 @@
                         <tr>
                             <td>上次成绩</td>
                             <td v-for="pg in lastProGradeList">
-                                <span v-for="prev in prevProGradeList" v-if="pg.projectId == prev.projectId" >
+                                <div v-for="prev in prevProGradeList" v-if="pg.projectId == prev.projectId" >
                                     {{prev.projectGrade}}
-                                </span>
+                                </div>
 
                             </td>
                         </tr>
                         <tr>
                             <td>增长值</td>
                             <td v-for="pg in lastProGradeList">
-                                <span v-if="prevProGradeList.length > 0">
-                                    <span v-for="prev in prevProGradeList" v-if="pg.projectId == prev.projectId" >
+                                <div v-if="prevProGradeList.length > 0">
+                                    <div v-for="prev in prevProGradeList" v-if="pg.projectId == prev.projectId" >
                                         {{pg.projectGrade-prev.projectGrade | numFilter}}
-                                    </span>
-                                </span>
-                                <span v-else>{{pg.projectGrade}}</span>
+                                    </div>
+                                </div>
+                                <div v-else>{{pg.projectGrade}}</div>
                             </td>
                         </tr>
                         <tr>
                             <td>满分成绩</td>
                             <td v-for="pg in lastProGradeList">
-                                <span v-for="(v,k) in proFullScore" v-if="k==pg.projectId">
+                                <div v-for="(v,k) in proFullScore" v-if="k==pg.projectId">
                                     {{v.minScore}}
-                                </span>
+                                </div>
                             </td>
                         </tr>
                         <tr>
@@ -225,7 +233,7 @@
                 </td>
             </tr>
             <tr>
-                <td colspan="10" style="text-align: center;background-color: yellow">根据测评结果训练建议 </td>
+                <td colspan="10" class="pro-title">根据测评结果训练建议 </td>
             </tr>
             <tr v-for="proGrade in lastProGradeList">
                 <td colspan="2">{{proGrade.projectType}}</td>
@@ -240,11 +248,11 @@
                 <td colspan="10" class="pro-title">测试评价结果</td>
             </tr>
             <tr>
-                <td colspan="3">
+                <td colspan="3" class="check-res-title">
                     本次体能测试结果评价为
                 </td>
                 <td colspan="2"><span class="pro-title">{{passDesc}}</span></td>
-                <td colspan="3" class="pro-title">你的测评成绩为</td>
+                <td colspan="3" class="check-res-title">你的测评成绩为</td>
                 <td colspan="2"><span class="pro-title">{{scoreDesc}}</span></td>
             </tr>
             <tr>
