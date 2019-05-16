@@ -80,7 +80,7 @@ function getSelectedRows() {
     return grid.getGridParam("selarrrow");
 }
 
-//判断是否为空
+//判断是否为空asdf
 function isBlank(value) {
     return !value || !/\S/.test(value)
 }
