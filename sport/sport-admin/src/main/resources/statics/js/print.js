@@ -44,6 +44,7 @@ function jqPrint(id) {
                 $('#barChart').hide();
                 $('#bmiChart').hide();
                 $("#"+id).jqprint({
+                    globalStyles: true,
                     debug: false,
                     importCSS: true,
                     printContainer: true,
