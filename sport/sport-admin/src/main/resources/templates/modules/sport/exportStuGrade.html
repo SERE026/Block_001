@@ -1,78 +1,67 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <#include "/header.html">
     <title>学生成绩报表导出</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.1.0/css/bootstrap.min.css">
-    <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+    <script src="${request.contextPath}/statics/libs/jquery.min.js"></script>
+    <script src="${request.contextPath}/statics/libs/bootstrap.min.js"></script>
+    <script src="${request.contextPath}/statics/libs/vue.min.js"></script>
     <script src="https://cdn.staticfile.org/popper.js/1.12.5/umd/popper.min.js"></script>
-    <script src="https://cdn.staticfile.org/twitter-bootstrap/4.1.0/js/bootstrap.min.js"></script>
     <script src="https://cdn.bootcss.com/echarts/4.2.1-rc1/echarts.js"></script>
     <script src="${request.contextPath}/statics/libs/jquery.jqprint-0.3.js"></script>
-    <script src="${request.contextPath}/statics/js/print.js"></script>
-    <link rel="stylesheet" href="${request.contextPath}/statics/css/sport/print.css" media="print">
-    <style>
+    <script src="${request.contextPath}/statics/js/print.js?v=2"></script>
 
-        .pro-title{
-            background-color: yellow;text-align: center;height: 22px;
-            font-weight: bold;
+    <link rel="stylesheet" href="${request.contextPath}/statics/css/sport/print.css?v=2" media="print">
+    <link rel="stylesheet" href="${request.contextPath}/statics/css/sport/revise_style.css?v=4"/>
+    <script>
+        function formatDate (date, fmt) {
+            if (/(y+)/.test(fmt)) {
+                fmt = fmt.replace(RegExp.$1, (date.getFullYear() + '').substr(4 - RegExp.$1.length))
+            }
+            let o = {
+                'M+': date.getMonth() + 1,
+                'd+': date.getDate(),
+                'h+': date.getHours(),
+                'm+': date.getMinutes(),
+                's+': date.getSeconds()
+            }
+            for (let k in o) {
+                if (new RegExp("("+ k +")").test(fmt)) {
+                    let str = o[k] + ''
+                    fmt = fmt.replace(RegExp.$1, RegExp.$1.length === 1 ? str : padLeftZero(str))
+                }
+            }
+            return fmt
         }
-        .check-res-title{
-            text-align: center;height: 22px;
-            font-weight: bold;
-        }
-        .future-text{
-            height: 18px;
-            font-weight: bold;
-        }
-        span{
-            color: red; font-size: 18px;font-weight: bold;
-        }
-        .bmi-table{
-            padding: 0px;
-            margin: -10px 0px -10px -10px;
+        function padLeftZero (str) {
+            return ('00' + str).substr(str.length)
         }
 
-        th td{
-            padding: 2px;
-            line-height: -0.529;
-            height: 22px;
-            vertical-align: top;
-            border-top: 1px solid #ddd;
-            text-align: center;
-            margin: -10px 0px -10px -10px;
-        }
-        .train-goal{
-            width:197px ;
-            word-break: break-all;
-            color: #07ca8f;
-            font-size: 16px;solid-color: #07ca8f;
-            vertical-align: middle !important;
-            text-align: center;
-            margin: 16px;
-            line-height: 2;
-        }
-    </style>
+        var url = function(name) {
+            var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+            var r = window.location.search.substr(1).match(reg);
+            if(r!=null)return  unescape(r[2]); return null;
+        };
+    </script>
 </head>
 <body>
 
 <div style="align-content: center;margin:0 auto;text-align-all: center;">
     <button class='btn btn-primary ' onclick="jqPrint('main')" >打印</button>
 </div>
-<div class="container" id="main" style="width:850px;height:978px">
+<div class="container" id="main" style="width:850px;height:950px">
     <div class="row">
-        <table class="table table-bordered">
+        <table class="table table-bordered" >
             <tr>
-                <td colspan="3" class="logo_img">
-                    <img src="/admin/statics/images/logo.jpg"/>
-                </td>
-                <td colspan="7" class="logo_text">
-                    <h3 class="text-center" >梦锐体能测评报告</h3>
+                <td colspan="10" class="logo_text">
+                        <div class="title_img">
+                            <div><img src="/admin/statics/images/logo.jpg"/></div>
+                            <div class="title_font">梦锐体能测评报告</div>
+                        </div>
                 </td>
             </tr>
-            <tr>
+            <tr class="title_tr">
                 <th>门店</th>
                 <th>姓名</th>
                 <th>性别</th>
@@ -84,7 +73,7 @@
                 <th>出勤率</th>
                 <th>测试人</th>
             </tr>
-            <tr>
+            <tr class="content_tr">
                 <th>{{student.schoolName}}</th>
                 <th>{{student.realname}}</th>
                 <th>{{student.gender}}</th>
@@ -97,18 +86,16 @@
                 <th>{{lastStuGrade.teacherName}}</th>
             </tr>
 
-            <tr>
-                <td colspan="5" class="pro-title">该年龄段训练目标	 </td>
-                <td colspan="5" class="pro-title">身体形态测评</td>
+            <tr class="pro-title">
+                <td colspan="5" >该年龄段训练目标	 </td>
+                <td colspan="5" >身体形态测评</td>
             </tr>
             <tr>
-                <td colspan="5" class="td-train-goal">
-                    <div class="train-goal">
+                <td colspan="5" class="td-train-bmi td-train-goal train-goal">
                         &nbsp;&nbsp; {{trainGoal.trainGoal}}
-                    </div>
 
                 </td>
-                <td colspan="5" class="bmi-content">
+                <td colspan="5" class="td-train-bmi bmi-content">
                     <table class="table table-border bmi-table">
                         <tr>
                             <td colspan="2">身高: <span style="color: red; font-size: 16px;">{{lastBmiGrade.height}} </span>cm</td>
@@ -118,7 +105,7 @@
                                 <span style="color: red; font-size: 18px;">{{lastBmiGrade.bmiGrade}}</span>
                             </td>
                         </tr>
-                        <tr>
+                        <tr style="border: none;">
                             <td colspan="6">
                                 <img id="bmiChartImg" style="width:220px;height:220px;display:none;" >
                                 <div id="bmiChart" style="width: 220px;height:220px;top: -5px;left:10px">
@@ -130,17 +117,18 @@
                 </td>
             </tr>
 
-            <tr>
-                <td colspan="10" class="pro-title">身体素质测评数据 </td>
+            <tr class="pro-title">
+                <td colspan="10">身体素质测评数据 </td>
             </tr>
             <tr>
                 <td colspan="10">
                     <table class="table table-border pro-table">
-                        <tr>
-                            <td rowspan="2">测试项目</td>
+                        <tr class="pro-table-tr">
+                            <td width="80px"></td>
                             <td v-for="pg in lastProGradeList">{{pg.projectType }}</td>
                         </tr>
-                        <tr>
+                        <tr class="pro-table-title">
+                            <td style="color: #000;">测试项目</td>
                             <td v-for="pg in lastProGradeList">{{pg.projectName}}</td>
                         </tr>
                         <tr>
@@ -190,14 +178,14 @@
                 <td colspan="5" class="pro-title"> TGMD-3 大肌肉群发展测试</td>
             </tr>
             <tr>
-                <td colspan="5">
-                    <img id="radarImg" style="width:270px;height:220px;display:none;" >
-                    <div class="four-body" id="radarId" style="width:270px; height:220px;text-align: center;">
+                <td colspan="5" class="chart">
+                    <img id="radarImg" style="width:350px;height:220px;display:none;" >
+                    <div class="four-body" id="radarId" style="width:350px; height:220px;text-align: center;">
                         雷达图
                     </div>
 
                 </td>
-                <td colspan="5">
+                <td colspan="5" class="chart">
                     <img id="barChartImg" style="width:250px;height:220px;display:none;" >
                     <div class="four-right-body" id="barChart" style="width:250px; height:220px;text-align: center;">
                         柱状图
@@ -208,13 +196,13 @@
                 <td colspan="10" class="pro-title">根据测评结果训练建议 </td>
             </tr>
             <tr v-for="proGrade in lastProGradeList">
-                <td colspan="2">{{proGrade.projectType}}</td>
-                <td colspan="8">{{proGrade.suggestion}}</td>
+                <td colspan="2" class="sug-name">{{proGrade.projectType}}</td>
+                <td colspan="8" class="sug-text">{{proGrade.suggestion}}</td>
             </tr>
 
             <tr>
-                <td colspan="2">综合测评</td>
-                <td colspan="8">{{lastStuGrade.suggestion}}</td>
+                <td colspan="2" class="sug-name">综合测评</td>
+                <td colspan="8" class="sug-text">{{lastStuGrade.suggestion}}</td>
             </tr>
             <tr>
                 <td colspan="10" class="pro-title">测试评价结果</td>
@@ -223,9 +211,9 @@
                 <td colspan="3" class="check-res-title">
                     本次体能测试结果评价为
                 </td>
-                <td colspan="2"><span class="pro-title">{{passDesc}}</span></td>
+                <td colspan="2"><span class="pro-title-span">{{passDesc}}</span></td>
                 <td colspan="3" class="check-res-title">你的测评成绩为</td>
-                <td colspan="2"><span class="pro-title">{{scoreDesc}}</span></td>
+                <td colspan="2"><span class="pro-title-span">{{scoreDesc}}</span></td>
             </tr>
             <tr>
                 <td colspan="10" class="future-text">

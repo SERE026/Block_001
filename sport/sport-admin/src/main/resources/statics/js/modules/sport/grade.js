@@ -1,3 +1,4 @@
+var baseURL = "../../";
 var vm = new Vue({
     el:'#main',
     data:{
