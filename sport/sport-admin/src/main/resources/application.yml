@@ -36,10 +36,7 @@ spring:
     request-context-attribute: request
     settings:
       classic_compatible: true
-    template-loader-path: /data/server/web/templates/,classpath:/templates
-  resources:
-    static-locations: classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/,/data/server/web/static/,/data/server/web/public/
-
+    
 
 renren:
   cluster: false  #集群配置  true集群环境   false单机环境，还需打开pom.xml里的spring-session-data-redis注释

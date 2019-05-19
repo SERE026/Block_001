@@ -4,8 +4,22 @@
     <title>学员信息表</title>
 		<#include "/header.html">
     <style>
-        .form-control{
-            width:auto;
+        .form-control-i{
+            width: 20%;
+            height: 34px;
+            padding: 3px 6px;
+            font-size: 14px;
+            line-height: 1.42857143;
+            color: #555;
+            background-color: #fff;
+            background-image: none;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+            box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+            -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+            -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+            transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
         }
     </style>
 </head>
@@ -15,7 +29,7 @@
 
         <div class="grid-btn">
             <#if shiro.hasPermission("sport:student:list")>
-            姓名:<input id="realnameInput" class="form-control" type="text" name="realname"/>
+            姓名:<input id="realnameInput" class="form-control-i" type="text" name="realname"/>
             <a class="btn btn-default" @click="reload"><i class="fa fa-search"></i>&nbsp;查询</a>
             </#if>
 			<#if shiro.hasPermission("sport:student:save")>
@@ -54,7 +68,7 @@
                         </div>
                         <div class="col-sm-3 control-label">出生日期</div>
                         <div class="col-sm-3">
-                            <input type="text" id="birthday" class="form-control" v-model="student.birthday" placeholder="出生日期"/>
+                            <input type="text" id="birthday" autocomplete="off" class="form-control" v-model="student.birthday" placeholder="出生日期"/>
                         </div>
                     </div>
 					<div class="form-group">
@@ -74,7 +88,7 @@
                         </div>
                         <div class="col-sm-3 control-label">报名时间</div>
                         <div class="col-sm-3">
-                            <input type="text" id="registerTime" class="form-control" v-model="student.registerTime"  placeholder="报名时间"/>
+                            <input type="text" id="registerTime" autocomplete="off"  class="form-control" v-model="student.registerTime"  placeholder="报名时间"/>
                         </div>
 
                     </div>
@@ -117,11 +131,11 @@
     <div v-show="!showGrade" id="addGradeId" class="panel panel-default" >
         <form id="formId" class="form-horizontal" style="width: 720px" >
             <div class="form-group">
-                <div class="col-sm-3 control-label">身高</div>
+                <div class="col-sm-3 control-label">身高(厘米)</div>
                 <div class="col-sm-3">
                     <input type="text" class="form-control"  name="height" id="height" placeholder="身高"/>
                 </div>
-                <div class="col-sm-3 control-label">体重</div>
+                <div class="col-sm-3 control-label">体重(公斤)</div>
                 <div class="col-sm-3">
                     <input type="text" class="form-control" name="weight" id="weight" placeholder="体重"/>
                 </div>
@@ -131,7 +145,7 @@
                 <div class="col-sm-3">
                     <input type="text" class="form-control"   name="trainHours" id="trainHours" placeholder="训练时长"/>
                 </div>
-                <div class="col-sm-3 control-label">出勤率</div>
+                <div class="col-sm-3 control-label">出勤率(%)</div>
                 <div class="col-sm-3">
                     <input type="text" class="form-control"   name="attendance" id="attendance" placeholder="出勤率"/>
                 </div>
@@ -145,7 +159,7 @@
                 </div>
                 <div class="col-sm-3 control-label">检测时间</div>
                 <div class="col-sm-3">
-                    <input type="text" class="form-control"  v-on:focus='layDateFun'  name="checkTime" id="checkTime" placeholder="检测时间"/>
+                    <input type="text" class="form-control" autocomplete="off"  name="checkTime" id="checkTime" placeholder="检测时间"/>
                 </div>
             </div>
 

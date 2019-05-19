@@ -70,6 +70,7 @@ public class ProjectConfigController {
         Project project = projectService.getById(projectConfig.getProjectId());
         projectConfig.setProjectName(project.getProjectName())
                 .setProjectType(project.getProjectType())
+                .setRule(project.getRule())
                 .setCreateTime(LocalDateTime.now());
         projectConfigService.save(projectConfig);
 

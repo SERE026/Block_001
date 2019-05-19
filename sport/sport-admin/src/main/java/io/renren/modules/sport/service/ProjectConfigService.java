@@ -23,7 +23,7 @@ public interface ProjectConfigService extends IService<ProjectConfig> {
 
     List<ProjectConfig> getByProjectIds(List<Integer> projectIds);
 
-    List<ProjectConfig> getByFullScoreByProjectIds(List<Integer> projectIds);
+    List<ProjectConfig> getByFullScoreByProjectIds(List<Integer> projectIds,Integer age, Integer gender);
 
     ProjectConfig getByAgeWithGradeRange(Integer projectId, BigDecimal proGrade, Integer age, Integer gender);
 

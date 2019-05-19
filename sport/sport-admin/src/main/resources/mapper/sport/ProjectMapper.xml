@@ -14,10 +14,10 @@
         <result property="updateTime" column="update_time"/>
         <result property="minAge" column="min_age"/>
         <result property="maxAge" column="max_age"/>
-
+        <result property="rule" column="rule"/>
     </resultMap>
     <sql id="Base_column_list">
-        `id`,`project_type`,`project_name`,`project_code`,``min_age`,`max_age`,`remark`,`create_time`,`update_time`
+        `id`,`project_type`,`project_name`,`project_code`,`min_age`,`max_age`,`remark`,`create_time`,`update_time`,`rule`
     </sql>
    <!-- <select id="getProjectByAge" resultMap="projectMap">
         SELECT

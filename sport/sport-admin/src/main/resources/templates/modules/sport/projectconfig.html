@@ -4,23 +4,42 @@
     <title>训练项目参考</title>
 		<#include "/header.html">
     <style>
-        .form-control{
-            width:auto;
+        .form-control-i{
+            width: 20%;
+            height: 34px;
+            padding: 3px 6px;
+            font-size: 14px;
+            line-height: 1.42857143;
+            color: #555;
+            background-color: #fff;
+            background-image: none;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+            box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+            -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+            -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+            transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
         }
+
     </style>
 </head>
 <body>
 <div id="rrapp" v-cloak>
     <div v-show="showList">
         <div class="grid-btn">
-            <div class="form-group col-sm-2">
-                项目名称:<input type="text" class="form-control" id="projectNameInput"  placeholder="项目名称"/>
-                年龄:<input type="text" class="form-control" id="ageInput" placeholder="年龄"/>
-                性别: <select class="form-control" id="genderSelect">
-                    <option value="">---请选择--</option>
+            <div>
+                项目名称:<input type="text" class="form-control-i" id="projectNameInput"  placeholder="项目名称"/>
+                年龄:<input type="text" class="form-control-i" id="ageInput" placeholder="年龄"/>
+                性别:
+                <select class="form-control-i" id="genderSelect">
+                    <option>---请选择--</option>
                     <option value="1">男</option>
                     <option value="2">女</option>
                 </select>
+
+            <!--</div>-->
+            <!--<div class="form-group col-sm-12">-->
                 <a class="btn btn-default" @click="query">查询</a>
                 <#if shiro.hasPermission("sport:projectconfig:save")>
                 <a class="btn btn-primary" @click="add"><i class="fa fa-plus"></i>&nbsp;新增</a>

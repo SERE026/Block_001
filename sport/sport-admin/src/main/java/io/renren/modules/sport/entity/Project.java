@@ -53,5 +53,8 @@ public class Project implements Serializable {
 	 */
 	@JsonFormat( pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
 	private LocalDateTime updateTime;
-
+	/**
+	 * 1：分值越大评分越高 2：分值越大评分越低
+	 */
+	private Integer rule;
 }

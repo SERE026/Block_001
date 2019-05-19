@@ -21,7 +21,8 @@ public interface ProjectConfigMapper extends BaseMapper<ProjectConfig> {
 
     List<ProjectConfig> getByProjectIds(@Param("projectIds") List<Integer> projectIds);
 
-    List<ProjectConfig> getByFullScoreByProjectIds(@Param("projectIds")List<Integer> projectIds);
+    List<ProjectConfig> getByFullScoreByProjectIds(@Param("projectIds")List<Integer> projectIds,
+                                                   @Param("age")Integer age, @Param("gender")Integer gender);
 
     ProjectConfig getByAgeWithGradeRange(@Param("projectId")Integer projectId, @Param("proGrade")BigDecimal proGrade,
                                          @Param("age")Integer age, @Param("gender")Integer gender);

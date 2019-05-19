@@ -37,7 +37,18 @@
                             <input type="text" class="form-control" v-model="project.projectName" placeholder="项目名称"/>
                         </div>
                     </div>
-											                    <div class="form-group">
+
+                    <div class="form-group">
+                        <div class="col-sm-2 control-label">评分规则</div>
+                        <div class="col-sm-10">
+                            <select class="form-control"  v-model="project.rule">
+                                <option value="">----请选择-----</option>
+                                <option value="1">分值小评分高/分值大评分低</option>
+                                <option value="2">分值小评分低/分值高评分高</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
                         <div class="col-sm-2 control-label">备注</div>
                         <div class="col-sm-10">
                             <input type="text" class="form-control" v-model="project.remark" placeholder="备注"/>

@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
+
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -28,7 +30,7 @@ public class ProjectConfigServiceImpl extends ServiceImpl<ProjectConfigMapper, P
                 new QueryWrapper<ProjectConfig>()
                         .ge(params.get("age") !=null,"min_age",params.get("age"))
                         .le(params.get("age") !=null,"max_age",params.get("age"))
-                        .eq(params.get("gender") != null,"gender",params.get("gender"))
+                        .eq(Objects.nonNull(params.get("gender")) && !"".equals(params.get("gender")) ,"gender",params.get("gender"))
                         .like(StringUtils.isNotBlank(projectName),"project_name",projectName)
         );
 
@@ -46,8 +48,8 @@ public class ProjectConfigServiceImpl extends ServiceImpl<ProjectConfigMapper, P
     }
 
     @Override
-    public List<ProjectConfig> getByFullScoreByProjectIds(List<Integer> projectIds) {
-        return this.baseMapper.getByFullScoreByProjectIds(projectIds);
+    public List<ProjectConfig> getByFullScoreByProjectIds(List<Integer> projectIds, Integer age, Integer gender) {
+        return this.baseMapper.getByFullScoreByProjectIds(projectIds,age,gender);
     }
 
     @Override

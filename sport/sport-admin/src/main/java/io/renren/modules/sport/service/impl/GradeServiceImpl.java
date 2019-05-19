@@ -160,15 +160,22 @@ public class GradeServiceImpl implements GradeService {
     //综合评分
     private void combineScoreSuggestion(List<ScoreSuggestion> suggestionList, List<ProjectGrade> gradeList, StudentGrade studentGrade) {
         Double avg = gradeList.stream().mapToDouble(projectGrade -> projectGrade.getScore().doubleValue()).average().getAsDouble();
+        log.info("学员：{} 综合评分值：{}",studentGrade.getStudentId(),avg);
         studentGrade.setScore(new BigDecimal(avg));
         Integer passStatus = studentGrade.getScore().compareTo(new BigDecimal("3")) < 0 ? 0 : 1;
         studentGrade.setStatus(passStatus);
-        Optional<ScoreSuggestion> optSug = suggestionList.stream().filter(s -> {
-            return s.getMaxScore().compareTo(new BigDecimal(avg)) >= 0
-                    && s.getMinScore().compareTo(new BigDecimal(avg)) <= 0
-                    && "all".equals(s.getProjectCode());
-        }).findFirst();
-        String sug =  optSug.isPresent() ? optSug.get().getSuggestion(): "满分";
+
+        String sug = "满分";
+        for(ScoreSuggestion s : suggestionList){
+            if(!"all".equals(s.getProjectCode())){
+                continue;
+            }
+            if(s.getMaxScore().compareTo(new BigDecimal(avg)) >= 0
+                    && s.getMinScore().compareTo(new BigDecimal(avg)) <= 0){
+                sug = s.getSuggestion();
+                break;
+            }
+        }
         studentGrade.setSuggestion(sug);
     }
 
@@ -393,14 +400,12 @@ public class GradeServiceImpl implements GradeService {
         //满分配置信息
         //List<Integer> projectIds = lastProGradeList.stream().map(ProjectGradeDTO::getProjectId).collect(Collectors.toList());
         List<Integer> projectIds = lastProGradeMap.keySet().stream().collect(Collectors.toList());
-        List<ProjectConfig> projectList = projectConfigService.getByFullScoreByProjectIds(projectIds);
+        List<ProjectConfig> projectList = projectConfigService.getByFullScoreByProjectIds(projectIds,age,stu.getGender());
         Map<Integer,ProjectConfig> proFullScore = Maps.newHashMap();
         for (ProjectConfig pc : projectList) {
-            if(pc.getMinAge() <=age && pc.getMaxAge()>=age && pc.getGender().equals(stu.getGender())){
-                ProjectGradeDTO dto = lastProGradeMap.get(pc.getProjectId());
-                if(Objects.nonNull(dto)){
-                    proFullScore.put(pc.getProjectId(),pc);
-                }
+            ProjectGradeDTO dto = lastProGradeMap.get(pc.getProjectId());
+            if(Objects.nonNull(dto)){
+                proFullScore.put(pc.getProjectId(),pc);
             }
         }
 

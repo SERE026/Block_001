@@ -159,7 +159,10 @@
                             <td>满分成绩</td>
                             <td v-for="pg in lastProGradeList">
                                 <div v-for="(v,k) in proFullScore" v-if="k==pg.projectId">
+                                    <div v-if="v.rule == 1">
                                     {{v.minScore}}
+                                    </div>
+                                    <div v-else>{{v.maxScore}}</div>
                                 </div>
                             </td>
                         </tr>
