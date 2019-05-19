@@ -13,7 +13,7 @@
     <script src="${request.contextPath}/statics/js/print.js?v=2"></script>
 
     <link rel="stylesheet" href="${request.contextPath}/statics/css/sport/print.css?v=2" media="print">
-    <link rel="stylesheet" href="${request.contextPath}/statics/css/sport/revise_style.css?v=4"/>
+    <link rel="stylesheet" href="${request.contextPath}/statics/css/sport/revise_style.css?v=5"/>
     <script>
         function formatDate (date, fmt) {
             if (/(y+)/.test(fmt)) {
@@ -45,10 +45,10 @@
         };
     </script>
 </head>
-<body>
+<body style="position: relative">
 
-<div style="align-content: center;margin:0 auto;text-align-all: center;">
-    <button class='btn btn-primary ' onclick="jqPrint('main')" >打印</button>
+<div style="position:absolute; left:150px;align-content: center;margin:0 auto;text-align-all: center;">
+    <button class='btn-print ' onclick="jqPrint('main')" >打印</button>
 </div>
 <div class="container" id="main" style="width:850px;height:950px">
     <div class="row">
