@@ -16,14 +16,19 @@ $(function () {
 			{ label: '家长姓名', name: 'familyName', index: 'family_name', width: 80 }, 			
 			{ label: '家长联系方式', name: 'familyMobile', index: 'family_mobile', width: 100 },
 			{ label: '注册/报名时间', name: 'registerTime', index: 'register_time', width: 100 },
-            { label: '备注', name: 'remark', index: 'remark', width: 120 },
+            //{ label: '备注', name: 'remark', index: 'remark', width: 120 },
             { label: '创建时间', name: 'createTime', index: 'create_time', width: 80 },
 			{ label: '修改时间', name: 'updateTime', index: 'update_time', width: 80 },
             { label: '操作', name: 'state', index: 'state', width: 200, edittype:"button",
                 formatter: function(cellVal,grid,rows,id){
-                    let addGradeBtn = "<button class='btn btn-primary ' onclick='vm.addGrade("+rows.id+")' >添加数据</button>" ;
+                    let addGradeBtn = "<button class='btn btn-primary ' onclick='vm.addGrade("+rows.id+")' >添加成绩</button>" ;
+
+                    let updateLastGradeBtn = "<button class='btn btn-primary ' onclick='vm.updateGrade("+rows.id+")' >修改成绩</button>" ;
                     let queryGrade =  "<a class='btn btn-warning' target='_blank' href='/admin/sport/grade/page?studentId="+rows.id+"'>查看</a>" ;
-                    return addGradeBtn + queryGrade;
+                    if(rows.gradeFlag == 1){
+                        return addGradeBtn + updateLastGradeBtn + queryGrade;
+                    }
+                    return addGradeBtn;
                 }
             }
         ],
@@ -73,7 +78,11 @@ var vm = new Vue({
         studentId: null,
         layerIndex: null,
         checkTime: null,
-        schoolList: {}
+        schoolList: {},
+        lastProGradeList: {},
+        bmiGrade: {},
+        lastStuGrade:{},
+        isUpdateProGrade: false
 	},
     mounted: function(){
 	    this.getSchoolList();
@@ -124,35 +133,7 @@ var vm = new Vue({
                 });
 			});
 		},
-		del: function (event) {
-			var ids = getSelectedRows();
-			if(ids == null){
-				return ;
-			}
-			var lock = false;
-            layer.confirm('确定要删除选中的记录？', {
-                btn: ['确定','取消'] //按钮
-            }, function(){
-               if(!lock) {
-                    lock = true;
-		            $.ajax({
-                        type: "POST",
-                        url: baseURL + "sport/student/delete",
-                        contentType: "application/json",
-                        data: JSON.stringify(ids),
-                        success: function(r){
-                            if(r.code == 0){
-                                layer.msg("操作成功", {icon: 1});
-                                $("#jqGrid").trigger("reloadGrid");
-                            }else{
-                                layer.alert(r.msg);
-                            }
-                        }
-				    });
-			    }
-             }, function(){
-             });
-		},
+
 		getInfo: function(id){
 			$.get(baseURL + "sport/student/info/"+id, function(r){
                 vm.student = r.student;
@@ -162,7 +143,10 @@ var vm = new Vue({
 			vm.showList = true;
 			var page = $("#jqGrid").jqGrid('getGridParam','page');
 			$("#jqGrid").jqGrid('setGridParam',{ 
-                page:page
+                page:page,
+                postData:{
+                    'realname':$("#realnameInput").val()
+                }, //发送数据
             }).trigger("reloadGrid");
 		},
         getSchoolList: function(){
@@ -200,7 +184,7 @@ var vm = new Vue({
                 for(i=0; i<r.data.length;i++) {
                     var pro = r.data[i];
                     let input = "<div class='col-sm-3 control-label'>"+pro.projectName+"</div> <div class='col-sm-3'>" +
-                        "<input type='text' class='form-control' projectCode='"+pro.projectCode+"' projectId='"+pro.id+"' onchange='vm.getGradeParams(this)' placeholder='请输入'/>" +
+                        "<input type='text' class='form-control' projectcode='"+pro.projectCode+"' projectid='"+pro.id+"' onchange='vm.getGradeParams(this)' placeholder='请输入'/>" +
                         "</div>"
                     if(i>0 && i%2==0){
                         $("#form-project-group").append("</div><div class=\"form-group\">")
@@ -214,9 +198,70 @@ var vm = new Vue({
                 }
             });
         },
+        getLastProjectGradeList: function(id){
+            vm.rowData = getSelectedRowData(id);
+            var birthday = vm.rowData.birthday;
+            var studentId = vm.rowData.id;
+            vm.studentId = studentId;
+            $.get(baseURL + "sport/project/listByBirthday?birthday="+birthday, function(r){
+                vm.project = r.data;
+                $.get(baseURL + "sport/grade/lastProGradeList?studentId="+studentId, function(resultData){
+                    vm.lastProGradeList = resultData.lastProGradeList;
+                    vm.bmiGrade = resultData.bmiGrade;
+                    vm.lastStuGrade = resultData.lastStuGrade;
+                     $("#height").val(resultData.bmiGrade.height);
+                     $("#weight").val(resultData.bmiGrade.weight);
+                     $("#teacherName").val(resultData.lastStuGrade.teacherName);
+                     $("#trainHours").val(resultData.lastStuGrade.trainHours);
+                     $("#attendance").val(resultData.lastStuGrade.attendance);
+                     $("#checkTime").val(resultData.lastStuGrade.checkTime);
+                    $("#form-project-group").empty();
+                    $("#form-project-group").append("<div class=\"form-group\">")
+                    for(var i=0; i<r.data.length;i++) {
+                        var pro = r.data[i];
+                        var proGradeVal = '';
+                        for(var j=0;j<resultData.lastProGradeList.length;j++){
+                            var prevPro = resultData.lastProGradeList[j];
+                            if(pro.id== prevPro.projectId){
+                                proGradeVal = prevPro.projectGrade;
+                                let project = {
+                                    projectId: prevPro.projectId,
+                                    projectCode: prevPro.projectCode,
+                                    proGrade: proGradeVal
+                                }
+                                vm.inputGradeParam[prevPro.projectCode] = project;
+                            }
+                        }
+
+                        let input = "<div class='col-sm-3 control-label'>"+pro.projectName+"</div> <div class='col-sm-3'>" +
+                            "<input type='text' class='form-control' value='"+proGradeVal+"' projectcode='"+pro.projectCode+"' projectid='"+pro.id+"' onchange='vm.getGradeParams(this)' placeholder='请输入'/>" +
+                            "</div>"
+                        if(i>0 && i%2==0){
+                            $("#form-project-group").append("</div><div class=\"form-group\">")
+                            $("#form-project-group").append(input);
+                        }else{
+                            $("#form-project-group").append(input);
+                        }
+                        if(i==r.data.length-1){
+                            $("#form-project-group").append("</div>");
+                        }
+                    }
+                });
+
+            });
+        },
         addGrade: function(id){
-		    //vm.inputGradeParam = {};
+            vm.isUpdateProGrade=false;
+		    vm.inputGradeParam = {};
 		    vm.showGrade = false;
+		    vm.lastBmiGrade = {};
+		    vm.studentGrade={};
+            $("#height").val('');
+            $("#weight").val('');
+            $("#teacherName").val('');
+            $("#trainHours").val('');
+            $("#attendance").val('');
+            $("#checkTime").val('');
             vm.getProjectInfo(id);
             vm.layerIndex = layer.open({
                 type: 1,
@@ -229,10 +274,25 @@ var vm = new Vue({
                 content: $("#addGradeId")
             });
         },
+        updateGrade: function(id){
+            vm.isUpdateProGrade = true;
+            vm.showGrade = false;
+            //获取最近一次测试成绩
+            vm.getLastProjectGradeList(id);
+            vm.layerIndex = layer.open({
+                type: 1,
+                skin: 'layui-layer-rim', //加上边框
+                area: ['80%', '450px'], //宽高
+                closeBtn: 1, //不显示关闭按钮
+                anim: 2,
+                shadeClose: true, //开启遮罩关闭
+                title: '修改体测数据',
+                content: $("#addGradeId")
+            });
+        },
         getGradeParams: function(event){
-
-		    let proId = $(event).attr("projectId");
-            let proCode = $(event).attr("projectCode");
+		    let proId = $(event).attr("projectid");
+            let proCode = $(event).attr("projectcode");
 		    let value = $(event).val();
 		    let project = {
 		        projectId: proId,
@@ -241,7 +301,7 @@ var vm = new Vue({
             }
 		    vm.inputGradeParam[proCode] = project;
         },
-        saveAllProjectGrade: function (event) {
+        saveOrUpdateProjectGrade: function (event) {
 		    let proList = []
             for(let k in vm.inputGradeParam){
                 proList.push(vm.inputGradeParam[k]);
@@ -255,60 +315,57 @@ var vm = new Vue({
                     attendance:$("#attendance").val(),
                     checkTime: $("#checkTime").val(),
                     proList: proList
-                };
-            $('#btnSaveOrUpdate').button('loading').delay(1000).queue(function() {
-                let url = baseURL + "sport/grade/save";
-                $.ajax({
-                    type: "POST",
-                    url: url,
-                    contentType: "application/json",
-                    //data: vm.inputGradeParam,
-                    data:JSON.stringify(data),
-                    success: function(r){
-                        if(r.code === 0){
-                            layer.msg("操作成功", {icon: 1});
-                            vm.reload();
-                            $('#saveStudentGrade').button('reset');
-                            $('#saveStudentGrade').dequeue();
-                        }else{
-                            layer.alert(r.msg);
-                            $('#btnSaveOrUpdate').button('reset');
-                            $('#btnSaveOrUpdate').dequeue();
-                        }
+            };
+            let url = vm.isUpdateProGrade ? "sport/grade/update" : "sport/grade/save";
+            $.ajax({
+                type: "POST",
+                url: baseURL+url,
+                contentType: "application/json",
+                //data: vm.inputGradeParam,
+                data:JSON.stringify(data),
+                success: function(r){
+                    if(r.code === 0){
+                        layer.msg("操作成功", {icon: 1});
+                        vm.reload();
                         layer.close(vm.layerIndex);
+                    }else{
+                        layer.alert(r.msg);
                     }
-                });
-            })
 
+                }
+            });
         },
         layDateFun: function (event) {
             layui.use('laydate', function(){
                 var laydate = layui.laydate.render({
                     elem: '#checkTime', //指定元素
                     type: 'datetime',
+                    trigger: 'click',
                     done: function(value, date, endDate){
-                        alert(value)
                         vm.checkTime = value;
                     }
                 });
             });
         },
         layDateRegisterTime: function (event) {
-            layui.use('laydate', function(){
-                layui.laydate.render({
-                    elem: '#registerTime', //指定元素
-                    type: 'datetime',
-                    done: function(value, date, endDate){
-                        vm.student.registerTime = value;
-                    }
+
+                layui.use('laydate', function(){
+                    layui.laydate.render({
+                        elem: '#registerTime', //指定元素
+                        type: 'datetime',
+                        trigger: 'click',
+                        done: function(value, date, endDate){
+                            vm.student.registerTime = value;
+                        }
+                    });
                 });
-            });
         },
         layDateBirthday: function (event) {
             layui.use('laydate', function(){
                 layui.laydate.render({
                     elem: '#birthday', //指定元素
                     type: 'datetime',
+                    trigger: 'click',
                     done: function(value, date, endDate){
                         vm.student.birthday = value;
                     }
@@ -327,27 +384,4 @@ var vm = new Vue({
 });
 
 
-/*layui.use('laydate', function(){
-    var laydate = layui.laydate.render({
-        elem: '#checkTime', //指定元素
-        type: 'datetime',
-        event: 'focus'
-        // done: function(value, date, endDate){
-        //     alert(value); //得到日期生成的值，如：2017-08-18
-        //     vm.checkTime = value;
-        // }
-    });
-
-    var laydateRegTime = layui.laydate.render({
-        elem: '#registerTime', //指定元素
-        type: 'datetime',
-        event: 'focus'
-    });
-
-    var laydateBirthDay = layui.laydate.render({
-        elem: '#birthday', //指定元素
-        type: 'datetime',
-        event: 'focus'
-    });
-});*/
 

@@ -3,9 +3,11 @@ spring:
     type: com.alibaba.druid.pool.DruidDataSource
     druid:
       driver-class-name: com.mysql.jdbc.Driver
-      url: jdbc:mysql://localhost:3306/db_sport?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false
+#      url: jdbc:mysql://localhost:3306/db_sport?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false
 #      url: jdbc:mysql://localhost:3306/rr_test?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false
-      username: root
+      url: jdbc:mysql://rm-2zep7r05h9l668xp28o.mysql.rds.aliyuncs.com:3306/db_mengrui?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false
+#      username: root
+      username: mengrui
 #      password: RMYchao
       password: The_New_World_AK47
       initial-size: 10
