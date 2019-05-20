@@ -34,12 +34,14 @@ import java.util.Map;
 @Configuration
 public class ShiroConfig {
 
+    @Value("${renren.globalSessionTimeout:3600}")
+    long globalSessionTimeout;
     /**
      * 单机环境，session交给shiro管理
      */
     @Bean("sessionManager")
     @ConditionalOnProperty(prefix = "renren", name = "cluster", havingValue = "false")
-    public DefaultWebSessionManager sessionManager(@Value("${renren.globalSessionTimeout:3600}") long globalSessionTimeout){
+    public DefaultWebSessionManager sessionManager(/*@Value("${renren.globalSessionTimeout:3600}") long globalSessionTimeout*/){
         DefaultWebSessionManager sessionManager = new DefaultWebSessionManager();
         sessionManager.setSessionValidationSchedulerEnabled(true);
         sessionManager.setSessionIdUrlRewritingEnabled(false);
@@ -59,10 +61,10 @@ public class ShiroConfig {
     }
 
     @Bean("securityManager")
-    public SecurityManager securityManager(@Qualifier("userRealm") UserRealm userRealm, @Qualifier("sessionManager") SessionManager sessionManager) {
+    public SecurityManager securityManager(@Qualifier("userRealm") UserRealm userRealm) {
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
         securityManager.setRealm(userRealm);
-        securityManager.setSessionManager(sessionManager);
+        securityManager.setSessionManager(sessionManager());
         securityManager.setRememberMeManager(null);
 
         return securityManager;
