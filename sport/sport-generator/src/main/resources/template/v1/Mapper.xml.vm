@@ -35,7 +35,7 @@
 
     </sql>
 
-    <insert id="insert${className}" parameterType="${package}.${moduleName}.entity.${className}">
+    <insert id="insert" parameterType="${package}.${moduleName}.entity.${className}">
         insert into ${tableName}
         (<include refid="baseColumns"/>)
         values
@@ -46,7 +46,7 @@
         )
     </insert>
 
-    <insert id="insertBatch${className}" parameterType="${package}.${moduleName}.entity.${className}">
+    <insert id="insertBatch" parameterType="${package}.${moduleName}.entity.${className}">
         insert into ${tableName}
         (<include refid="baseColumns"/>)
         values
@@ -60,13 +60,13 @@
         </foreach>
     </insert>
 
-    <select id="get${className}ById" resultMap="${classname}Map">
+    <select id="getById" resultMap="${classname}Map">
         select
         <include refid="baseColumns"/>
         from ${tableName} where ${pk.columnName}=#{${pk.attrname}}
     </select>
 
-    <select id="list${className}ByCondition" resultMap="${classname}Map" parameterType="${package}.${moduleName}.entity.${className}">
+    <select id="listByCondition" resultMap="${classname}Map" parameterType="${package}.${moduleName}.entity.${className}">
         select
         <include refid="baseColumns"/>
         from ${tableName}
@@ -74,7 +74,7 @@
         order by ${pk.columnName} desc
     </select>
 
-    <update id="update${className}ById" parameterType="${package}.${moduleName}.entity.${className}">
+    <update id="updateById" parameterType="${package}.${moduleName}.entity.${className}">
         update ${tableName}
         <include refid="updateColumn"/>
         where ${pk.columnName} = #{${pk.attrname}}

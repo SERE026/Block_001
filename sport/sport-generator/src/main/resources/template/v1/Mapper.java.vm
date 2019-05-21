@@ -19,22 +19,22 @@ public interface ${className}Mapper {
     * 根据条件查询
     * @Param record
     */
-    List<${className}> list${className}ByCondition(${className} record);
+    List<${className}> listByCondition(${className} record);
     /**
     * 新增
     * @Param record
     */
-    int insert${className}(${className} record);
+    int insert(${className} record);
     /**
     * 批量插入
     * @Param list
     */
-    Integer insertBatch${className}(List<${className}> list);
+    Integer insertBatch(List<${className}> list);
     /**
     * 根据主键查询
     * @Param record
     */
-    ${className} get${className}ById(${pk.attrType} ${pk.attrname});
+    ${className} getById(${pk.attrType} ${pk.attrname});
     /**
     * 批量更新
     * @Param list
@@ -44,5 +44,5 @@ public interface ${className}Mapper {
     * 单条更新
     * @Param record
     */
-    int update${className}ById(${className} record);
+    int updateById(${className} record);
 }
