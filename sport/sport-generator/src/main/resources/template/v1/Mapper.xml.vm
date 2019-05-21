@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="${package}.${moduleName}.mapper.${className}Mapper">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="${package}.${moduleName}.entity.${className}" id="${classname}Map">
+#foreach($column in $columns)
+        <result property="${column.attrname}" column="${column.columnName}"/>
+#end
+    </resultMap>
+
+    <sql id="baseColumns">
+    #foreach($column in $columns) $column.columnName#if($velocityCount != $columns.size()),#end #end
+    </sql>
+
+    <sql id="whereCondition">
+        <where>
+#foreach($column in $columns)
+#if($column.columnName != $pk.columnName)
+          <if test="$column.attrname != null #if($column.attrType == 'String' ) and $column.attrname != '' #end ">and $column.columnName = #{$column.attrname}</if>
+#end
+#end
+        </where>
+    </sql>
+
+    <sql id="updateColumn">
+        <trim prefix="SET" suffixOverrides=",">
+#foreach($column in $columns)
+#if($column.columnName != $pk.columnName)
+            <if test="$column.attrname != null #if($column.attrType == 'String' ) and $column.attrname != '' #end ">$column.columnName = #{$column.attrname},</if>
+#end
+#end
+        </trim>
+
+    </sql>
+
+    <insert id="insert${className}" parameterType="${package}.${moduleName}.entity.${className}">
+        insert into ${tableName}
+        (<include refid="baseColumns"/>)
+        values
+        (
+#foreach($column in $columns)
+#{$column.attrname} #if($velocityCount != $columns.size()),#end #end
+
+        )
+    </insert>
+
+    <insert id="insertBatch${className}" parameterType="${package}.${moduleName}.entity.${className}">
+        insert into ${tableName}
+        (<include refid="baseColumns"/>)
+        values
+        <foreach collection="list" item="item" separator=",">
+        (
+#foreach($column in $columns)
+#{item.$column.attrname}#if($velocityCount != $columns.size()),#end
+#end
+
+        )
+        </foreach>
+    </insert>
+
+    <select id="get${className}ById" resultMap="${classname}Map">
+        select
+        <include refid="baseColumns"/>
+        from ${tableName} where ${pk.columnName}=#{${pk.attrname}}
+    </select>
+
+    <select id="list${className}ByCondition" resultMap="${classname}Map" parameterType="${package}.${moduleName}.entity.${className}">
+        select
+        <include refid="baseColumns"/>
+        from ${tableName}
+        <include refid="whereCondition"/>
+        order by ${pk.columnName} desc
+    </select>
+
+    <update id="update${className}ById" parameterType="${package}.${moduleName}.entity.${className}">
+        update ${tableName}
+        <include refid="updateColumn"/>
+        where ${pk.columnName} = #{${pk.attrname}}
+    </update>
+    <update id="updateBatchByIds" parameterType="java.util.List">
+        update ${tableName}
+        <trim prefix="set" suffixOverrides=",">
+#foreach($column in $columns)
+#if($column.columnName != $pk.columnName)
+            <trim prefix="$column.columnName = case" suffix="end,">
+                <foreach collection="list" item="item" index="index">
+                    <if test="item.$column.attrname !=null #if($column.attrType == 'String' ) and item.$column.attrname != '' #end ">
+                        when $pk.columnName=#{item.$pk.attrname} then #{item.$column.attrname}
+                    </if>
+                </foreach>
+            </trim>
+#end
+#end
+        </trim>
+        where $pk.columnName in
+        <foreach collection="list" index="index" item="item" separator="," open="(" close=")">
+            #{item.$pk.attrname}
+        </foreach>
+    </update>
+</mapper>
