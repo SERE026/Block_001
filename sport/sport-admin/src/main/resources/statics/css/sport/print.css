@@ -4,7 +4,7 @@ nav, aside {
 
 body {
     -webkit-print-color-adjust: exact;
-    width: 98%;
+    width: 840px;
     margin: 0;
     padding: 0;
 }
@@ -36,9 +36,6 @@ body {font-family: "微软雅黑" !important; margin: 0; padding: 0; background-
 }
 .table>tbody>tr>td,.table>tbody>tr>th{
     border: 1px #d6d6d6 solid;
-}
-.table>tbody>tr>th {
-    width: 20px;
 }
 .table tr .logo_text{
     padding: 0;
@@ -90,13 +87,8 @@ body {font-family: "微软雅黑" !important; margin: 0; padding: 0; background-
     font-family: "微软雅黑";
 }
 
-.pro-title_1{
-    padding: 0;
-    margin: 0;
-    width: 100%;
-}
 .td-train-bmi{
-    width: 50%;
+    width: 425px;
 }
 .train-goal{
     word-break: break-all;
@@ -129,15 +121,16 @@ body {font-family: "微软雅黑" !important; margin: 0; padding: 0; background-
 }
 
 .sug-name{
-    width: 4%;
+    width: 136px;
     text-align: center;
     font-size: 14px;
 }
 .sug-text{
     font-size: 14px;
+    text-align: center;
 }
 .chart{
-    width: 50%;
+    width: 425px;
 }
 .check-res-title{
     text-align: center;height: 22px;
@@ -152,4 +145,29 @@ body {font-family: "微软雅黑" !important; margin: 0; padding: 0; background-
     color: red; font-size: 18px;font-weight: bold;
     display: block;
     text-align: center;
+}
+
+.btn-print{
+    color: #fff;
+    background-color: #337ab7;
+    border-color: #2e6da4;
+    display: inline-block;
+    padding: 6px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
 }

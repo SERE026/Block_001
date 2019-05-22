@@ -24,9 +24,6 @@ body {font-family: "微软雅黑" !important; margin: 0; padding: 0; background-
 .table>tbody>tr>td,.table>tbody>tr>th{
     border: 1px #d6d6d6 solid;
 }
-.table>tbody>tr>th {
-   width: 20px;
-}
 .table tr .logo_text{
     padding: 0;
     height:24px;
@@ -77,13 +74,8 @@ body {font-family: "微软雅黑" !important; margin: 0; padding: 0; background-
     font-family: "微软雅黑";
 }
 
-.pro-title_1{
-    padding: 0;
-    margin: 0;
-    width: 100%;
-}
 .td-train-bmi{
-    width: 50%;
+    width: 425px;
 }
 .train-goal{
     word-break: break-all;
@@ -116,15 +108,16 @@ body {font-family: "微软雅黑" !important; margin: 0; padding: 0; background-
 }
 
 .sug-name{
-    width: 4%;
+    width: 136px;
     text-align: center;
     font-size: 14px;
 }
 .sug-text{
     font-size: 14px;
+    text-align: center;
 }
 .chart{
-    width: 50%;
+    width: 425px;
 }
 .check-res-title{
     text-align: center;height: 22px;

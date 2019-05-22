@@ -107,8 +107,8 @@
                         </tr>
                         <tr style="border: none;">
                             <td colspan="6">
-                                <img id="bmiChartImg" style="width:220px;height:220px;display:none;" >
-                                <div id="bmiChart" style="width: 220px;height:220px;top: -5px;left:10px">
+                                <img id="bmiChartImg" style="width:350px;height:220px;display:none;" >
+                                <div id="bmiChart" style="width: 350px;height:220px;margin: 0 auto;">
                                     柱状图
                                 </div>
                             </td>
@@ -183,14 +183,14 @@
             <tr>
                 <td colspan="5" class="chart">
                     <img id="radarImg" style="width:350px;height:220px;display:none;" >
-                    <div class="four-body" id="radarId" style="width:350px; height:220px;text-align: center;">
+                    <div class="four-body" id="radarId" style="width:350px; height:220px;margin:0 auto;text-align: center;">
                         雷达图
                     </div>
 
                 </td>
                 <td colspan="5" class="chart">
-                    <img id="barChartImg" style="width:250px;height:220px;display:none;" >
-                    <div class="four-right-body" id="barChart" style="width:250px; height:220px;text-align: center;">
+                    <img id="barChartImg" style="width:350px;height:220px;display:none;" >
+                    <div class="four-right-body" id="barChart" style="width:350px; height:220px;margin:0 auto;text-align: center;">
                         柱状图
                     </div>
                 </td>
@@ -198,14 +198,20 @@
             <tr>
                 <td colspan="10" class="pro-title">根据测评结果训练建议 </td>
             </tr>
-            <tr v-for="proGrade in lastProGradeList">
-                <td colspan="2" class="sug-name">{{proGrade.projectType}}</td>
-                <td colspan="8" class="sug-text">{{proGrade.suggestion}}</td>
-            </tr>
-
             <tr>
-                <td colspan="2" class="sug-name">综合测评</td>
-                <td colspan="8" class="sug-text">{{lastStuGrade.suggestion}}</td>
+                <td  colspan="10">
+                <table class="table">
+                    <tr v-for="proGrade in lastProGradeList">
+                        <td colspan="2" class="sug-name">{{proGrade.projectType}}</td>
+                        <td colspan="8" class="sug-text">{{proGrade.suggestion}}</td>
+                    </tr>
+
+                    <tr>
+                        <td colspan="2" class="sug-name">综合测评</td>
+                        <td colspan="8" class="sug-text">{{lastStuGrade.suggestion}}</td>
+                    </tr>
+                </table>
+                </td>
             </tr>
             <tr>
                 <td colspan="10" class="pro-title">测试评价结果</td>

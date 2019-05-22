@@ -180,7 +180,7 @@ function bmiChartFun(bmiDataY,bmiGrade){
 		calculable : true,
 		grid: {
 			position:'center',
-			left: '1%',
+			left: '2%',
 			right: '1%',
 			bottom: '8%',
 			containLabel: true
