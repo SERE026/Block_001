@@ -1,0 +1,48 @@
+package ${package}.${moduleName}.mapper;
+
+import ${package}.${moduleName}.entity.${className};
+import org.apache.ibatis.annotations.Mapper;
+import java.util.List;
+import java.lang.Integer;
+
+/**
+ * ${comments}
+ * 
+ * @author ${author}
+ * @email ${email}
+ * @date ${datetime}
+ */
+@Mapper
+public interface ${className}Mapper {
+
+    /**
+    * 根据条件查询
+    * @Param record
+    */
+    List<${className}> listByCondition(${className} record);
+    /**
+    * 新增
+    * @Param record
+    */
+    int insert(${className} record);
+    /**
+    * 批量插入
+    * @Param list
+    */
+    Integer insertBatch(List<${className}> list);
+    /**
+    * 根据主键查询
+    * @Param record
+    */
+    ${className} getById(${pk.attrType} ${pk.attrname});
+    /**
+    * 批量更新
+    * @Param list
+    */
+    Integer updateBatchByIds(List<${className}> list);
+    /**
+    * 单条更新
+    * @Param record
+    */
+    int updateById(${className} record);
+}

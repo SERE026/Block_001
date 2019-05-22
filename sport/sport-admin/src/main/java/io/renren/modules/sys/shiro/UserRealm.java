@@ -33,7 +33,7 @@ import java.util.*;
  *
  * @author Mark sunlightcs@gmail.com
  */
-@Component
+@Component("userRealm")
 public class UserRealm extends AuthorizingRealm {
     @Autowired
     private SysUserDao sysUserDao;
