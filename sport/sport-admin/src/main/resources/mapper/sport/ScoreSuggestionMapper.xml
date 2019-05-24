@@ -24,6 +24,8 @@
         WHERE project_code = #{projectCode}
         AND min_score <= #{scoreLevel}
         AND max_score >= #{scoreLevel}
+        order by id asc
+        limit 1
         ]]>
     </select>
 
