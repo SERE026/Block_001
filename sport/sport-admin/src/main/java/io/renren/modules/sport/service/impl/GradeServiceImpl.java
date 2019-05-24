@@ -98,11 +98,10 @@ public class GradeServiceImpl implements GradeService {
 
         List<ProjectGrade> gradeList = Lists.newArrayList();
         if(!CollectionUtils.isEmpty(grade.getProList())){
-            List<ScoreSuggestion> suggestionList = suggestionService.list();
             grade.getProList().forEach(g ->{
                 //获取评分等级项
                 ProjectConfig pcconf = getProjectConfigByAgeWithGradeRange(stu, age, g);
-                String optSug = getScoreSuggestion(suggestionList, pcconf);
+                String optSug = getScoreSuggestion(pcconf);
                 ProjectGrade pg = ProjectGrade.builder()
                         .projectGrade(g.getProGrade())
                         .projectId(g.getProjectId())
@@ -132,7 +131,7 @@ public class GradeServiceImpl implements GradeService {
             //        身体素质测试总分÷项目数=4~5					良好
             //        身体素质测试总分÷项目数=5					优秀
             //        */
-            combineScoreSuggestion(suggestionList, gradeList, studentGrade);
+            combineScoreSuggestion(gradeList, studentGrade);
             studentGrade.setAgeRange(bmiGrade.getAgeRange());
 
             studentGradeService.updateById(studentGrade);
@@ -158,24 +157,15 @@ public class GradeServiceImpl implements GradeService {
     }
 
     //综合评分
-    private void combineScoreSuggestion(List<ScoreSuggestion> suggestionList, List<ProjectGrade> gradeList, StudentGrade studentGrade) {
+    private void combineScoreSuggestion(List<ProjectGrade> gradeList, StudentGrade studentGrade) {
         Double avg = gradeList.stream().mapToDouble(projectGrade -> projectGrade.getScore().doubleValue()).average().getAsDouble();
         log.info("学员：{} 综合评分值：{}",studentGrade.getStudentId(),avg);
         studentGrade.setScore(new BigDecimal(avg));
         Integer passStatus = studentGrade.getScore().compareTo(new BigDecimal("3")) < 0 ? 0 : 1;
         studentGrade.setStatus(passStatus);
 
-        String sug = "满分";
-        for(ScoreSuggestion s : suggestionList){
-            if(!"all".equals(s.getProjectCode())){
-                continue;
-            }
-            if(s.getMaxScore().compareTo(new BigDecimal(avg)) >= 0
-                    && s.getMinScore().compareTo(new BigDecimal(avg)) <= 0){
-                sug = s.getSuggestion();
-                break;
-            }
-        }
+        ScoreSuggestion suggestion = suggestionService.getByProjectCodeWithScoreRange("all",new BigDecimal(avg));
+        String sug = suggestion != null ? suggestion.getSuggestion() : "满分";
         studentGrade.setSuggestion(sug);
     }
 
@@ -195,12 +185,10 @@ public class GradeServiceImpl implements GradeService {
     }
 
     /*获取单项评分建议*/
-    private String getScoreSuggestion(List<ScoreSuggestion> suggestionList, ProjectConfig pcconf) {
+    private String getScoreSuggestion(ProjectConfig pcconf) {
         Project project = projectService.getById(pcconf.getProjectId());
-        Optional<ScoreSuggestion> optSug = suggestionList.stream().filter(s -> {
-            return project.getProjectCode().equals(s.getProjectCode()) && s.getMaxScore().compareTo(pcconf.getScoreLevel()) >= 0 && s.getMinScore().compareTo(pcconf.getScoreLevel()) <= 0;
-        }).findFirst();
-        return optSug.isPresent() ? optSug.get().getSuggestion() : "满分";
+        ScoreSuggestion suggestion = suggestionService.getByProjectCodeWithScoreRange(project.getProjectCode(), pcconf.getScoreLevel());
+        return suggestion != null ? suggestion.getSuggestion() : "满分";
     }
 
     /** 根据年龄,性别,成绩 获取 基准信息*/
@@ -255,12 +243,11 @@ public class GradeServiceImpl implements GradeService {
         bmiGrade.setScore(bmiGrade.getBmiGrade());
         List<ProjectGrade> gradeList = Lists.newArrayList();
         if(!CollectionUtils.isEmpty(grade.getProList())){
-            List<ScoreSuggestion> suggestionList = suggestionService.list();
             LocalDateTime finalCheckTime = checkTime;
             grade.getProList().forEach(g ->{
                 //获取评分等级项
                 ProjectConfig pcconf = getProjectConfigByAgeWithGradeRange(stu, age, g);
-                String optSug = getScoreSuggestion(suggestionList, pcconf);
+                String optSug = getScoreSuggestion(pcconf);
                 //查询
                 ProjectGrade oldPg = projectGradeService.getByStuGradeIdWithProjectId(lastStuGrade.getId(),g.getProjectId());
                 ProjectGrade pg = ProjectGrade.builder()
@@ -307,7 +294,7 @@ public class GradeServiceImpl implements GradeService {
             //        身体素质测试总分÷项目数=4~5					良好
             //        身体素质测试总分÷项目数=5					优秀
             //        */
-            combineScoreSuggestion(suggestionList, gradeList, studentGrade);
+            combineScoreSuggestion(gradeList, studentGrade);
 
             studentGradeService.updateById(studentGrade);
             bmiGradeService.updateById(bmiGrade);

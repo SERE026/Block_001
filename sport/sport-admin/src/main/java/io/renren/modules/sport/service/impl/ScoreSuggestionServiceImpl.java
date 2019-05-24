@@ -4,6 +4,8 @@ import io.renren.common.utils.PageResult;
 import io.renren.modules.sport.dao.ScoreSuggestionMapper;
 import io.renren.modules.sport.entity.ScoreSuggestion;
 import org.springframework.stereotype.Service;
+
+import java.math.BigDecimal;
 import java.util.Map;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -24,6 +26,11 @@ public class ScoreSuggestionServiceImpl extends ServiceImpl<ScoreSuggestionMappe
         );
 
         return new PageResult(page);
+    }
+
+    @Override
+    public ScoreSuggestion getByProjectCodeWithScoreRange(String projectCode, BigDecimal scoreLevel) {
+        return this.baseMapper.getByProjectCodeWithScoreRange(projectCode,scoreLevel);
     }
 
 }
