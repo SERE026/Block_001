@@ -28,9 +28,9 @@ public class ProjectConfigServiceImpl extends ServiceImpl<ProjectConfigMapper, P
         IPage<ProjectConfig> page = this.page(
                 new Query<ProjectConfig>().getPage(params),
                 new QueryWrapper<ProjectConfig>()
-                        .ge(params.get("age") !=null,"min_age",params.get("age"))
-                        .le(params.get("age") !=null,"max_age",params.get("age"))
-                        .eq(Objects.nonNull(params.get("gender")) && !"".equals(params.get("gender")) ,"gender",params.get("gender"))
+                        .ge(params.get("age") !=null && !"".equals(params.get("age") ),"min_age",params.get("age"))
+                        .le(params.get("age") !=null&& !"".equals(params.get("age")),"max_age",params.get("age"))
+                        .eq(Objects.nonNull(params.get("gender")) && !"-1".equals(params.get("gender")) ,"gender",params.get("gender"))
                         .like(StringUtils.isNotBlank(projectName),"project_name",projectName)
         );
 
