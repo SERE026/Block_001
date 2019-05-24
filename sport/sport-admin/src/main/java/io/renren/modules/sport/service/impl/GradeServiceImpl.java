@@ -196,8 +196,9 @@ public class GradeServiceImpl implements GradeService {
 
     /*获取单项评分建议*/
     private String getScoreSuggestion(List<ScoreSuggestion> suggestionList, ProjectConfig pcconf) {
+        Project project = projectService.getById(pcconf.getId());
         Optional<ScoreSuggestion> optSug = suggestionList.stream().filter(s -> {
-            return s.getMaxScore().compareTo(pcconf.getScoreLevel()) >= 0 && s.getMinScore().compareTo(pcconf.getScoreLevel()) <= 0;
+            return project.getProjectCode().equals(s.getProjectCode()) && s.getMaxScore().compareTo(pcconf.getScoreLevel()) >= 0 && s.getMinScore().compareTo(pcconf.getScoreLevel()) <= 0;
         }).findFirst();
         return optSug.isPresent() ? optSug.get().getSuggestion() : "满分";
     }
