@@ -64,7 +64,7 @@ body {font-family: "微软雅黑" !important; margin: 0; padding: 0; background-
     text-align: center;
 }
 .table .pro-title td{
-    width: 50%;
+    /*width: 50%;*/
     margin: 0;
     padding: 0;
     height: 28px;
@@ -97,14 +97,18 @@ body {font-family: "微软雅黑" !important; margin: 0; padding: 0; background-
 .pro-table>tbody>tr>td{
     line-height: 5px;
     height: 18px;
+    font-size:12px;
 }
 .pro-table {
     white-space: nowrap;
-    width: 100%;
+    width: 849px;
     text-align: center;
 }
 .pro-table-title>td{
     color: #58ca74;
+}
+.grade-table{
+    width:849px;
 }
 
 .sug-name{

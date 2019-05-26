@@ -3,9 +3,9 @@ $(function () {
         url: baseURL + 'sport/student/list',
         datatype: "json",
         colModel: [			
-			{ label: 'id', name: 'id', index: 'id', width: 50, key: true },
+			{ label: 'id', name: 'id', index: 'id', width: 40, key: true },
 			{ label: '学号', name: 'stuNumber', index: 'stu_number', width: 80 }, 			
-			{ label: '联系方式', name: 'mobile', index: 'mobile', width: 80 }, 			
+			{ label: '联系方式', name: 'mobile', index: 'mobile', width: 120 },
 			{ label: '学生姓名', name: 'realname', index: 'realname', width: 80 }, 			
 			{ label: '性别', name: 'gender', index: 'gender', width: 60 ,
                 formatter: function (cellvalue, options, rowObject) {
@@ -13,13 +13,13 @@ $(function () {
                 }
             },
 			{ label: '出生日期', name: 'birthday', index: 'birthday', width: 80 }, 			
-			{ label: '家长姓名', name: 'familyName', index: 'family_name', width: 80 }, 			
-			{ label: '家长联系方式', name: 'familyMobile', index: 'family_mobile', width: 100 },
+			/*{ label: '家长姓名', name: 'familyName', index: 'family_name', width: 80 },
+			{ label: '家长联系方式', name: 'familyMobile', index: 'family_mobile', width: 100 },*/
 			{ label: '注册/报名时间', name: 'registerTime', index: 'register_time', width: 100 },
             //{ label: '备注', name: 'remark', index: 'remark', width: 120 },
             { label: '创建时间', name: 'createTime', index: 'create_time', width: 80 },
 			{ label: '修改时间', name: 'updateTime', index: 'update_time', width: 80 },
-            { label: '操作', name: 'state', index: 'state', width: 200, edittype:"button",
+            { label: '操作', name: 'state', index: 'state', width: 240, edittype:"button",
                 formatter: function(cellVal,grid,rows,id){
                     let addGradeBtn = "<button class='btn btn-primary ' onclick='vm.addGrade("+rows.id+")' >添加成绩</button>" ;
 
@@ -36,7 +36,7 @@ $(function () {
         height: 385,
         rowNum: 10,
 		rowList : [10,30,50],
-        // rownumbers: true,
+        rownumbers: true,
         // rownumWidth: 25,
         autowidth:true,
         multiselect: true,

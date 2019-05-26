@@ -12,8 +12,8 @@
     <script src="${request.contextPath}/statics/libs/jquery.jqprint-0.3.js"></script>
     <script src="${request.contextPath}/statics/js/print.js?v=2"></script>
 
-    <link rel="stylesheet" href="${request.contextPath}/statics/css/sport/print.css?v=2" media="print">
-    <link rel="stylesheet" href="${request.contextPath}/statics/css/sport/revise_style.css?v=5"/>
+    <link rel="stylesheet" href="${request.contextPath}/statics/css/sport/print.css?v=5" media="print">
+    <link rel="stylesheet" href="${request.contextPath}/statics/css/sport/revise_style.css?v=7"/>
     <script>
         function formatDate (date, fmt) {
             if (/(y+)/.test(fmt)) {
@@ -200,7 +200,7 @@
             </tr>
             <tr>
                 <td  colspan="10">
-                <table class="table">
+                <table class="table grade-table">
                     <tr v-for="proGrade in lastProGradeList">
                         <td colspan="2" class="sug-name">{{proGrade.projectType}}</td>
                         <td colspan="8" class="sug-text">{{proGrade.suggestion}}</td>
