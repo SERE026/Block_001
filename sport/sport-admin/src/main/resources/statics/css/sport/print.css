@@ -15,11 +15,11 @@ h1,h2,h3,h4,h5,h6,em,strong,b{font-weight:bold;}
 del,ins,u,s,a,a:hover{text-decoration:none;}
 body,textarea,input,button,select,keygen,legend{outline:0;}
 i,span,img{ vertical-align: middle;}
-body {font-family: "微软雅黑" !important; margin: 0; padding: 0; background-color: #FBF9F9 !important;}
+body {font-family: "微软雅黑" !important; margin: 0; padding: 0; /*background-color: #FBF9F9 !important;*/}
 
-nav, aside {
-    display: none;
-}
+/*nav, aside {*/
+    /*display: none;*/
+/*}*/
 
 body {
     -webkit-print-color-adjust: exact;
@@ -43,6 +43,7 @@ body {
     height:24px;
     line-height:24px;
     background: #db8b0b;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#db8b0b', endColorstr='#db8b0b', GradientType=0);
 }
 
 .logo_text .title_img div{
@@ -75,6 +76,7 @@ body {
 
 .table .pro-title{
     background-color: yellow;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='yellow', endColorstr='yellow', GradientType=0);
     text-align: center;
 }
 .table .pro-title td{

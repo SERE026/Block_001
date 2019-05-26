@@ -1,3 +1,5 @@
+var baseURL = "../../";
+
 $(function () {
     $("#jqGrid").jqGrid({
         url: baseURL + 'sport/student/list',
@@ -21,10 +23,10 @@ $(function () {
 			{ label: '修改时间', name: 'updateTime', index: 'update_time', width: 80 },
             { label: '操作', name: 'state', index: 'state', width: 240, edittype:"button",
                 formatter: function(cellVal,grid,rows,id){
-                    let addGradeBtn = "<button class='btn btn-primary ' onclick='vm.addGrade("+rows.id+")' >添加成绩</button>" ;
+                    let addGradeBtn = "<button class='btn btn-xs btn-primary ' onclick='vm.addGrade("+rows.id+")' >添加成绩</button>&nbsp;&nbsp;" ;
 
-                    let updateLastGradeBtn = "<button class='btn btn-primary ' onclick='vm.updateGrade("+rows.id+")' >修改成绩</button>" ;
-                    let queryGrade =  "<a class='btn btn-warning' target='_blank' href='/admin/sport/grade/page?studentId="+rows.id+"'>查看</a>" ;
+                    let updateLastGradeBtn = "<button class='btn btn-xs btn-warning ' onclick='vm.updateGrade("+rows.id+")' >修改成绩</button>&nbsp;&nbsp;" ;
+                    let queryGrade =  "<a class='btn btn-xs btn-default' target='_blank' href='/admin/sport/grade/page?studentId="+rows.id+"'>查看</a>" ;
                     if(rows.gradeFlag == 1){
                         return addGradeBtn + updateLastGradeBtn + queryGrade;
                     }
