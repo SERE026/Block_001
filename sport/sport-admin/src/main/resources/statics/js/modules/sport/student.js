@@ -40,6 +40,9 @@ $(function () {
 		rowList : [10,30,50],
         rownumbers: true,
         // rownumWidth: 25,
+        sortable: true,
+        sortname: 'id', //设置默认的排序列
+        sortorder: 'desc',
         autowidth:true,
         multiselect: true,
         shrinkToFit:false,
