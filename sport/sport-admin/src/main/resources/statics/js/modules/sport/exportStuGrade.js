@@ -1,3 +1,4 @@
+'use strict';
 var radarChart, bmiChart,tgmdChart;
 function radarChartFun (radarChartData) {
 	let indicatorType=[];

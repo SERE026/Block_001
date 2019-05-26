@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="${request.contextPath}/statics/css/sport/print.css?v=7" media="print">
     <link rel="stylesheet" href="${request.contextPath}/statics/css/sport/revise_style.css?v=7"/>
     <script>
+        'use strict';
         function formatDate (date, fmt) {
             if (/(y+)/.test(fmt)) {
                 fmt = fmt.replace(RegExp.$1, (date.getFullYear() + '').substr(4 - RegExp.$1.length))
