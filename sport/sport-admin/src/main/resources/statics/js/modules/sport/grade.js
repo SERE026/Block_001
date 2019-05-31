@@ -33,7 +33,7 @@ var vm = new Vue({
             var realVal = parseFloat(value).toFixed(2)
             return realVal
         },
-        formatDate: function(val) {
+        formatYMD: function(val) {
             var date = new Date(val);
             var month = date.getMonth()+1;
             var day = date.getDate();
