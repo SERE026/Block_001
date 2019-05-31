@@ -186,7 +186,7 @@ var vm = new Vue({
                 vm.project = r.data;
                 $("#form-project-group").empty();
                 $("#form-project-group").append("<div class=\"form-group\">")
-                for(i=0; i<r.data.length;i++) {
+                for(var i=0; i<r.data.length;i++) {
                     var pro = r.data[i];
                     let input = "<div class='col-sm-3 control-label'>"+pro.projectName+"</div> <div class='col-sm-3'>" +
                         "<input type='text' class='form-control' projectcode='"+pro.projectCode+"' projectid='"+pro.id+"' onchange='vm.getGradeParams(this)' placeholder='请输入'/>" +

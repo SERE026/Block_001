@@ -44,7 +44,7 @@ public class Student implements Serializable {
 	/**
 	 * 出生日期
 	 */
-	@JsonFormat( pattern="yyyy-MM-dd",timezone = "GMT+8")
+	@JsonFormat( pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
 	private LocalDateTime birthday;
 	/**
 	 * 家长姓名

@@ -429,8 +429,9 @@ public class GradeServiceImpl implements GradeService {
         //Bar chart
         List tgmd3Chart = tgmdChart(lastProGradeList,prevProGradeList,proFullScore);
 
-
         return Result.ok()
+                .put("birthday",stu.getBirthday().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")))
+                .put("checkTime",lastStuGrade.getCheckTime().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")))
                 .put("student",stu)
                 .put("trainGoal",trainGoal)
                 .put("lastStuGrade",lastStuGrade)  //最近一次成绩

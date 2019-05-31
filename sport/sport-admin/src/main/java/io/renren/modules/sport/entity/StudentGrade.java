@@ -89,7 +89,7 @@ public class StudentGrade implements Serializable {
 	/**
 	 * 检测时间
 	 */
-	@JsonFormat( pattern="yyyy-MM-dd",timezone = "GMT+8")
+	@JsonFormat( pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
 	private LocalDateTime checkTime;
 	/**
 	 * 综合评分
