@@ -408,7 +408,6 @@ function tgmdChartFun(tgmdData) {
 							show:true,
 							position: 'inside',
 							formatter:function(p){
-								debugger;
 								return p.value[1];
 							}
 						}}}
@@ -442,7 +441,7 @@ function tgmdChartFun(tgmdData) {
 
 function testBmi(){
 	var testBmiChart = echarts.init(document.getElementById('bmiChart'));
-	option = {
+	var option = {
 		title : {
 			text: 'BMI',
 			subtext: '测试数据'
@@ -450,7 +449,6 @@ function testBmi(){
 		tooltip : {
 			trigger: 'item',
 			formatter: function (params) {
-				debugger
 				if(params.seriesName=='肥胖'){
 					return '肥胖: >21.13';
 				}if(params.seriesName=='偏胖'){
