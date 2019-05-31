@@ -10,6 +10,8 @@ var vm = new Vue({
     el:'#main',
     data:{
         showList: true,
+        birthday:'',
+        checkTime: '',
         student:{},
         trainGoal:{},
         lastStuGrade:{},  //最近一次成绩
@@ -44,6 +46,8 @@ var vm = new Vue({
         getInfo: function(studentId){
             $.get(baseURL + "sport/grade/info?studentId="+studentId, function(r){
                 vm.student = r.student;
+                vm.birthday = r.birthday;
+                vm.checkTime = r.checkTime;
                 vm.trainGoal = r.trainGoal;
                 vm.lastStuGrade = r.lastStuGrade;  //最近一次成绩
                 vm.lastBmiGrade = r.lastBmiGrade;//最近一次
