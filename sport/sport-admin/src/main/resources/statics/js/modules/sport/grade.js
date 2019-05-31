@@ -22,12 +22,12 @@ var vm = new Vue({
         this.loadData();
     },
     filters: {
-        numFilter(value) {
+        numFilter: function(value) {
             // 截取当前数据到小数点后两位
             let realVal = parseFloat(value).toFixed(2)
             return realVal
         },
-        formatDate(val) {
+        formatDate: function(val) {
             let date = new Date(val);
             return formatDate(date,'yyyy-MM-dd')
         }
