@@ -1,10 +1,10 @@
 'use strict';
 var radarChart, bmiChart,tgmdChart;
 function radarChartFun (radarChartData) {
-	let indicatorType=[];
-	let dataVal = [];
+	var indicatorType=[];
+	var dataVal = [];
 
-	for(let index in radarChartData){
+	for(var index in radarChartData){
 		var indType = {
 			'text':radarChartData[index].projectType,
 			'max': 5,
@@ -296,11 +296,12 @@ function bmiChartFun(bmiDataY,bmiGrade){
 							show:true,
 							position: 'inside',
 							formatter:function(p){
-								if(p.value<15.7){
-									return '肥胖';
-								}else if(p.value<20.29){
+
+								if(p.value<normalData[0]){
+									return '偏瘦';
+								}else if(p.value<normalData[1]){
 									return '正常';
-								}else if(p.value<21.12){
+								}else if(p.value<overData[1]){
 									return '偏胖';
 								}else{
 									return '肥胖';

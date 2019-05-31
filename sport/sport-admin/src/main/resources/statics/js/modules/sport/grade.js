@@ -24,11 +24,11 @@ var vm = new Vue({
     filters: {
         numFilter: function(value) {
             // 截取当前数据到小数点后两位
-            let realVal = parseFloat(value).toFixed(2)
+            var realVal = parseFloat(value).toFixed(2)
             return realVal
         },
         formatDate: function(val) {
-            let date = new Date(val);
+            var date = new Date(val);
             return formatDate(date,'yyyy-MM-dd')
         }
     },
