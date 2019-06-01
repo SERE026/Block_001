@@ -10,6 +10,7 @@ package io.renren.modules.sys.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import io.renren.common.annotation.DataFilter;
 import io.renren.common.utils.Constant;
 import io.renren.modules.sys.dao.SysMenuDao;
 import io.renren.modules.sys.entity.SysMenuEntity;
@@ -67,6 +68,17 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuDao, SysMenuEntity> i
 		//用户菜单列表
 		List<Long> menuIdList = sysUserService.queryAllMenuId(userId);
 		return getAllMenuList(menuIdList);
+	}
+
+	/**
+	 * 获取所有有权限的的菜单列表
+	 *
+	 * @return
+	 */
+	@DataFilter(subDept = true)
+	@Override
+	public List<SysMenuEntity> getAllMenuList() {
+		return this.list();
 	}
 
 	@Override

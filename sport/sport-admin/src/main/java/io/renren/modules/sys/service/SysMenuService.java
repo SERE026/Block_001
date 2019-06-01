@@ -46,6 +46,12 @@ public interface SysMenuService extends IService<SysMenuEntity> {
 	List<SysMenuEntity> getUserMenuList(Long userId);
 
 	/**
+	 * 获取所有有权限的的菜单列表
+	 * @return
+	 */
+	List<SysMenuEntity> getAllMenuList();
+
+	/**
 	 * 删除
 	 */
 	void delete(Long menuId);
