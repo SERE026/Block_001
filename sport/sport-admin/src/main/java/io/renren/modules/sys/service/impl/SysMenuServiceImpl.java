@@ -78,10 +78,10 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuDao, SysMenuEntity> i
 	 * @return
 	 * @param params
 	 */
-	@DataFilter(subDept = true)
+	@DataFilter(subDept = true,tableAlias = "u")
 	@Override
 	public List<SysMenuEntity> selectAllMenuList(Map params) {
-		return this.list();
+		return this.baseMapper.queryListByDataScope(params);
 	}
 
 	@Override

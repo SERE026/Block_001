@@ -17,6 +17,8 @@
           sys_role r
           left join sys_user_role ur
           on r.`role_id` = ur.`role_id`
-        where ${sql_filter}
+        <where>
+            ${sql_filter}
+        </where>
     </select>
 </mapper>

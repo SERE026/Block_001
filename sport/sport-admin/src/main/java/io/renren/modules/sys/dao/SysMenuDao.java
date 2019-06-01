@@ -13,6 +13,7 @@ import io.renren.modules.sys.entity.SysMenuEntity;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 菜单管理
@@ -33,4 +34,5 @@ public interface SysMenuDao extends BaseMapper<SysMenuEntity> {
 	 */
 	List<SysMenuEntity> queryNotButtonList();
 
+    List<SysMenuEntity> queryListByDataScope(Map params);
 }
