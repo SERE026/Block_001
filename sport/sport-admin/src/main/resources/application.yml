@@ -36,7 +36,10 @@ spring:
     request-context-attribute: request
     settings:
       classic_compatible: true
-    
+
+  cache:
+    ehcache:
+      config: classpath:/cache/ehcache.xml
 
 renren:
   cluster: false  #集群配置  true集群环境   false单机环境，还需打开pom.xml里的spring-session-data-redis注释
@@ -68,3 +71,5 @@ mybatis-plus:
     cache-enabled: true
     call-setters-on-nulls: true
     jdbc-type-for-null: 'null'
+
+

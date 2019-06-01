@@ -99,8 +99,12 @@
             <groupId>io.sport</groupId>
             <artifactId>sport-datasource</artifactId>
             <version>4.0.0</version>
-            <scope>test</scope>
         </dependency>
+		<dependency> <!-- 开启二级缓存 -->
+			<groupId>org.mybatis.caches</groupId>
+			<artifactId>mybatis-ehcache</artifactId>
+			<version>1.1.0</version>
+		</dependency>
     </dependencies>
 
 	<build>
