@@ -34,4 +34,9 @@ public class MybatisPlusConfig {
     public ISqlInjector sqlInjector() {
         return new LogicSqlInjector();
     }
+
+    /*@Bean
+    public MyBatisSQLInterceptor sqlInterceptor(){
+        return new MyBatisSQLInterceptor();
+    };*/
 }

@@ -14,6 +14,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -33,6 +34,12 @@ public class ProjectConfigTest {
     private ProjectConfigMapper confMapper;
 
     @Test
+    public void test(){
+        confMapper.selectById(1);
+    }
+
+    @Test
+    @Transactional
     public void contextLoads() throws  Exception {
         add305();
         add608();
