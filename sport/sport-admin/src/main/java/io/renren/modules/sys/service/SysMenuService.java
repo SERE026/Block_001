@@ -12,7 +12,9 @@ package io.renren.modules.sys.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import io.renren.modules.sys.entity.SysMenuEntity;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -48,8 +50,9 @@ public interface SysMenuService extends IService<SysMenuEntity> {
 	/**
 	 * 获取所有有权限的的菜单列表
 	 * @return
+	 * @param params
 	 */
-	List<SysMenuEntity> getAllMenuList();
+	List<SysMenuEntity> selectAllMenuList(Map params);
 
 	/**
 	 * 删除

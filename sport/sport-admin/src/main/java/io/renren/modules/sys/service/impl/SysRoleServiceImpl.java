@@ -19,6 +19,7 @@ import io.renren.modules.sys.dao.SysRoleDao;
 import io.renren.modules.sys.entity.SysDeptEntity;
 import io.renren.modules.sys.entity.SysRoleEntity;
 import io.renren.modules.sys.service.*;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,6 +27,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 
@@ -34,6 +36,7 @@ import java.util.Map;
  *
  * @author Mark sunlightcs@gmail.com
  */
+@Slf4j
 @Service("sysRoleService")
 public class SysRoleServiceImpl extends ServiceImpl<SysRoleDao, SysRoleEntity> implements SysRoleService {
 	@Autowired
@@ -65,6 +68,13 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleDao, SysRoleEntity> i
 		}
 
 		return new PageResult(page);
+	}
+
+	@DataFilter(subDept = true)
+	@Override
+	public List<SysRoleEntity> selectAll(Map<String, Object> params) {
+		log.info("params:{}",params);
+		return this.baseMapper.selectAll(params);
 	}
 
 	@Override

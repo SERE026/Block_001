@@ -8,9 +8,13 @@
 
 package io.renren.modules.sys.dao;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import io.renren.modules.sys.entity.SysRoleEntity;
 import org.apache.ibatis.annotations.Mapper;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * 角色管理
@@ -19,6 +23,7 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface SysRoleDao extends BaseMapper<SysRoleEntity> {
-	
 
+
+    List<SysRoleEntity> selectAll(Map params);
 }

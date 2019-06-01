@@ -3,5 +3,20 @@
 
 <mapper namespace="io.renren.modules.sys.dao.SysRoleDao">
 
-
+    <resultMap type="io.renren.modules.sys.entity.SysRoleEntity" id="RoleResult">
+        <id     property="roleId"       column="role_id"        />
+        <result property="roleName"     column="role_name"      />
+        <result property="createTime"   column="create_time"    />
+        <result property="deptId"     column="dept_id"      />
+        <result property="remark"       column="remark"         />
+    </resultMap>
+    <select id="selectAll" resultMap="RoleResult">
+      SELECT
+          r.*
+        FROM
+          sys_role r
+          left join sys_user_role ur
+          on r.`role_id` = ur.`role_id`
+        where ${sql_filter}
+    </select>
 </mapper>

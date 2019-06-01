@@ -22,7 +22,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 @Service("sysMenuService")
@@ -62,7 +64,7 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuDao, SysMenuEntity> i
 	public List<SysMenuEntity> getUserMenuList(Long userId) {
 		//系统管理员，拥有最高权限
 		if(userId == Constant.SUPER_ADMIN){
-			return getAllMenuList(null);
+			return this.getAllMenuList(null);
 		}
 		
 		//用户菜单列表
@@ -74,10 +76,11 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuDao, SysMenuEntity> i
 	 * 获取所有有权限的的菜单列表
 	 *
 	 * @return
+	 * @param params
 	 */
 	@DataFilter(subDept = true)
 	@Override
-	public List<SysMenuEntity> getAllMenuList() {
+	public List<SysMenuEntity> selectAllMenuList(Map params) {
 		return this.list();
 	}
 

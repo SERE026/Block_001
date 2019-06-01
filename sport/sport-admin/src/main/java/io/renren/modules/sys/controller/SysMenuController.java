@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -50,7 +51,7 @@ public class SysMenuController extends AbstractController {
 	@RequestMapping("/list")
 	@RequiresPermissions("sys:menu:list")
 	public List<SysMenuEntity> list(){
-		List<SysMenuEntity> menuList = sysMenuService.getAllMenuList();
+		List<SysMenuEntity> menuList = sysMenuService.selectAllMenuList(new HashMap());
 		for(SysMenuEntity sysMenuEntity : menuList){
 			SysMenuEntity parentMenuEntity = sysMenuService.getById(sysMenuEntity.getParentId());
 			if(parentMenuEntity != null){

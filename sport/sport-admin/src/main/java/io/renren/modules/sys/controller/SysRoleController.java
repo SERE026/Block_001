@@ -20,6 +20,7 @@ import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -55,7 +56,7 @@ public class SysRoleController extends AbstractController {
 	@RequestMapping("/select")
 	@RequiresPermissions("sys:role:select")
 	public Result select(){
-		List<SysRoleEntity> list = sysRoleService.list();
+		List<SysRoleEntity> list = sysRoleService.selectAll(new HashMap<>());
 		
 		return Result.ok().put("list", list);
 	}
