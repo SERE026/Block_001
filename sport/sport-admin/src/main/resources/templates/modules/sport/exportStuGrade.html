@@ -48,7 +48,7 @@
             <tr class="content_tr">
                 <th>{{student.schoolName}}</th>
                 <th>{{student.realname}}</th>
-                <th>{{student.gender}}</th>
+                <th v-if="student.gender == 1">男</th><th v-else>女</th>
                 <th>{{student.age}}</th>
                 <th>{{lastStuGrade.ageRange}}</th>
                 <th>{{birthday}}</th>
