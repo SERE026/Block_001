@@ -26,7 +26,7 @@ $(function () {
                     var addGradeBtn = "<button class='btn btn-xs btn-primary ' onclick='vm.addGrade("+rows.id+")' >添加成绩</button>&nbsp;&nbsp;" ;
 
                     var updateLastGradeBtn = "<button class='btn btn-xs btn-warning ' onclick='vm.updateGrade("+rows.id+")' >修改成绩</button>&nbsp;&nbsp;" ;
-                    var queryGrade =  "<a class='btn btn-xs btn-default' target='_blank' href='/admin/sport/grade/page?studentId="+rows.id+"'>查看</a>" ;
+                    var queryGrade =  "<a class='btn btn-xs btn-default' target='_blank' href='/sport/grade/page?studentId="+rows.id+"'>查看</a>" ;
                     if(rows.gradeFlag == 1){
                         return addGradeBtn + updateLastGradeBtn + queryGrade;
                     }
