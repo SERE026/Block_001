@@ -17,7 +17,7 @@ var cityJson;
 function loadCityData(){
     if(cityJson) return;
     $.getJSON(
-        "/admin/statics/js/modules/area/area.json",
+        "/statics/js/modules/area/area.json",
         function (obj) {
             cityJson=obj;
         }
