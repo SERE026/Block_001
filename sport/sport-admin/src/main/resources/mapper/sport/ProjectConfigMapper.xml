@@ -60,11 +60,11 @@
         FROM `sheet1_305` c , sport_project p WHERE c.pro_name=p.project_name
     </select>
     <select id="importSheet2" resultType="map">
-        SELECT c.*,p.`project_type`,p.`project_name`,p.`project_code`,p.`id` AS project_id
-        FROM `sheet2_608` c , sport_project p WHERE c.pro_name=p.project_name
+      SELECT c.*,p.`project_type`,p.`project_name`,p.`project_code`,p.`id` AS project_id
+      FROM `sheet2_608` c , sport_project p WHERE c.pro_type=p.project_type AND p.`id`=11
     </select>
     <select id="importSheet3" resultType="map">
       SELECT c.*,p.`project_type`,p.`project_name`,p.`project_code`,p.`id` AS project_id
-      FROM `sheet3_911` c , sport_project p WHERE c.pro_name=p.project_name
+      FROM `sheet3_911` c , sport_project p WHERE c.pro_type=p.project_type AND p.`id`=11
     </select>
 </mapper>

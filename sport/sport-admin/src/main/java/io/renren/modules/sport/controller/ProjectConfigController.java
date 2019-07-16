@@ -69,6 +69,7 @@ public class ProjectConfigController {
 
         Project project = projectService.getById(projectConfig.getProjectId());
         projectConfig.setProjectName(project.getProjectName())
+                .setMaxAge(projectConfig.getMaxAge())
                 .setProjectType(project.getProjectType())
                 .setRule(project.getRule())
                 .setCreateTime(LocalDateTime.now());

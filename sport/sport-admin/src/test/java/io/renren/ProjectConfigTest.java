@@ -39,9 +39,9 @@ public class ProjectConfigTest {
     }
 
     @Test
-    @Transactional
+//    @Transactional
     public void contextLoads() throws  Exception {
-        add305();
+//        add305();
         add608();
         add911();
 
