@@ -420,7 +420,7 @@ public class GradeServiceImpl implements GradeService {
 //        Optional<Integer> averageKey = averageMap.keySet().stream().max(Comparator.naturalOrder());
 //        Double score = averageKey.isPresent() ? averageMap.get(averageKey.get()) : 0.0D;
         String passDesc = lastStuGrade.getStatus() == 1 ? "通过" : "不通过";
-        String scoreDesc = getString(lastStuGrade.getScore().doubleValue());
+        String scoreDesc = getString(lastStuGrade.getScore() != null ? lastStuGrade.getScore().doubleValue() : 0L);
 
         //Radar chart
         List<Map<String, Object>> radarChart = radarChart(lastProGradeList);
