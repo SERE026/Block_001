@@ -1,7 +1,5 @@
 package ${package}.${moduleName}.entity;
 
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
 #if(${hasBigDecimal})
@@ -14,22 +12,15 @@ import java.util.Date;
  * ${comments}
  * 
  * @author ${author}
- * @email ${email}
  * @date ${datetime}
  */
 @Data
-@TableName("${tableName}")
 public class ${className} implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 #foreach ($column in $columns)
-	/**
-	 * $column.comments
-	 */
-	#if($column.columnName == $pk.columnName)
-@TableId
-	#end
-private $column.attrType $column.attrname;
+	/** $column.comments */
+	private $column.attrType $column.attrname;
 #end
 
 }

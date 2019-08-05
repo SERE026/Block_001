@@ -23,7 +23,12 @@ import org.apache.velocity.app.Velocity;
 import java.io.File;
 import java.io.IOException;
 import java.io.StringWriter;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
@@ -32,17 +37,17 @@ import java.util.zip.ZipOutputStream;
  *
  * @author Mark sunlightcs@gmail.com
  */
-public class GenUtils {
+public class V1GenUtils {
 
 	public static List<String> getTemplates(){
 		List<String> templates = new ArrayList<String>();
-		templates.add("template/Entity.java.vm");
-		templates.add("template/Mapper.java.vm");
-		templates.add("template/Mapper.xml.vm");
-		templates.add("template/Service.java.vm");
-		templates.add("template/ServiceImpl.java.vm");
-		templates.add("template/Controller.java.vm");
-		templates.add("template/list.html.vm");
+		templates.add("template/v1/Entity.java.vm");
+		templates.add("template/v1/Mapper.java.vm");
+		templates.add("template/v1/Mapper.xml.vm");
+		templates.add("template/v1/Service.java.vm");
+		templates.add("template/v1/ServiceImpl.java.vm");
+		templates.add("template/v1/Controller.java.vm");
+		templates.add("template/v1/list.html.vm");
 		templates.add("template/list.js.vm");
 		templates.add("template/menu.sql.vm");
 		return templates;
@@ -104,6 +109,7 @@ public class GenUtils {
 		prop.put("file.resource.loader.class", "org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader");  
 		Velocity.init(prop);
 
+
 		String mainPath = config.getString("mainPath" );
 		mainPath = StringUtils.isBlank(mainPath) ? "io.renren" : mainPath;
 		
@@ -124,7 +130,8 @@ public class GenUtils {
 		map.put("email", config.getString("email"));
 		map.put("datetime", DateUtils.format(new Date(), DateUtils.DATE_TIME_PATTERN));
         VelocityContext context = new VelocityContext(map);
-
+		context.put("newline","\n");
+		context.put("itab","      ");
         //获取模板列表
 		List<String> templates = getTemplates();
 		for(String template : templates){
@@ -132,7 +139,7 @@ public class GenUtils {
 			StringWriter sw = new StringWriter();
 			Template tpl = Velocity.getTemplate(template, "UTF-8");
 			tpl.merge(context, sw);
-
+			
 			try {
 				//添加到zip
 				zip.putNextEntry(new ZipEntry(getFileName(template, tableEntity.getClassName(), config.getString("package"), config.getString("moduleName"))));
@@ -188,7 +195,7 @@ public class GenUtils {
 		}
 
 		if (template.contains("Mapper.java.vm" )) {
-			return packagePath + "dao" + File.separator + className + "Mapper.java";
+			return packagePath + "mapper" + File.separator + className + "Mapper.java";
 		}
 
 		if (template.contains("Service.java.vm" )) {
@@ -204,7 +211,9 @@ public class GenUtils {
 		}
 
 		if (template.contains("Mapper.xml.vm" )) {
-			return "main" + File.separator + "resources" + File.separator + "mapper" + File.separator + moduleName + File.separator + className + "Mapper.xml";
+//			return "main" + File.separator + "resources" + File.separator + "mapper" + File.separator + moduleName + File.separator + className + "Mapper.xml";
+
+			return packagePath + "mapper" + File.separator + className + "Mapper.xml";
 		}
 
 		if (template.contains("list.html.vm" )) {

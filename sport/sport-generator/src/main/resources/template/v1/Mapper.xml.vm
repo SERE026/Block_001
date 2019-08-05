@@ -11,7 +11,14 @@
     </resultMap>
 
     <sql id="baseColumns">
-    #foreach($column in $columns) $column.columnName#if($velocityCount != $columns.size()),#end #end
+#foreach($column in $columns)
+#**##if($velocityCount == 1)$itab$column.columnName#end##
+#**##if($velocityCount != 1)$column.columnName#end ##
+#* *##if($velocityCount != $columns.size()),#end##
+#**##if($velocityCount%6==0 and $velocityCount != $columns.size())$newline#end##
+#**##if($velocityCount%6== 0)$itab#end##
+#end
+$newline
     </sql>
 
     <sql id="whereCondition">
@@ -41,8 +48,13 @@
         values
         (
 #foreach($column in $columns)
-#{$column.attrname} #if($velocityCount != $columns.size()),#end #end
-
+#**##if($velocityCount == 1)$itab$itab#{$column.attrname}#end##
+#**##if($velocityCount != 1)#{$column.attrname}#end ##
+#* *##if($velocityCount != $columns.size()),#end##
+#**##if($velocityCount%6==0 and $velocityCount != $columns.size())$newline#end##
+#**##if($velocityCount%6== 0)$itab$itab#end##
+#end
+$newline
         )
     </insert>
 
@@ -53,14 +65,18 @@
         <foreach collection="list" item="item" separator=",">
         (
 #foreach($column in $columns)
-#{item.$column.attrname}#if($velocityCount != $columns.size()),#end
+#**##if($velocityCount == 1)$itab$itab#{item.$column.attrname}#end##
+#**##if($velocityCount != 1)#{item.$column.attrname}#end ##
+#* *##if($velocityCount != $columns.size()),#end##
+#**##if($velocityCount%6==0 and $velocityCount != $columns.size())$newline#end##
+#**##if($velocityCount%6== 0)$itab$itab#end##
 #end
-
+$newline
         )
         </foreach>
     </insert>
 
-    <select id="getById" resultMap="${classname}Map">
+    <select id="selectById" resultMap="${classname}Map">
         select
         <include refid="baseColumns"/>
         from ${tableName} where ${pk.columnName}=#{${pk.attrname}}

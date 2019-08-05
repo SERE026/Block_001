@@ -12,10 +12,12 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import io.renren.dao.GeneratorDao;
 import io.renren.utils.GenUtils;
+import io.renren.utils.V1GenUtils;
 import io.renren.utils.PageUtils;
 import io.renren.utils.Query;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.io.ByteArrayOutputStream;
@@ -30,6 +32,10 @@ import java.util.zip.ZipOutputStream;
  */
 @Service
 public class SysGeneratorService {
+
+	@Value("${code.version}")
+	private String codeVersion;
+
 	@Autowired
 	private GeneratorDao generatorDao;
 
@@ -58,7 +64,11 @@ public class SysGeneratorService {
 			//查询列信息
 			List<Map<String, String>> columns = queryColumns(tableName);
 			//生成代码
-			GenUtils.generatorCode(table, columns, zip);
+			if("v1".equalsIgnoreCase(codeVersion)){
+				V1GenUtils.generatorCode(table,columns,zip);
+			}else {
+				GenUtils.generatorCode(table, columns, zip);
+			}
 		}
 		IOUtils.closeQuietly(zip);
 		return outputStream.toByteArray();

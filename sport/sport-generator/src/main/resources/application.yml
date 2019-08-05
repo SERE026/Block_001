@@ -47,3 +47,6 @@ pagehelper:
 #指定数据库，可选值有【mysql、oracle、sqlserver、postgresql】
 renren:
   database: mysql
+
+code:
+  version: v0  # v0 为mybatisplus 模板 v1 为自定义原生模板
