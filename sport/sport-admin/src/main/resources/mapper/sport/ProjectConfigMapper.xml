@@ -32,10 +32,12 @@
     <select id="getByFullScoreByProjectIds" resultMap="projectConfigMap">
         select * from sport_project_config
         where  score_level = (SELECT MAX(score_level) FROM sport_project_config)
+        <if test="projectIds != null and projectIds.size() > 0" >
         and project_id in
         <foreach collection="projectIds" item="projectId" open="(" close=")" separator=",">
             #{projectId}
         </foreach>
+        </if>
         <![CDATA[
         AND (gender = 0 OR gender = #{gender})
         AND ((min_age=-1 OR max_age=-1) OR (min_age <=#{age} and max_age >= #{age}) )
