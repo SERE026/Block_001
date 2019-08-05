@@ -401,10 +401,6 @@ public class GradeServiceImpl implements GradeService {
         gradeIds.clear();
         gradeIds.add(prevStuGrade.getId());
         List<ProjectGradeDTO> prevProGradeList = projectGradeService.getInGradeIds(gradeIds);
-//        Map prevProGradeMap = Maps.newHashMap();
-//        if(!CollectionUtils.isEmpty(prevProGradeList)){
-//            prevProGradeMap = prevProGradeList.stream().collect(Collectors.toMap(ProjectGradeDTO::getProjectId,Function.identity(),(o1,o2)->o1));
-//        }
 
         //计算最近两次的平均分
          /*身体素质测试总分÷项目数≤2					差
@@ -413,12 +409,7 @@ public class GradeServiceImpl implements GradeService {
         身体素质测试总分÷项目数=4~5					良好
         身体素质测试总分÷项目数=5					优秀
         */
-//        Map<Integer, Double> averageMap = lastProGradeList.stream().collect(Collectors.groupingBy(ProjectGradeDTO::getStuGradeId,
-//                Collectors.averagingDouble(GradeServiceImpl::applyGradeAsDouble)));
-
         //测评结果判断
-//        Optional<Integer> averageKey = averageMap.keySet().stream().max(Comparator.naturalOrder());
-//        Double score = averageKey.isPresent() ? averageMap.get(averageKey.get()) : 0.0D;
         String passDesc = lastStuGrade.getStatus() == 1 ? "通过" : "不通过";
         String scoreDesc = getString(lastStuGrade.getScore() != null ? lastStuGrade.getScore().doubleValue() : 0L);
 
@@ -495,37 +486,34 @@ public class GradeServiceImpl implements GradeService {
 
         Object[] header = new Object[]{"product", "测试","满分"};
         tgmd3Chart.add(header);
-        Object[] lastProGrade = new Object[3];
-        lastProGrade[0] = lastProGradeList.get(0).getCheckTime().format(DateTimeFormatter.ofPattern("yyyy.MM.dd"));
-        lastProGrade[1] = BigDecimal.ZERO;
-        Integer projectId = 0;
-        for (ProjectGradeDTO pg : lastProGradeList){
-            if("tgmd3_check".equals(pg.getProjectCode())){
-                lastProGrade[1] = pg.getProjectGrade();
-                projectId = pg.getProjectId();
-                break;
-            }
-        }
-        ProjectConfig config = fullScoreMap.get(projectId);
-        BigDecimal fullScore = Objects.isNull(config) ? new BigDecimal("96") : config.getMinScore();
-        BigDecimal checkScore = (BigDecimal) lastProGrade[1];
-        lastProGrade[2] = fullScore.subtract(checkScore).setScale(2,BigDecimal.ROUND_HALF_UP);
-        tgmd3Chart.add(lastProGrade);
 
-        if(!CollectionUtils.isEmpty(prevProGradeList)){
-            Object[] prevProGrade = new Object[3];
-            prevProGrade[0] = prevProGradeList.get(0).getCheckTime().format(DateTimeFormatter.ofPattern("yyyy.MM.dd"));
-            for (ProjectGradeDTO pg : prevProGradeList){
-                if("tgmd3_check".equals(pg.getProjectCode())){
-                    prevProGrade[1] = pg.getProjectGrade();
-                    break;
-                }
-            }
-            BigDecimal checkPrevScore = (BigDecimal) prevProGrade[1];
-            prevProGrade[2] = fullScore.subtract(checkPrevScore).setScale(2,BigDecimal.ROUND_HALF_UP);
-            tgmd3Chart.add(prevProGrade);
-        }
+
+        genGradeChartData(lastProGradeList, fullScoreMap, tgmd3Chart);
+
+        genGradeChartData(prevProGradeList, fullScoreMap, tgmd3Chart);
         //最近一次纵坐标
         return tgmd3Chart;
     }
+
+    private void genGradeChartData(List<ProjectGradeDTO> lastProGradeList, Map<Integer, ProjectConfig> fullScoreMap, List tgmd3Chart) {
+        if (!CollectionUtils.isEmpty(lastProGradeList)) {
+            Object[] lastProGrade = new Object[3];
+            lastProGrade[0] = lastProGradeList.get(0).getCheckTime().format(DateTimeFormatter.ofPattern("yyyy.MM.dd"));
+            lastProGrade[1] = BigDecimal.ZERO;
+            Integer projectId = 0;
+            for (ProjectGradeDTO pg : lastProGradeList) {
+                if ("tgmd3_check".equals(pg.getProjectCode())) {
+                    lastProGrade[1] = pg.getProjectGrade();
+                    projectId = pg.getProjectId();
+                    break;
+                }
+            }
+            ProjectConfig config = fullScoreMap.get(projectId);
+            BigDecimal fullScore = Objects.isNull(config) ? new BigDecimal("96") : config.getMinScore();
+            BigDecimal checkScore = (BigDecimal) lastProGrade[1];
+            lastProGrade[2] = fullScore.subtract(checkScore).setScale(2, BigDecimal.ROUND_HALF_UP);
+            tgmd3Chart.add(lastProGrade);
+        }
+    }
+
 }
