@@ -3,6 +3,7 @@ package io.renren.modules.sport.controller;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -34,6 +35,17 @@ import io.renren.common.utils.Result;
 public class ProjectController {
     @Autowired
     private ProjectService projectService;
+    static Map<String,String> PRO_CODE = new HashMap<>();
+    static {
+        PRO_CODE.put("upper_strength","上肢力量");
+        PRO_CODE.put("low_strength","下肢爆发力");
+        PRO_CODE.put("cardiopulmonary","心肺耐力");
+        PRO_CODE.put("flexibility","柔韧");
+        PRO_CODE.put("core_strength","核心力量");
+        PRO_CODE.put("sensitivity","灵敏");
+        PRO_CODE.put("speed","速度");
+        PRO_CODE.put("tgmd3_check","TGMD-3测试");
+    }
 
     /**
      * 列表
@@ -72,6 +84,7 @@ public class ProjectController {
     @RequiresPermissions("sport:project:save")
     public Result save(@RequestBody Project project){
         project.setCreateTime(LocalDateTime.now());
+        project.setProjectType(PRO_CODE.get(project.getProjectCode()));
         projectService.save(project);
 
         return Result.ok();

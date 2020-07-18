@@ -25,18 +25,38 @@
     <div v-show="!showList" class="panel panel-default">
         <div class="panel-heading">{{title}}</div>
         <form class="form-horizontal">
-														                    <div class="form-group">
+
+                    <div class="form-group">
                         <div class="col-sm-2 control-label">项目类型</div>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" v-model="project.projectType" placeholder="项目类型"/>
+                            <select class="form-control" v-model="project.projectCode">
+                                <option value="upper_strength">上肢力量</option>
+                                <option value="low_strength">下肢爆发力</option>
+                                <option value="cardiopulmonary">心肺耐力</option>
+                                <option value="flexibility">柔韧</option>
+                                <option value="core_strength">核心力量</option>
+                                <option value="sensitivity">灵敏</option>
+                                <option value="speed">速度</option>
+                                <option value="tgmd3_check">TGMD-3测试</option>
+                            </select>
                         </div>
                     </div>
-											                    <div class="form-group">
+                    <div class="form-group">
                         <div class="col-sm-2 control-label">项目名称</div>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" v-model="project.projectName" placeholder="项目名称"/>
+                            <input type="text" class="form-control" v-model="project.projectName" placeholder="5*4 折返跑"/>
                         </div>
                     </div>
+
+            <div class="form-group">
+                <div class="col-sm-2 control-label">年龄范围</div>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" v-model="project.minAge" placeholder="最小年龄"/>-
+                </div>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" v-model="project.maxAge" placeholder="最大年龄"/>
+                </div>
+            </div>
 
                     <div class="form-group">
                         <div class="col-sm-2 control-label">评分规则</div>

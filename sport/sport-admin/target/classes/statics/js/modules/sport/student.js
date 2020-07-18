@@ -1,11 +1,13 @@
+var baseURL = "../../";
+
 $(function () {
     $("#jqGrid").jqGrid({
         url: baseURL + 'sport/student/list',
         datatype: "json",
         colModel: [			
-			{ label: 'id', name: 'id', index: 'id', width: 50, key: true },
+			{ label: 'id', name: 'id', index: 'id', width: 40, key: true },
 			{ label: '学号', name: 'stuNumber', index: 'stu_number', width: 80 }, 			
-			{ label: '联系方式', name: 'mobile', index: 'mobile', width: 80 }, 			
+			{ label: '联系方式', name: 'mobile', index: 'mobile', width: 120 },
 			{ label: '学生姓名', name: 'realname', index: 'realname', width: 80 }, 			
 			{ label: '性别', name: 'gender', index: 'gender', width: 60 ,
                 formatter: function (cellvalue, options, rowObject) {
@@ -13,18 +15,18 @@ $(function () {
                 }
             },
 			{ label: '出生日期', name: 'birthday', index: 'birthday', width: 80 }, 			
-			{ label: '家长姓名', name: 'familyName', index: 'family_name', width: 80 }, 			
-			{ label: '家长联系方式', name: 'familyMobile', index: 'family_mobile', width: 100 },
+			/*{ label: '家长姓名', name: 'familyName', index: 'family_name', width: 80 },
+			{ label: '家长联系方式', name: 'familyMobile', index: 'family_mobile', width: 100 },*/
 			{ label: '注册/报名时间', name: 'registerTime', index: 'register_time', width: 100 },
             //{ label: '备注', name: 'remark', index: 'remark', width: 120 },
             { label: '创建时间', name: 'createTime', index: 'create_time', width: 80 },
 			{ label: '修改时间', name: 'updateTime', index: 'update_time', width: 80 },
-            { label: '操作', name: 'state', index: 'state', width: 200, edittype:"button",
+            { label: '操作', name: 'state', index: 'state', width: 240, edittype:"button",
                 formatter: function(cellVal,grid,rows,id){
-                    let addGradeBtn = "<button class='btn btn-primary ' onclick='vm.addGrade("+rows.id+")' >添加成绩</button>" ;
+                    var addGradeBtn = "<button class='btn btn-xs btn-primary ' onclick='vm.addGrade("+rows.id+")' >添加成绩</button>&nbsp;&nbsp;" ;
 
-                    let updateLastGradeBtn = "<button class='btn btn-primary ' onclick='vm.updateGrade("+rows.id+")' >修改成绩</button>" ;
-                    let queryGrade =  "<a class='btn btn-warning' target='_blank' href='/admin/sport/grade/page?studentId="+rows.id+"'>查看</a>" ;
+                    var updateLastGradeBtn = "<button class='btn btn-xs btn-warning ' onclick='vm.updateGrade("+rows.id+")' >修改成绩</button>&nbsp;&nbsp;" ;
+                    var queryGrade =  "<a class='btn btn-xs btn-default' target='_blank' href='/sport/grade/page?studentId="+rows.id+"'>查看</a>" ;
                     if(rows.gradeFlag == 1){
                         return addGradeBtn + updateLastGradeBtn + queryGrade;
                     }
@@ -36,8 +38,11 @@ $(function () {
         height: 385,
         rowNum: 10,
 		rowList : [10,30,50],
-        // rownumbers: true,
+        rownumbers: true,
         // rownumWidth: 25,
+        sortable: true,
+        sortname: 'id', //设置默认的排序列
+        sortorder: 'desc',
         autowidth:true,
         multiselect: true,
         shrinkToFit:false,
@@ -181,9 +186,9 @@ var vm = new Vue({
                 vm.project = r.data;
                 $("#form-project-group").empty();
                 $("#form-project-group").append("<div class=\"form-group\">")
-                for(i=0; i<r.data.length;i++) {
+                for(var i=0; i<r.data.length;i++) {
                     var pro = r.data[i];
-                    let input = "<div class='col-sm-3 control-label'>"+pro.projectName+"</div> <div class='col-sm-3'>" +
+                    var input = "<div class='col-sm-3 control-label'>"+pro.projectName+"</div> <div class='col-sm-3'>" +
                         "<input type='text' class='form-control' projectcode='"+pro.projectCode+"' projectid='"+pro.id+"' onchange='vm.getGradeParams(this)' placeholder='请输入'/>" +
                         "</div>"
                     if(i>0 && i%2==0){
@@ -224,7 +229,7 @@ var vm = new Vue({
                             var prevPro = resultData.lastProGradeList[j];
                             if(pro.id== prevPro.projectId){
                                 proGradeVal = prevPro.projectGrade;
-                                let project = {
+                                var project = {
                                     projectId: prevPro.projectId,
                                     projectCode: prevPro.projectCode,
                                     proGrade: proGradeVal
@@ -233,7 +238,7 @@ var vm = new Vue({
                             }
                         }
 
-                        let input = "<div class='col-sm-3 control-label'>"+pro.projectName+"</div> <div class='col-sm-3'>" +
+                        var input = "<div class='col-sm-3 control-label'>"+pro.projectName+"</div> <div class='col-sm-3'>" +
                             "<input type='text' class='form-control' value='"+proGradeVal+"' projectcode='"+pro.projectCode+"' projectid='"+pro.id+"' onchange='vm.getGradeParams(this)' placeholder='请输入'/>" +
                             "</div>"
                         if(i>0 && i%2==0){
@@ -291,10 +296,10 @@ var vm = new Vue({
             });
         },
         getGradeParams: function(event){
-		    let proId = $(event).attr("projectid");
-            let proCode = $(event).attr("projectcode");
-		    let value = $(event).val();
-		    let project = {
+		    var proId = $(event).attr("projectid");
+            var proCode = $(event).attr("projectcode");
+		    var value = $(event).val();
+		    var project = {
 		        projectId: proId,
                 projectCode: proCode,
                 proGrade: value
@@ -302,11 +307,11 @@ var vm = new Vue({
 		    vm.inputGradeParam[proCode] = project;
         },
         saveOrUpdateProjectGrade: function (event) {
-		    let proList = []
-            for(let k in vm.inputGradeParam){
+		    var proList = []
+            for(var k in vm.inputGradeParam){
                 proList.push(vm.inputGradeParam[k]);
             }
-            let data = {
+            var data = {
                     studentId: vm.studentId,
                     height: $("#height").val(),
                     weight: $("#weight").val(),
@@ -316,7 +321,7 @@ var vm = new Vue({
                     checkTime: $("#checkTime").val(),
                     proList: proList
             };
-            let url = vm.isUpdateProGrade ? "sport/grade/update" : "sport/grade/save";
+            var url = vm.isUpdateProGrade ? "sport/grade/update" : "sport/grade/save";
             $.ajax({
                 type: "POST",
                 url: baseURL+url,

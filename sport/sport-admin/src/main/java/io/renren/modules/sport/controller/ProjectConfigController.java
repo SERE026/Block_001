@@ -41,7 +41,7 @@ public class ProjectConfigController {
      * 列表
      */
     @RequestMapping("/list")
-    @RequiresPermissions("sport:projectconfig:list")
+    //@RequiresPermissions("sport:projectconfig:list")
     public Result list(@RequestParam Map<String, Object> params){
         PageResult page = projectConfigService.queryPage(params);
 
@@ -53,7 +53,7 @@ public class ProjectConfigController {
      * 信息
      */
     @RequestMapping("/info/{id}")
-    @RequiresPermissions("sport:projectconfig:info")
+    //@RequiresPermissions("sport:projectconfig:info")
     public Result info(@PathVariable("id") Integer id){
         ProjectConfig projectConfig = projectConfigService.getById(id);
 
@@ -64,7 +64,7 @@ public class ProjectConfigController {
      * 保存
      */
     @RequestMapping("/save")
-    @RequiresPermissions("sport:projectconfig:save")
+    //@RequiresPermissions("sport:projectconfig:save")
     public Result save(@RequestBody ProjectConfig projectConfig){
 
         Project project = projectService.getById(projectConfig.getProjectId());
@@ -82,7 +82,7 @@ public class ProjectConfigController {
      * 修改
      */
     @RequestMapping("/update")
-    @RequiresPermissions("sport:projectconfig:update")
+    //@RequiresPermissions("sport:projectconfig:update")
     public Result update(@RequestBody ProjectConfig projectConfig){
         ValidatorUtils.validateEntity(projectConfig);
         projectConfigService.updateById(projectConfig);
@@ -94,7 +94,7 @@ public class ProjectConfigController {
      * 删除
      */
     @RequestMapping("/delete")
-    @RequiresPermissions("sport:projectconfig:delete")
+    //@RequiresPermissions("sport:projectconfig:delete")
     public Result delete(@RequestBody Integer[] ids){
         projectConfigService.removeByIds(Arrays.asList(ids));
 
