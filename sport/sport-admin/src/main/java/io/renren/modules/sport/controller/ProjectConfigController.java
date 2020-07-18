@@ -68,8 +68,10 @@ public class ProjectConfigController {
     public Result save(@RequestBody ProjectConfig projectConfig){
 
         Project project = projectService.getById(projectConfig.getProjectId());
+        if(projectConfig.getMaxAge() > project.getMaxAge()){
+            return Result.error("年龄最大值超过项目设置的最大值");
+        }
         projectConfig.setProjectName(project.getProjectName())
-                .setMaxAge(projectConfig.getMaxAge())
                 .setProjectType(project.getProjectType())
                 .setRule(project.getRule())
                 .setCreateTime(LocalDateTime.now());
