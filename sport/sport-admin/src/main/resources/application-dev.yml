@@ -4,11 +4,11 @@ spring:
     druid:
       driver-class-name: com.mysql.jdbc.Driver
 #      url: jdbc:mysql://localhost:3306/db_sport?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false
-#      url: jdbc:mysql://localhost:3306/rr_test?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false
-      url: jdbc:mysql://localhost:3306/mengrui?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false
-      username: root
+      url: jdbc:mysql://8.131.93.184:3306/sport_db?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false
+#      url: jdbc:mysql://localhost:3306/mengrui?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false
+      username: sere026
 #      username: mengrui
-      password: 123456
+      password: 1234qwer5T
 #      password: The_New_World_
       initial-size: 10
       max-active: 100
