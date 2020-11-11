@@ -121,7 +121,9 @@ var vm = new Vue({
 		getInfo: function(id){
 			$.get(baseURL + "sport/projectconfig/info/"+id, function(r){
                 vm.projectConfig = r.projectConfig;
+                vm.getProjectList(id)
             });
+
 		},
         getProjectList: function(id){
             //动态生成select内容
@@ -138,7 +140,13 @@ var vm = new Vue({
                     if (jsonobj != null) {
                         var length=jsonobj.length;
                         $.each(jsonobj, function(i){
-                            $("<option value='" + jsonobj[i].id + "'>" + jsonobj[i].projectName+ "</option>").appendTo($("#projectId"));
+                            debugger
+                            if(!id){
+                                $("<option value='" + jsonobj[i].id + "'>" + jsonobj[i].projectName+ "</option>").appendTo($("#projectId"));
+                            }else if(jsonobj[i].id == vm.projectConfig.projectId){
+                                $("<option value='" + jsonobj[i].id + "' selected>" + jsonobj[i].projectName+ "</option>").appendTo($("#projectId"));
+                            }
+
                         });
                     }
                 }
