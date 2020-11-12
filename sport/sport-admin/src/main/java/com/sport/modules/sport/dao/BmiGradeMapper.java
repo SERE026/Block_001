@@ -1,0 +1,22 @@
+package com.sport.modules.sport.dao;
+
+import com.sport.modules.sport.entity.BmiGrade;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Mapper;
+
+import java.util.List;
+
+/**
+ * BMI成绩表
+ * 
+ * @author ó¯òë
+ * @email ${email}
+ * @date 2019-04-25 15:56:20
+ */
+@Mapper
+public interface BmiGradeMapper extends BaseMapper<BmiGrade> {
+
+    List<BmiGrade> selectByStudentId(Integer studentId);
+
+    BmiGrade getLastByStuGradeId(Integer stuGradeId);
+}

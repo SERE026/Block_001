@@ -2,7 +2,7 @@ spring:
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     druid:
-      driver-class-name: com.mysql.jdbc.Driver
+      driver-class-name: com.mysql.cj.jdbc.Driver
 #      url: jdbc:mysql://localhost:3306/db_sport?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false
       url: jdbc:mysql://8.131.93.184:3306/sport_db?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false
 #      url: jdbc:mysql://localhost:3306/mengrui?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false

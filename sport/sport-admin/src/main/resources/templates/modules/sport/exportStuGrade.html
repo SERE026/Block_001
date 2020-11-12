@@ -2,23 +2,23 @@
 <html lang="en">
 <head>
     <title>学生成绩报表导出</title>
-    <link rel="icon" type="image/png" href="/statics/favicon.ico" />
+    <link rel="icon" type="image/png" href="/favicon.ico" />
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script src="${request.contextPath}/statics/libs/jquery.min.js"></script>
-    <script src="${request.contextPath}/statics/libs/bootstrap.min.js"></script>
-    <script src="${request.contextPath}/statics/libs/vue.min.js"></script>
+    <script src="${request.contextPath}/libs/jquery.min.js"></script>
+    <script src="${request.contextPath}/libs/bootstrap.min.js"></script>
+    <script src="${request.contextPath}/libs/vue.min.js"></script>
     <script src="https://cdn.staticfile.org/popper.js/1.12.5/umd/popper.min.js"></script>
     <script src="https://cdn.bootcss.com/echarts/4.2.1-rc1/echarts.js"></script>
-    <script src="${request.contextPath}/statics/libs/jquery.jqprint-0.3.js"></script>
-    <script src="${request.contextPath}/statics/js/print.js?v=2"></script>
+    <script src="${request.contextPath}/libs/jquery.jqprint-0.3.js"></script>
+    <script src="${request.contextPath}/js/print.js?v=2"></script>
 
-    <link rel="stylesheet" href="${request.contextPath}/statics/css/sport/print.css?v=7" media="print">
-    <link rel="stylesheet" href="${request.contextPath}/statics/css/sport/revise_style.css?v=7"/>
+    <link rel="stylesheet" href="${request.contextPath}/css/sport/print.css?v=7" media="print">
+    <link rel="stylesheet" href="${request.contextPath}/css/sport/revise_style.css?v=7"/>
 
 </head>
-<body style="position: relative">
+<body style="position: relative;">
 
 <div style="position:absolute; left:150px;align-content: center;margin:0 auto;text-align-all: center;">
     <button class='btn-print ' onclick="jqPrint('main')" >打印</button>
@@ -29,7 +29,7 @@
             <tr>
                 <td colspan="10" class="logo_text">
                         <div class="title_img">
-                            <div><img src="/statics/images/logo.jpg?v=1" style="width: 30px; height: 30px"/></div>
+                            <div><img src="/static/images/logo.jpg?v=1" style="width: 30px; height: 30px"/></div>
                             <div class="title_font">爱赞儿童体能测评报告</div>
                         </div>
                 </td>
@@ -211,8 +211,8 @@
     </div>
 
 </div>
-<script src="${request.contextPath}/statics/js/modules/sport/exportStuGrade.js?_${.now?long}"></script>
-<script src="${request.contextPath}/statics/js/modules/sport/grade.js?_${.now?long}"></script>
+<script src="${request.contextPath}/js/modules/sport/exportStuGrade.js?_${.now?long}"></script>
+<script src="${request.contextPath}/js/modules/sport/grade.js?_${.now?long}"></script>
 
 
 </body>

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="io.renren.modules.sport.dao.StudentMapper">
+<mapper namespace="com.sport.modules.sport.dao.StudentMapper">
 
 	<!-- 可根据自己的需求，是否要使用 -->
-    <resultMap type="io.renren.modules.sport.entity.Student" id="studentMap">
+    <resultMap type="com.sport.modules.sport.entity.Student" id="studentMap">
         <result property="id" column="id"/>
         <result property="stuNumber" column="stu_number"/>
         <result property="mobile" column="mobile"/>
@@ -24,7 +24,7 @@
         <result property="gradeFlag" column="grade_flag"/>
     </resultMap>
 
-    <resultMap id="studentWithSchoolNameMap" extends="studentMap" type="io.renren.modules.sport.dto.StudentDTO">
+    <resultMap id="studentWithSchoolNameMap" extends="studentMap" type="com.sport.modules.sport.dto.StudentDTO">
         <result property="schoolName" column="school_name"/>
     </resultMap>
 

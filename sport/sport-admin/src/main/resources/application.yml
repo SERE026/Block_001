@@ -41,7 +41,7 @@ spring:
     ehcache:
       config: classpath:/cache/ehcache.xml
 
-renren:
+sport:
   cluster: false  #集群配置  true集群环境   false单机环境，还需打开pom.xml里的spring-session-data-redis注释
   globalSessionTimeout: 3600   #单机环境，session过期时间为60分钟
   redis:
@@ -52,7 +52,7 @@ renren:
 mybatis-plus:
   mapper-locations: classpath*:/mapper/**/*.xml
   #实体扫描，多个package用逗号或者分号分隔
-  typeAliasesPackage: io.renren.modules.*.entity
+  typeAliasesPackage: com.sport.modules.*.entity
   global-config:
     #数据库相关配置
     db-config:

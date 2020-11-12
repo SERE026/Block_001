@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="io.renren.modules.sport.dao.ProjectConfigMapper">
+<mapper namespace="com.sport.modules.sport.dao.ProjectConfigMapper">
 
 	<!-- 可根据自己的需求，是否要使用 -->
-    <resultMap type="io.renren.modules.sport.entity.ProjectConfig" id="projectConfigMap">
+    <resultMap type="com.sport.modules.sport.entity.ProjectConfig" id="projectConfigMap">
         <result property="id" column="id"/>
         <result property="projectType" column="project_type"/>
         <result property="projectId" column="project_id"/>

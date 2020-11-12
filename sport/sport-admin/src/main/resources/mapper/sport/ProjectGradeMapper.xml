@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="io.renren.modules.sport.dao.ProjectGradeMapper">
+<mapper namespace="com.sport.modules.sport.dao.ProjectGradeMapper">
 
 	<!-- 可根据自己的需求，是否要使用 -->
-    <resultMap type="io.renren.modules.sport.entity.ProjectGrade" id="projectGradeMap">
+    <resultMap type="com.sport.modules.sport.entity.ProjectGrade" id="projectGradeMap">
         <result property="id" column="id"/>
         <result property="studentId" column="student_id"/>
         <result property="stuGradeId" column="stu_grade_id"/>
@@ -22,7 +22,7 @@
         <result property="updateTime" column="update_time"/>
     </resultMap>
 
-    <resultMap id="projectGradeExtendMap" extends="projectGradeMap" type="io.renren.modules.sport.dto.ProjectGradeDTO">
+    <resultMap id="projectGradeExtendMap" extends="projectGradeMap" type="com.sport.modules.sport.dto.ProjectGradeDTO">
         <result property="projectCode" column="project_code"/>
         <result property="projectType" column="project_type"/>
         <result property="projectName" column="project_name"/>

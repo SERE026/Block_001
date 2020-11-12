@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="io.renren.modules.sys.dao.SysDeptDao">
+<mapper namespace="com.sport.modules.sys.dao.SysDeptDao">
 	<cache type="org.mybatis.caches.ehcache.EhcacheCache">
 		<property name="timeToIdleSeconds" value="3600"/>
 		<property name="timeToLiveSeconds" value="3600"/>
@@ -9,7 +9,7 @@
 		<property name="maxEntriesLocalDisk" value="10000000"/>
 		<property name="memoryStoreEvictionPolicy" value="LRU"/>
 	</cache>
-	<select id="queryList" resultType="io.renren.modules.sys.entity.SysDeptEntity">
+	<select id="queryList" resultType="com.sport.modules.sys.entity.SysDeptEntity">
 		select t1.*,(select t2.name from sys_dept t2 where t2.dept_id=t1.parent_id)parentName from sys_dept t1 where 
 			t1.del_flag = 0
 		<if test="sql_filter != null">
