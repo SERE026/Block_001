@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.sport.modules.sys.dao.SysRoleDao">
+    <cache type="org.mybatis.caches.ehcache.EhcacheCache">
+        <property name="timeToIdleSeconds" value="3600"/>
+        <property name="timeToLiveSeconds" value="3600"/>
+        <property name="maxEntriesLocalHeap" value="1000"/>
+        <property name="maxEntriesLocalDisk" value="10000000"/>
+        <property name="memoryStoreEvictionPolicy" value="LRU"/>
+    </cache>
+    <resultMap type="com.sport.modules.sys.entity.SysRoleEntity" id="RoleResult">
+        <id     property="roleId"       column="role_id"        />
+        <result property="roleName"     column="role_name"      />
+        <result property="createTime"   column="create_time"    />
+        <result property="deptId"     column="dept_id"      />
+        <result property="remark"       column="remark"         />
+    </resultMap>
+    <select id="selectAll" resultMap="RoleResult">
+      SELECT
+          r.*
+        FROM
+          sys_role r
+          left join sys_user_role ur
+          on r.`role_id` = ur.`role_id`
+        <where>
+            ${sql_filter}
+        </where>
+    </select>
+</mapper>

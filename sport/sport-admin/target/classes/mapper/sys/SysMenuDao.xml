@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.sport.modules.sys.dao.SysMenuDao">
+
+	<cache type="org.mybatis.caches.ehcache.EhcacheCache">
+		<property name="timeToIdleSeconds" value="3600"/>
+		<property name="timeToLiveSeconds" value="3600"/>
+		<property name="maxEntriesLocalHeap" value="1000"/>
+		<property name="maxEntriesLocalDisk" value="10000000"/>
+		<property name="memoryStoreEvictionPolicy" value="LRU"/>
+	</cache>
+
+	<select id="queryListParentId" resultType="com.sport.modules.sys.entity.SysMenuEntity">
+		select * from sys_menu where parent_id = #{parentId} order by order_num asc 
+	</select>
+	
+	<select id="queryNotButtonList" resultType="com.sport.modules.sys.entity.SysMenuEntity">
+		select * from sys_menu where type != 2 order by order_num asc 
+	</select>
+	<select id="queryListByDataScope" resultType="com.sport.modules.sys.entity.SysMenuEntity">
+		SELECT
+		distinct m.`menu_id`,m.`parent_id`,m.`name`,m.`url`,m.`perms`,m.`type`,m.`icon`,m.`order_num`
+		FROM
+		  sys_menu m
+		  LEFT JOIN sys_role_menu rm
+			ON rm.`menu_id` = m.`menu_id`
+		  LEFT JOIN sys_user_role ur
+			ON rm.`role_id` = ur.`role_id`
+		  LEFT JOIN sys_user u
+			ON ur.`user_id` = u.`user_id`
+		<where>
+			${sql_filter}
+		</where>
+	</select>
+
+</mapper>

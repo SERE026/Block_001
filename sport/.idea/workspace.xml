@@ -1,0 +1,1186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="86959599-8870-4e19-b1d0-6ae4345ecf73" name="Default Changelist" comment="爱赞logo更新">
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__mysql_mysql_connector_java_8_0_11.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sport-admin/src/main/resources/application-dev.yml" beforeDir="false" afterPath="$PROJECT_DIR$/sport-admin/src/main/resources/application-dev.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sport-admin/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/sport-admin/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sport-admin/src/main/resources/static/js/modules/sport/student.js" beforeDir="false" afterPath="$PROJECT_DIR$/sport-admin/src/main/resources/static/js/modules/sport/student.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sport-admin/target/classes/public/swagger/lang/en.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sport-admin/target/classes/public/swagger/lang/translator.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sport-admin/target/classes/public/swagger/lang/zh-cn.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sport-admin/target/classes/public/swagger/lib/backbone-min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sport-admin/target/classes/public/swagger/lib/es5-shim.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sport-admin/target/classes/public/swagger/lib/handlebars-4.0.5.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sport-admin/target/classes/public/swagger/lib/highlight.9.1.0.pack.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sport-admin/target/classes/public/swagger/lib/highlight.9.1.0.pack_extended.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sport-admin/target/classes/public/swagger/lib/jquery-1.8.0.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sport-admin/target/classes/public/swagger/lib/jquery.ba-bbq.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sport-admin/target/classes/public/swagger/lib/jquery.slideto.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sport-admin/target/classes/public/swagger/lib/jquery.wiggle.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sport-admin/target/classes/public/swagger/lib/js-yaml.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sport-admin/target/classes/public/swagger/lib/jsoneditor.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sport-admin/target/classes/public/swagger/lib/lodash.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sport-admin/target/classes/public/swagger/lib/marked.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sport-admin/target/classes/public/swagger/lib/object-assign-pollyfill.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sport-admin/target/classes/public/swagger/lib/sanitize-html.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sport-admin/target/classes/public/swagger/lib/swagger-oauth.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sport-admin/target/classes/public/swagger/swagger-ui.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sport-admin/target/classes/public/swagger/swagger-ui.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sport-admin/target/classes/statics/js/common.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sport-admin/target/classes/statics/js/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sport-admin/target/classes/statics/js/index1.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sport-admin/target/classes/statics/js/modules/job/schedule.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sport-admin/target/classes/statics/js/modules/job/schedule_log.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sport-admin/target/classes/statics/js/modules/oss/oss.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sport-admin/target/classes/statics/js/modules/sport/bmiconfig.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sport-admin/target/classes/statics/js/modules/sport/bmigrade.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sport-admin/target/classes/statics/js/modules/sport/project.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sport-admin/target/classes/statics/js/modules/sport/projectconfig.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sport-admin/target/classes/statics/js/modules/sport/projectgrade.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sport-admin/target/classes/statics/js/modules/sport/scoresuggestion.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sport-admin/target/classes/statics/js/modules/sport/student.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sport-admin/target/classes/statics/js/modules/sport/studentgrade.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sport-admin/target/classes/statics/js/modules/sport/traingoal.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sport-admin/target/classes/statics/js/modules/sys/config.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sport-admin/target/classes/statics/js/modules/sys/dept.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sport-admin/target/classes/statics/js/modules/sys/dict.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sport-admin/target/classes/statics/js/modules/sys/log.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sport-admin/target/classes/statics/js/modules/sys/menu.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sport-admin/target/classes/statics/js/modules/sys/role.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sport-admin/target/classes/statics/js/modules/sys/user.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sport-admin/target/classes/statics/js/navtab.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sport-admin/target/classes/statics/libs/ajaxupload.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sport-admin/target/classes/statics/libs/app.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sport-admin/target/classes/statics/libs/app.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sport-admin/target/classes/statics/libs/bootstrap-table.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sport-admin/target/classes/statics/libs/bootstrap.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sport-admin/target/classes/statics/libs/fastclick.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sport-admin/target/classes/statics/libs/jquery.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sport-admin/target/classes/statics/libs/jquery.slimscroll.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sport-admin/target/classes/statics/libs/router.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sport-admin/target/classes/statics/libs/validator.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sport-admin/target/classes/statics/libs/vue-validator.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sport-admin/target/classes/statics/libs/vue.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sport-admin/target/classes/statics/plugins/jqgrid/grid.locale-cn.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sport-admin/target/classes/statics/plugins/jqgrid/jquery.jqGrid.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sport-admin/target/classes/statics/plugins/layer/layer.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sport-admin/target/classes/statics/plugins/layer/mobile/layer.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sport-admin/target/classes/statics/plugins/layui/lay/dest/layui.all.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sport-admin/target/classes/statics/plugins/layui/lay/dest/layui.mod.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sport-admin/target/classes/statics/plugins/layui/lay/lib/jquery.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sport-admin/target/classes/statics/plugins/layui/lay/modules/carousel.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sport-admin/target/classes/statics/plugins/layui/lay/modules/code.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sport-admin/target/classes/statics/plugins/layui/lay/modules/colorpicker.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sport-admin/target/classes/statics/plugins/layui/lay/modules/element.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sport-admin/target/classes/statics/plugins/layui/lay/modules/flow.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sport-admin/target/classes/statics/plugins/layui/lay/modules/form.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sport-admin/target/classes/statics/plugins/layui/lay/modules/jquery.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sport-admin/target/classes/statics/plugins/layui/lay/modules/laydate.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sport-admin/target/classes/statics/plugins/layui/lay/modules/layedit.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sport-admin/target/classes/statics/plugins/layui/lay/modules/layer.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sport-admin/target/classes/statics/plugins/layui/lay/modules/laypage.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sport-admin/target/classes/statics/plugins/layui/lay/modules/laytpl.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sport-admin/target/classes/statics/plugins/layui/lay/modules/mobile.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sport-admin/target/classes/statics/plugins/layui/lay/modules/rate.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sport-admin/target/classes/statics/plugins/layui/lay/modules/slider.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sport-admin/target/classes/statics/plugins/layui/lay/modules/table.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sport-admin/target/classes/statics/plugins/layui/lay/modules/tree.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sport-admin/target/classes/statics/plugins/layui/lay/modules/upload.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sport-admin/target/classes/statics/plugins/layui/lay/modules/util.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sport-admin/target/classes/statics/plugins/layui/layui.all.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sport-admin/target/classes/statics/plugins/layui/layui.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sport-admin/target/classes/statics/plugins/layui/modules/icheck.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sport-admin/target/classes/statics/plugins/layui/modules/pjax.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sport-admin/target/classes/statics/plugins/treegrid/jquery.treegrid.bootstrap3.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sport-admin/target/classes/statics/plugins/treegrid/jquery.treegrid.extension.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sport-admin/target/classes/statics/plugins/treegrid/jquery.treegrid.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sport-admin/target/classes/statics/plugins/treegrid/tree.table.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sport-admin/target/classes/statics/plugins/ztree/jquery.ztree.all.min.js" beforeDir="false" />
+    </list>
+    <ignored path="$PROJECT_DIR$/sport-api/target/" />
+    <ignored path="$PROJECT_DIR$/sport-common/target/" />
+    <ignored path="$PROJECT_DIR$/target/" />
+    <ignored path="$PROJECT_DIR$/sport-datasource/target/" />
+    <ignored path="$PROJECT_DIR$/sport-generator/target/" />
+    <ignored path="$PROJECT_DIR$/sport-admin/target/" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="450">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/sport-admin/src/main/java/com/sport/modules/sport/service/impl/GradeServiceImpl.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="279">
+              <caret line="328" column="73" selection-start-line="328" selection-start-column="73" selection-end-line="328" selection-end-column="73" />
+              <folding>
+                <element signature="method#queryDetail#0;class#GradeServiceImpl#0" />
+                <element signature="method#getString#0;class#GradeServiceImpl#0" />
+                <element signature="method#tgmdChart#0;class#GradeServiceImpl#0" />
+                <element signature="method#genGradeChartData#0;class#GradeServiceImpl#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/sport-admin/src/main/java/com/sport/modules/sport/controller/StudentGradeController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="184">
+              <caret line="64" column="30" lean-forward="true" selection-start-line="64" selection-start-column="30" selection-end-line="64" selection-end-column="30" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/sport-admin/src/main/java/com/sport/modules/sport/controller/GradeController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="78">
+              <caret line="39" selection-start-line="39" selection-end-line="39" />
+              <folding>
+                <element signature="e#2047#2048#0" expanded="true" />
+                <element signature="e#2106#2107#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/sport-admin/src/main/java/com/sport/modules/sport/controller/StudentController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="359">
+              <caret line="66" column="25" lean-forward="true" selection-start-line="66" selection-start-column="25" selection-end-line="66" selection-end-column="25" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/sport-admin/src/main/resources/templates/modules/sport/student.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="213">
+              <caret line="168" column="138" selection-start-line="168" selection-start-column="114" selection-end-line="168" selection-end-column="138" />
+              <folding>
+                <element signature="n#style#0;n#head#0;n#html#0;n#!!top" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/sport-admin/src/main/resources/static/js/modules/sport/student.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="78">
+              <caret line="315" column="24" lean-forward="true" selection-start-line="315" selection-start-column="24" selection-end-line="315" selection-end-column="24" />
+              <folding>
+                <element signature="e#65#2867#0" />
+                <element signature="e#156#2050#0" />
+                <element signature="e#78#84#0" expanded="true" />
+                <element signature="e#84#90#0" expanded="true" />
+                <element signature="e#81#87#0" expanded="true" />
+                <element signature="e#87#93#0" expanded="true" />
+                <element signature="e#2444#2597#0" />
+                <element signature="e#2618#2709#0" />
+                <element signature="e#2742#2861#0" />
+                <element signature="e#3745#3910#0" />
+                <element signature="e#3945#4927#0" />
+                <element signature="e#4953#5072#0" />
+                <element signature="e#5101#5403#0" />
+                <element signature="e#11431#11942#0" />
+                <element signature="e#13644#14038#0" />
+                <element signature="e#14086#14521#0" />
+                <element signature="e#14565#14951#0" />
+                <element signature="e#14610#14939#0" />
+                <element signature="e#14985#15041#0" />
+                <element signature="e#15081#15194#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/sport-admin/src/main/resources/application-dev.yml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="175">
+              <caret line="5" column="48" selection-start-line="5" selection-start-column="48" selection-end-line="5" selection-end-column="48" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/sport-admin/src/main/resources/application.yml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="218">
+              <caret line="16" column="10" lean-forward="true" selection-start-line="16" selection-start-column="10" selection-end-line="16" selection-end-column="10" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>mysql</find>
+      <find>梦锐</find>
+      <find>f</find>
+      <find>getProjectList</find>
+      <find>projectConfig</find>
+      <find>fox</find>
+      <find>springfox</find>
+      <find>swagger.version</find>
+      <find>${request.contextPath}/static</find>
+      <find>${request.contextPath}/statics</find>
+      <find>/statics/plugins/layer/skin/default/icon.png</find>
+      <find>plugins/layer/skin/default/icon.png</find>
+      <find>spring.mvc.favicon.enabled</find>
+      <find>favicon</find>
+      <find>icon-ext.png</find>
+      <find>icon</find>
+      <find>renren</find>
+      <find>request.contextPath</find>
+      <find>/project/listByBirthday</find>
+      <find>添加</find>
+      <find>addGradeId</find>
+      <find>saveOrUpdateProjectGrade</find>
+      <find>inputGradeParam</find>
+    </findStrings>
+    <replaceStrings>
+      <replace>${request.contextPath}</replace>
+    </replaceStrings>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/sport-admin/src/main/resources/templates/modules/sport/exportStuGrade-059.html" />
+        <option value="$PROJECT_DIR$/sport-admin/src/main/resources/templates/modules/sport/project.html" />
+        <option value="$PROJECT_DIR$/sport-admin/src/main/resources/templates/modules/sport/projectconfig.html" />
+        <option value="$PROJECT_DIR$/sport-admin/src/main/resources/templates/modules/sport/projectgrade.html" />
+        <option value="$PROJECT_DIR$/sport-admin/src/main/resources/templates/modules/sport/school.html" />
+        <option value="$PROJECT_DIR$/sport-admin/src/main/resources/templates/modules/sport/scoresuggestion.html" />
+        <option value="$PROJECT_DIR$/sport-admin/src/main/resources/templates/modules/sport/studentgrade.html" />
+        <option value="$PROJECT_DIR$/sport-admin/src/main/resources/templates/modules/sport/traingoal.html" />
+        <option value="$PROJECT_DIR$/sport-admin/src/main/resources/templates/modules/sys/config.html" />
+        <option value="$PROJECT_DIR$/sport-admin/src/main/resources/templates/modules/sys/dict.html" />
+        <option value="$PROJECT_DIR$/sport-admin/src/main/resources/templates/modules/sys/log.html" />
+        <option value="$PROJECT_DIR$/sport-admin/src/main/resources/templates/modules/sys/menu.html" />
+        <option value="$PROJECT_DIR$/sport-admin/src/main/resources/templates/modules/sys/role.html" />
+        <option value="$PROJECT_DIR$/sport-admin/src/main/resources/templates/modules/sys/user.html" />
+        <option value="$PROJECT_DIR$/sport-admin/src/main/resources/templates/modules/oss/oss.html" />
+        <option value="$PROJECT_DIR$/sport-admin/src/main/resources/templates/modules/job/schedule.html" />
+        <option value="$PROJECT_DIR$/sport-admin/src/main/resources/templates/modules/job/schedule_log.html" />
+        <option value="$PROJECT_DIR$/sport-admin/src/main/resources/templates/modules/sys/dept.html" />
+        <option value="$PROJECT_DIR$/sport-admin/src/main/resources/templates/modules/sport/exportStuGrade.html" />
+        <option value="$PROJECT_DIR$/sport-api/src/main/java/com/sport/controller/ApiRegisterController.java" />
+        <option value="$PROJECT_DIR$/sport-api/src/main/java/com/sport/controller/ApiTestController.java" />
+        <option value="$PROJECT_DIR$/sport-api/src/main/java/com/sport/controller/ApiLoginController.java" />
+        <option value="$PROJECT_DIR$/sport-api/src/main/java/com/sport/form/LoginForm.java" />
+        <option value="$PROJECT_DIR$/sport-api/src/main/java/com/sport/form/RegisterForm.java" />
+        <option value="$PROJECT_DIR$/sport-api/src/main/java/com/sport/config/SwaggerConfig.java" />
+        <option value="$PROJECT_DIR$/sport-admin/src/main/resources/templates/header.html" />
+        <option value="$PROJECT_DIR$/sport-admin/src/main/resources/logback-spring.xml" />
+        <option value="$PROJECT_DIR$/sport-api/src/main/resources/application.yml" />
+        <option value="$PROJECT_DIR$/sport-common/src/main/java/com/sport/common/config/RedisConfig.java" />
+        <option value="$PROJECT_DIR$/sport-admin/src/main/resources/static/fonts/glyphicons-halflings-regular.svg" />
+        <option value="$PROJECT_DIR$/sport-admin/src/main/java/com/sport/common/exception/BizExceptionHandler.java" />
+        <option value="$PROJECT_DIR$/sport-admin/src/main/java/com/sport/common/config/FilterConfig.java" />
+        <option value="$PROJECT_DIR$/sport-admin/src/main/java/com/sport/common/config/FreemarkerConfig.java" />
+        <option value="$PROJECT_DIR$/sport-admin/src/main/java/com/sport/common/config/KaptchaConfig.java" />
+        <option value="$PROJECT_DIR$/sport-admin/src/main/java/com/sport/common/config/MybatisPlusConfig.java" />
+        <option value="$PROJECT_DIR$/sport-admin/src/main/resources/templates/login.html" />
+        <option value="$PROJECT_DIR$/sport-admin/src/main/resources/templates/main.html" />
+        <option value="$PROJECT_DIR$/sport-admin/src/main/resources/templates/index1.html" />
+        <option value="$PROJECT_DIR$/sport-admin/src/main/resources/templates/index.html" />
+        <option value="$PROJECT_DIR$/sport-admin/src/main/java/com/sport/AdminApplication.java" />
+        <option value="$PROJECT_DIR$/sport-admin/src/main/java/com/sport/modules/sys/shiro/UserRealm.java" />
+        <option value="$PROJECT_DIR$/sport-admin/src/main/java/com/sport/modules/SysPageController.java" />
+        <option value="$PROJECT_DIR$/sport-admin/src/main/java/com/sport/modules/PageController.java" />
+        <option value="$PROJECT_DIR$/sport-admin/src/main/resources/static/js/modules/area/area.js" />
+        <option value="$PROJECT_DIR$/sport-admin/src/main/java/com/sport/common/config/ShiroConfig.java" />
+        <option value="$PROJECT_DIR$/sport-admin/src/main/java/com/sport/modules/sys/service/impl/SysMenuServiceImpl.java" />
+        <option value="$PROJECT_DIR$/sport-generator/src/main/java/com/sport/config/DbConfig.java" />
+        <option value="$PROJECT_DIR$/sport-admin/src/main/java/com/sport/modules/sport/service/impl/ProjectServiceImpl.java" />
+        <option value="$PROJECT_DIR$/sport-admin/src/main/resources/application-dev.yml" />
+        <option value="$PROJECT_DIR$/sport-admin/src/main/resources/application.yml" />
+        <option value="$PROJECT_DIR$/sport-admin/src/main/resources/static/js/modules/sport/student.js" />
+      </list>
+    </option>
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="localRepository" value="E:\ProgramFiles\ProgramData\apache-maven\repo" />
+        <option name="mavenHome" value="E:/ProgramFiles/apache-maven-3.3.9" />
+        <option name="userSettingsFile" value="E:\ProgramFiles\apache-maven-3.3.9\conf\settings_ktx.xml" />
+      </MavenGeneralSettings>
+    </option>
+    <option name="importingSettings">
+      <MavenImportingSettings>
+        <option name="importAutomatically" value="true" />
+      </MavenImportingSettings>
+    </option>
+  </component>
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="757" />
+    <option name="y" value="109" />
+    <option name="width" value="1149" />
+    <option name="height" value="780" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="Scope" />
+      <pane id="NBKnowledgePane" />
+      <pane id="PackagesPane" />
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="sport" type="b2602c69:ProjectViewProjectNode" />
+              <item name="sport" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="sport" type="b2602c69:ProjectViewProjectNode" />
+              <item name="sport" type="462c0819:PsiDirectoryNode" />
+              <item name="sport-admin" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="sport" type="b2602c69:ProjectViewProjectNode" />
+              <item name="sport" type="462c0819:PsiDirectoryNode" />
+              <item name="sport-admin" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="sport" type="b2602c69:ProjectViewProjectNode" />
+              <item name="sport" type="462c0819:PsiDirectoryNode" />
+              <item name="sport-admin" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="sport" type="b2602c69:ProjectViewProjectNode" />
+              <item name="sport" type="462c0819:PsiDirectoryNode" />
+              <item name="sport-admin" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="sport" type="b2602c69:ProjectViewProjectNode" />
+              <item name="sport" type="462c0819:PsiDirectoryNode" />
+              <item name="sport-admin" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="sport" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="sport" type="b2602c69:ProjectViewProjectNode" />
+              <item name="sport" type="462c0819:PsiDirectoryNode" />
+              <item name="sport-admin" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="sport" type="462c0819:PsiDirectoryNode" />
+              <item name="modules" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="sport" type="b2602c69:ProjectViewProjectNode" />
+              <item name="sport" type="462c0819:PsiDirectoryNode" />
+              <item name="sport-admin" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="sport" type="462c0819:PsiDirectoryNode" />
+              <item name="modules" type="462c0819:PsiDirectoryNode" />
+              <item name="sport" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="sport" type="b2602c69:ProjectViewProjectNode" />
+              <item name="sport" type="462c0819:PsiDirectoryNode" />
+              <item name="sport-admin" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="sport" type="462c0819:PsiDirectoryNode" />
+              <item name="modules" type="462c0819:PsiDirectoryNode" />
+              <item name="sport" type="462c0819:PsiDirectoryNode" />
+              <item name="controller" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="sport" type="b2602c69:ProjectViewProjectNode" />
+              <item name="sport" type="462c0819:PsiDirectoryNode" />
+              <item name="sport-admin" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="sport" type="b2602c69:ProjectViewProjectNode" />
+              <item name="sport" type="462c0819:PsiDirectoryNode" />
+              <item name="sport-admin" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="static" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="sport" type="b2602c69:ProjectViewProjectNode" />
+              <item name="sport" type="462c0819:PsiDirectoryNode" />
+              <item name="sport-admin" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="static" type="462c0819:PsiDirectoryNode" />
+              <item name="js" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="sport" type="b2602c69:ProjectViewProjectNode" />
+              <item name="sport" type="462c0819:PsiDirectoryNode" />
+              <item name="sport-admin" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="static" type="462c0819:PsiDirectoryNode" />
+              <item name="js" type="462c0819:PsiDirectoryNode" />
+              <item name="modules" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="sport" type="b2602c69:ProjectViewProjectNode" />
+              <item name="sport" type="462c0819:PsiDirectoryNode" />
+              <item name="sport-admin" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="static" type="462c0819:PsiDirectoryNode" />
+              <item name="js" type="462c0819:PsiDirectoryNode" />
+              <item name="modules" type="462c0819:PsiDirectoryNode" />
+              <item name="sport" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="sport" type="b2602c69:ProjectViewProjectNode" />
+              <item name="sport" type="462c0819:PsiDirectoryNode" />
+              <item name="sport-admin" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="sport" type="b2602c69:ProjectViewProjectNode" />
+              <item name="sport" type="462c0819:PsiDirectoryNode" />
+              <item name="sport-admin" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
+              <item name="modules" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="sport" type="b2602c69:ProjectViewProjectNode" />
+              <item name="sport" type="462c0819:PsiDirectoryNode" />
+              <item name="sport-admin" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
+              <item name="modules" type="462c0819:PsiDirectoryNode" />
+              <item name="sport" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RequestMappingsPanelOrder0" value="0" />
+    <property name="RequestMappingsPanelOrder1" value="1" />
+    <property name="RequestMappingsPanelWidth0" value="75" />
+    <property name="RequestMappingsPanelWidth1" value="75" />
+    <property name="SONARLINT_PRECOMMIT_ANALYSIS" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1611731313998" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
+    <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="project.structure.last.edited" value="Libraries" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="MavenSettings" />
+    <property name="settings.editor.splitter.proportion" value="0.39974293" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="F:\workspace\demo\block\Block_001\sport\sport-admin\src\main\resources\static" />
+      <recent name="F:\workspace\demo\block\Block_001\sport\sport-admin\src\main\resources\public\swagger\images" />
+      <recent name="F:\workspace\demo\block\Block_001\sport\sport-admin\src\main\resources\public" />
+      <recent name="F:\workspace\demo\block\Block_001\sport\sport-admin\src\main\resources\statics\images" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager" selected="Spring Boot.AdminApplication">
+    <configuration name="AdminApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="sport-admin" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.sport.AdminApplication" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ApiApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="sport-api" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.sport.ApiApplication" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="GeneratorApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="sport-generator" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.sport.GeneratorApplication" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="Spring Boot.AdminApplication" />
+      <item itemvalue="Spring Boot.ApiApplication" />
+      <item itemvalue="Spring Boot.GeneratorApplication" />
+    </list>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="86959599-8870-4e19-b1d0-6ae4345ecf73" name="Default Changelist" comment="" />
+      <created>1598939852007</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1598939852007</updated>
+      <workItem from="1598939855689" duration="1060000" />
+      <workItem from="1604624594010" duration="3100000" />
+      <workItem from="1604718641092" duration="4097000" />
+      <workItem from="1604884373502" duration="586000" />
+      <workItem from="1604990003982" duration="7364000" />
+      <workItem from="1605066721562" duration="3905000" />
+      <workItem from="1605092424654" duration="8307000" />
+      <workItem from="1605163865687" duration="9171000" />
+      <workItem from="1605231186767" duration="436000" />
+      <workItem from="1606373289717" duration="734000" />
+      <workItem from="1611724074021" duration="6792000" />
+    </task>
+    <task id="LOCAL-00001" summary="更新">
+      <created>1604990232417</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1604990232417</updated>
+    </task>
+    <task id="LOCAL-00002" summary="爱赞logo更新">
+      <created>1605061947377</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1605061947377</updated>
+    </task>
+    <task id="LOCAL-00003" summary="修改回显操作">
+      <created>1605074437127</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1605074437127</updated>
+    </task>
+    <task id="LOCAL-00004" summary="爱赞logo更新">
+      <created>1605092812158</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1605092812158</updated>
+    </task>
+    <task id="LOCAL-00005" summary="代码优化">
+      <created>1605174605322</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1605174605322</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="45552000" />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-11" y="-11" width="1942" height="1042" extended-state="6" />
+    <layout>
+      <window_info content_ui="combo" id="Project" order="0" weight="0.28694713" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info id="Image Layers" order="2" />
+      <window_info id="UI Designer" order="3" />
+      <window_info id="Favorites" order="4" side_tool="true" />
+      <window_info id="Capture Tool" order="5" />
+      <window_info id="Designer" order="6" />
+      <window_info id="Web" order="7" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.60794044" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.5744417" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.5037221" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="MyBatis Sql Log" order="7" />
+      <window_info anchor="bottom" id="Spring" order="8" />
+      <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="10" visible="true" weight="0.5794045" />
+      <window_info anchor="bottom" id="Sequence" order="11" />
+      <window_info anchor="bottom" id="SonarLint" order="12" />
+      <window_info anchor="bottom" id="Java Enterprise" order="13" />
+      <window_info anchor="bottom" id="Database Changes" order="14" />
+      <window_info anchor="bottom" id="Version Control" order="15" />
+      <window_info anchor="bottom" id="Messages" order="16" weight="0.62655085" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Maven" order="3" />
+      <window_info anchor="right" id="Codota" order="4" />
+      <window_info anchor="right" id="Palette" order="5" />
+      <window_info anchor="right" id="Capture Analysis" order="6" />
+      <window_info anchor="right" id="Database" order="7" />
+      <window_info anchor="right" id="Palette&#9;" order="8" />
+      <window_info anchor="right" id="Theme Preview" order="9" />
+      <window_info anchor="right" id="RestServices" order="10" />
+      <window_info anchor="right" id="Bean Validation" order="11" />
+    </layout>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="更新" />
+    <MESSAGE value="修改回显操作" />
+    <MESSAGE value="爱赞logo更新" />
+    <MESSAGE value="代码优化" />
+    <option name="LAST_COMMIT_MESSAGE" value="代码优化" />
+  </component>
+  <component name="debuggerHistoryManager">
+    <expressions id="throwExceptionValue">
+      <expression>
+        <expression-string>new NullPointerException()</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>NullPointerException</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+    </expressions>
+    <expressions id="forceReturnValue">
+      <expression>
+        <expression-string>null</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>1</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+    </expressions>
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/sport-admin/src/main/resources/templates/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4655">
+          <caret line="133" column="35" selection-start-line="133" selection-start-column="35" selection-end-line="133" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sport-admin/src/main/resources/templates/header.html">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sport-admin/src/main/resources/templates/modules/sys/role.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="522">
+          <caret line="80" column="7" selection-start-line="80" selection-start-column="7" selection-end-line="80" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sport-admin/src/main/resources/static/fonts/FontAwesome.otf">
+      <provider selected="true" editor-type-id="fontseditor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sport-admin/src/main/resources/static/fonts/fontawesome-webfont.svg">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sport-admin/src/main/resources/static/fonts/fontawesome-webfont.woff">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sport-admin/src/main/resources/static/fonts/fontawesome-webfont.ttf">
+      <provider selected="true" editor-type-id="fontseditor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sport-admin/src/main/java/com/sport/AdminApplication.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sport-admin/src/main/java/com/sport/modules/sys/shiro/ShiroTag.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="254">
+          <caret line="20" column="13" selection-start-line="20" selection-start-column="13" selection-end-line="20" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sport-admin/src/main/java/com/sport/modules/sys/shiro/ShiroUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-691">
+          <caret line="22" column="13" selection-start-line="22" selection-start-column="13" selection-end-line="22" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sport-admin/src/main/java/com/sport/modules/sys/shiro/UserRealm.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2404" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sport-admin/src/main/java/com/sport/modules/PageController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="489">
+          <caret line="37" column="31" selection-start-line="37" selection-start-column="21" selection-end-line="37" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sport-admin/src/main/resources/static/js/modules/area/area.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="91">
+          <caret line="15" column="31" selection-start-line="15" selection-start-column="31" selection-end-line="15" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sport-admin/src/main/resources/templates/login.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="80">
+          <caret line="72" column="34" selection-start-line="72" selection-start-column="15" selection-end-line="72" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sport-admin/src/main/java/com/sport/common/config/FilterConfig.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-374">
+          <caret line="17" column="13" selection-start-line="17" selection-start-column="13" selection-end-line="17" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sport-admin/src/main/java/com/sport/common/config/FreemarkerConfig.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-166">
+          <caret line="19" column="13" selection-start-line="19" selection-start-column="13" selection-end-line="19" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sport-admin/src/main/java/com/sport/common/config/ShiroConfig.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="94" column="45" lean-forward="true" selection-start-line="94" selection-start-column="45" selection-end-line="94" selection-end-column="45" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sport-admin/src/main/java/com/sport/modules/sys/service/impl/SysMenuServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2310" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sport-generator/src/main/java/com/sport/config/DbConfig.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret lean-forward="true" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sport-admin/src/main/java/com/sport/modules/sport/service/GradeService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="175">
+          <caret line="6" column="11" selection-start-line="6" selection-start-column="11" selection-end-line="6" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/commons-beanutils/commons-beanutils/1.9.3/commons-beanutils-1.9.3.jar!/org/apache/commons/beanutils/BeanUtils.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="254">
+          <caret line="78" column="23" selection-start-line="78" selection-start-column="23" selection-end-line="78" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sport-admin/src/main/java/com/sport/modules/sport/service/impl/BmiGradeServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-300">
+          <caret line="18" column="13" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="13" />
+          <folding>
+            <element signature="e#1336#1337#0" expanded="true" />
+            <element signature="e#1406#1407#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sport-admin/src/main/java/com/sport/modules/sport/service/impl/BmiConfigServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="16" column="13" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sport-admin/src/main/java/com/sport/modules/sport/service/impl/ProjectConfigServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="22" column="13" selection-start-line="22" selection-start-column="13" selection-end-line="22" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sport-admin/src/main/java/com/sport/modules/sport/service/impl/SchoolServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="16" column="13" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sport-admin/src/main/java/com/sport/modules/sport/controller/ProjectController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1505">
+          <caret line="61" column="50" selection-start-line="61" selection-start-column="50" selection-end-line="61" selection-end-column="50" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sport-admin/src/main/java/com/sport/modules/sport/service/impl/ScoreSuggestionServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="18" column="13" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sport-admin/src/main/java/com/sport/modules/sport/service/impl/StudentServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="18" selection-start-line="18" selection-end-line="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sport-admin/src/main/java/com/sport/modules/sport/service/impl/TrainGoalServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="17" column="13" selection-start-line="17" selection-start-column="13" selection-end-line="17" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sport-admin/src/main/java/com/sport/modules/sport/service/impl/ProjectServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="350">
+          <caret line="27" lean-forward="true" selection-start-line="27" selection-end-line="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sport-admin/src/main/java/com/sport/modules/sport/service/StudentGradeService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="254">
+          <caret line="16" column="57" selection-start-line="16" selection-start-column="57" selection-end-line="16" selection-end-column="57" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sport-admin/src/main/resources/templates/modules/sport/studentgrade.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="116">
+          <caret line="66" column="101" selection-start-line="66" selection-start-column="90" selection-end-line="66" selection-end-column="101" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sport-admin/src/main/java/com/sport/modules/sport/service/ProjectGradeService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="378">
+          <caret line="21" column="26" selection-start-line="21" selection-start-column="26" selection-end-line="21" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sport-admin/src/main/java/com/sport/modules/sport/dao/ProjectGradeMapper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="483">
+          <caret line="21" column="26" selection-start-line="21" selection-start-column="26" selection-end-line="21" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sport-admin/src/main/resources/mapper/sport/ProjectGradeMapper.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="44">
+          <caret line="29" column="4" selection-start-line="29" selection-start-column="4" selection-end-line="29" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sport-admin/src/main/java/com/sport/modules/sport/service/impl/ProjectGradeServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="350">
+          <caret line="34" column="37" selection-start-line="34" selection-start-column="37" selection-end-line="34" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sport-admin/src/main/resources/mapper/sport/StudentGradeMapper.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="429">
+          <caret line="37" column="39" lean-forward="true" selection-start-line="37" selection-start-column="39" selection-end-line="37" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sport-admin/src/main/java/com/sport/modules/sport/service/impl/StudentGradeServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="308">
+          <caret line="32" column="41" selection-start-line="32" selection-start-column="41" selection-end-line="32" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sport-admin/src/main/resources/application-dev.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="175">
+          <caret line="5" column="48" selection-start-line="5" selection-start-column="48" selection-end-line="5" selection-end-column="48" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sport-admin/src/main/resources/application.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="218">
+          <caret line="16" column="10" lean-forward="true" selection-start-line="16" selection-start-column="10" selection-end-line="16" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sport-admin/src/main/java/com/sport/modules/sport/service/impl/GradeServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="279">
+          <caret line="328" column="73" selection-start-line="328" selection-start-column="73" selection-end-line="328" selection-end-column="73" />
+          <folding>
+            <element signature="method#queryDetail#0;class#GradeServiceImpl#0" />
+            <element signature="method#getString#0;class#GradeServiceImpl#0" />
+            <element signature="method#tgmdChart#0;class#GradeServiceImpl#0" />
+            <element signature="method#genGradeChartData#0;class#GradeServiceImpl#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sport-admin/src/main/java/com/sport/modules/sport/controller/ProjectGradeController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="244">
+          <caret line="32" column="22" selection-start-line="32" selection-start-column="22" selection-end-line="32" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sport-admin/src/main/java/com/sport/modules/sport/entity/StudentGrade.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1636">
+          <caret line="27" column="13" selection-start-line="27" selection-start-column="13" selection-end-line="27" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sport-admin/src/main/resources/templates/modules/sport/student.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="213">
+          <caret line="168" column="138" selection-start-line="168" selection-start-column="114" selection-end-line="168" selection-end-column="138" />
+          <folding>
+            <element signature="n#style#0;n#head#0;n#html#0;n#!!top" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sport-admin/src/main/java/com/sport/modules/sport/controller/StudentController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="359">
+          <caret line="66" column="25" lean-forward="true" selection-start-line="66" selection-start-column="25" selection-end-line="66" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/com/baomidou/mybatis-plus-extension/3.0.7.1/mybatis-plus-extension-3.0.7.1.jar!/com/baomidou/mybatisplus/extension/service/impl/ServiceImpl.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="254">
+          <caret line="65" column="19" selection-start-line="65" selection-start-column="19" selection-end-line="65" selection-end-column="19" />
+          <folding>
+            <element signature="e#2349#2350#0" expanded="true" />
+            <element signature="e#2416#2417#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sport-admin/src/main/java/com/sport/modules/sport/controller/StudentGradeController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="184">
+          <caret line="64" column="30" lean-forward="true" selection-start-line="64" selection-start-column="30" selection-end-line="64" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-aop/5.1.5.RELEASE/spring-aop-5.1.5.RELEASE-sources.jar!/org/springframework/aop/framework/CglibAopProxy.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="100">
+          <caret line="693" selection-start-line="693" selection-end-line="693" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-core/5.1.5.RELEASE/spring-core-5.1.5.RELEASE-sources.jar!/org/springframework/cglib/proxy/MethodProxy.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="79">
+          <caret line="217" selection-start-line="217" selection-end-line="217" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sport-admin/src/main/resources/static/js/modules/sport/student.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="78">
+          <caret line="315" column="24" lean-forward="true" selection-start-line="315" selection-start-column="24" selection-end-line="315" selection-end-column="24" />
+          <folding>
+            <element signature="e#65#2867#0" />
+            <element signature="e#156#2050#0" />
+            <element signature="e#78#84#0" expanded="true" />
+            <element signature="e#84#90#0" expanded="true" />
+            <element signature="e#81#87#0" expanded="true" />
+            <element signature="e#87#93#0" expanded="true" />
+            <element signature="e#2444#2597#0" />
+            <element signature="e#2618#2709#0" />
+            <element signature="e#2742#2861#0" />
+            <element signature="e#3745#3910#0" />
+            <element signature="e#3945#4927#0" />
+            <element signature="e#4953#5072#0" />
+            <element signature="e#5101#5403#0" />
+            <element signature="e#11431#11942#0" />
+            <element signature="e#13644#14038#0" />
+            <element signature="e#14086#14521#0" />
+            <element signature="e#14565#14951#0" />
+            <element signature="e#14610#14939#0" />
+            <element signature="e#14985#15041#0" />
+            <element signature="e#15081#15194#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sport-admin/src/main/java/com/sport/modules/sport/controller/GradeController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="78">
+          <caret line="39" selection-start-line="39" selection-end-line="39" />
+          <folding>
+            <element signature="e#2047#2048#0" expanded="true" />
+            <element signature="e#2106#2107#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="ArtifactsStructureConfigurable.UI">
+        <settings>
+          <artifact-editor />
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="FacetStructureConfigurable.UI">
+        <settings>
+          <last-edited>Spring</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="GlobalLibrariesConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="JdkListConfigurable.UI">
+        <settings>
+          <last-edited>1.6</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ModuleStructureConfigurable.UI">
+        <settings>
+          <last-edited>sport</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+                <option value="0.6" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ProjectJDKs.UI">
+        <settings>
+          <last-edited>1.6</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ProjectLibrariesConfigurable.UI">
+        <settings>
+          <last-edited>Maven: io.springfox:springfox-core:2.7.0</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.35843137" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
+  </component>
+</project>

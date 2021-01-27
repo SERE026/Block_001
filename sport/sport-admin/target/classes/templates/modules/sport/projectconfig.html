@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>训练项目参考</title>
+		<#include "/header.html">
+    <style>
+        .form-control-i{
+            width: 20%;
+            height: 34px;
+            padding: 3px 6px;
+            font-size: 14px;
+            line-height: 1.42857143;
+            color: #555;
+            background-color: #fff;
+            background-image: none;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+            box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+            -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+            -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+            transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+        }
+
+        .form-control-5{
+            width: 50%;
+            height: 34px;
+            padding: 3px 6px;
+            font-size: 14px;
+            line-height: 1.42857143;
+            color: #555;
+            background-color: #fff;
+            background-image: none;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+            box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+            -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+            -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+            transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+        }
+    </style>
+</head>
+<body>
+<div id="rrapp" v-cloak>
+    <div v-show="showList">
+        <div class="grid-btn">
+            <div>
+                项目名称:<input type="text" class="form-control-i" id="projectNameInput"  placeholder="项目名称"/>
+                年龄:<input type="text" class="form-control-i" id="ageInput" placeholder="年龄"/>
+                性别:
+                <select class="form-control-i" id="genderSelect">
+                    <option value="-1">---请选择--</option>
+                    <option value="1">男</option>
+                    <option value="2">女</option>
+                </select>
+
+            <!--</div>-->
+            <!--<div class="form-group col-sm-12">-->
+                <a class="btn btn-default" @click="query">查询</a>
+                <#if shiro.hasPermission("sport:projectconfig:save")>
+                <a class="btn btn-primary" @click="add"><i class="fa fa-plus"></i>&nbsp;新增</a>
+                </#if>
+                <#if shiro.hasPermission("sport:projectconfig:update")>
+                <a class="btn btn-primary" @click="update"><i class="fa fa-pencil-square-o"></i>&nbsp;修改</a>
+                </#if>
+            </div>
+        </div>
+        <table id="jqGrid"></table>
+        <div id="jqGridPager"></div>
+    </div>
+
+    <div v-show="!showList" class="panel panel-default">
+        <div class="panel-heading">{{title}}</div>
+        <form class="form-horizontal">
+                    <div class="form-group">
+                        <div class="col-sm-3 control-label">项目ID</div>
+                        <div class="col-sm-3">
+                            <select class="form-control" style="width:150px" v-model="projectConfig.projectId" id="projectId">
+                                <option value="">-----请选择-----</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-3 control-label">综合评分级别</div>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control" v-model="projectConfig.scoreLevel" placeholder="综合评分级别"/>
+                        </div>
+                        
+                    </div>
+					<div class="form-group">
+                        <div class="col-sm-3 control-label">分值范围最低值</div>
+                        <div class="col-sm-2">
+                            <input type="text" class="form-control" v-model="projectConfig.minScore" placeholder="分值范围最低值"/>
+                        </div>
+                        <div class="col-sm-2 control-label">-</div>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control" v-model="projectConfig.maxScore" placeholder="分值范围最高值"/>
+                        </div>
+
+                    </div>
+					<div class="form-group">
+                        <div class="col-sm-3 control-label">年龄:</div>
+                        <div class="col-sm-2">
+                            <input type="text" class="form-control"  v-model="projectConfig.minAge" placeholder="最小年龄"/>
+                        </div>
+                        <div class="col-sm-2 control-label">-</div>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control"  v-model="projectConfig.maxAge" placeholder="最大年龄"/>
+                        </div>
+
+                    </div>
+					 <div class="form-group">
+                         <div class="col-sm-3 control-label">性别:</div>
+                         <div class="col-sm-3">
+                             <select class="form-control"  v-model="projectConfig.gender">
+                                 <option value="">------请选择-----</option>
+                                 <option value="1">男</option>
+                                 <option value="2">女</option>
+                             </select>
+                         </div>
+                        <div class="col-sm-3 control-label">备注</div>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control" v-model="projectConfig.remark" placeholder="备注"/>
+                        </div>
+                    </div>
+
+				<div class="form-group">
+                <div class="col-sm-3 control-label"></div>
+                <input type="button" class="btn btn-primary" id="btnSaveOrUpdate" data-loading-text="保存中..." @click="saveOrUpdate" value="确定"/>
+                &nbsp;&nbsp;<input type="button" class="btn btn-warning" @click="reload" value="返回"/>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="${request.contextPath}/js/modules/sport/projectconfig.js?_${.now?long}"></script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.sport.modules.sport.dao.ProjectGradeMapper">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.sport.modules.sport.entity.ProjectGrade" id="projectGradeMap">
+        <result property="id" column="id"/>
+        <result property="studentId" column="student_id"/>
+        <result property="stuGradeId" column="stu_grade_id"/>
+        <result property="projectConfigId" column="project_config_id"/>
+        <result property="age" column="age"/>
+        <result property="ageRange" column="age_range"/>
+        <result property="teacherName" column="teacher_name"/>
+        <result property="projectId" column="project_id"/>
+        <result property="projectGrade" column="project_grade"/>
+        <result property="checkTime" column="check_time"/>
+        <result property="score" column="score"/>
+        <result property="suggestion" column="suggestion"/>
+        <result property="remark" column="remark"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+
+    <resultMap id="projectGradeExtendMap" extends="projectGradeMap" type="com.sport.modules.sport.dto.ProjectGradeDTO">
+        <result property="projectCode" column="project_code"/>
+        <result property="projectType" column="project_type"/>
+        <result property="projectName" column="project_name"/>
+    </resultMap>
+    <select id="getInGradeIds" resultMap="projectGradeExtendMap">
+        SELECT
+            pg.*,
+            p.project_code,
+            p.project_type,
+            p.project_name
+        FROM
+            sport_project_grade pg left join sport_project p
+          on pg.project_id = p.id
+        WHERE pg.stu_grade_id in
+        <foreach collection="gradeIds" item="gradeId" open="(" close=")" separator=",">
+            #{gradeId}
+        </foreach>
+    </select>
+
+
+</mapper>

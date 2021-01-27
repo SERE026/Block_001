@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>项目成绩表</title>
+		<#include "/header.html">
+</head>
+<body>
+<div id="rrapp" v-cloak>
+    <div v-show="showList">
+        <div class="grid-btn">
+			<#if shiro.hasPermission("sport:projectgrade:save")>
+            <a class="btn btn-primary" @click="add"><i class="fa fa-plus"></i>&nbsp;新增</a>
+			</#if>
+			<#if shiro.hasPermission("sport:projectgrade:update")>
+            <a class="btn btn-primary" @click="update"><i class="fa fa-pencil-square-o"></i>&nbsp;修改</a>
+			</#if>
+			<#if shiro.hasPermission("sport:projectgrade:delete")>
+            <a class="btn btn-primary" @click="del"><i class="fa fa-trash-o"></i>&nbsp;删除</a>
+			</#if>
+        </div>
+        <table id="jqGrid"></table>
+        <div id="jqGridPager"></div>
+    </div>
+
+    <div v-show="!showList" class="panel panel-default">
+        <div class="panel-heading">{{title}}</div>
+        <form class="form-horizontal">
+					<div class="form-group">
+                        <div class="col-sm-2 control-label">学号</div>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" v-model="projectGrade.stuNumber" placeholder="学号"/>
+                        </div>
+                    </div>
+					<div class="form-group">
+                        <div class="col-sm-2 control-label">年龄段</div>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" v-model="projectGrade.ageRange" placeholder="年龄段"/>
+                        </div>
+                    </div>
+					<div class="form-group">
+                        <div class="col-sm-2 control-label">测试员</div>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" v-model="projectGrade.teacherName" placeholder="测试员"/>
+                        </div>
+                    </div>
+					<div class="form-group">
+                        <div class="col-sm-2 control-label">项目ID</div>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" v-model="projectGrade.projectId" placeholder="项目ID"/>
+                        </div>
+                    </div>
+					<div class="form-group">
+                        <div class="col-sm-2 control-label">项目测试成绩</div>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" v-model="projectGrade.projectGrade" placeholder="项目测试成绩"/>
+                        </div>
+                    </div>
+											                    <div class="form-group">
+                        <div class="col-sm-2 control-label">检测时间</div>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" v-model="projectGrade.checkTime" placeholder="检测时间"/>
+                        </div>
+                    </div>
+											                    <div class="form-group">
+                        <div class="col-sm-2 control-label">综合评分</div>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" v-model="projectGrade.score" placeholder="综合评分"/>
+                        </div>
+                    </div>
+					<div class="form-group">
+                        <div class="col-sm-2 control-label">评测建议</div>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" v-model="projectGrade.suggestion" placeholder="评测建议"/>
+                        </div>
+                    </div>
+											                    <div class="form-group">
+                        <div class="col-sm-2 control-label">备注</div>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" v-model="projectGrade.remark" placeholder="备注"/>
+                        </div>
+                    </div>
+
+            <div class="form-group">
+                <div class="col-sm-2 control-label"></div>
+                <input type="button" class="btn btn-primary" id="btnSaveOrUpdate" data-loading-text="保存中..." @click="saveOrUpdate" value="确定"/>
+                &nbsp;&nbsp;<input type="button" class="btn btn-warning" @click="reload" value="返回"/>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="${request.contextPath}/js/modules/sport/projectgrade.js?_${.now?long}"></script>
+</body>
+</html>

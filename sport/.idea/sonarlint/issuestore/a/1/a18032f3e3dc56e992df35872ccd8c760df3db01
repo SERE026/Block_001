@@ -1,0 +1,46 @@
+
+\
+java:S1854‰"@Remove this useless assignment to local variable "lastStuGrade".(ÄĞ³ìıÿÿÿÿ
+F
+java:S3740·"/Provide the parametrized type for this generic.(Åÿú´
+F
+java:S3740„"/Provide the parametrized type for this generic.(¹ŸÓ¦
+U
+java:S3655‚"7Call "Optional#isPresent()" before accessing the value.(ËØ¬8¥ÔóùÛ.
+U
+java:S3655«"7Call "Optional#isPresent()" before accessing the value.(È¿ˆ”8¥ÔóùÛ.
+\
+java:S1854Ê"@Remove this useless assignment to local variable "lastStuGrade".(ÄĞ³ìıÿÿÿÿ
+S
+java:S1144ô"7Remove this unused private "applyGradeAsDouble" method.(¿ÁÓÌúÿÿÿÿ
+Z
+java:S3655"7Call "Optional#isPresent()" before accessing the value.(Öò¼”ÿÿÿÿÿ8¥ÔóùÛ.
+W	java:S125‘"<This block of commented-out lines of code should be removed.(¢ª–³úÿÿÿÿ
+R
+java:S3740×"/Provide the parametrized type for this generic.(™Ş­Ôşÿÿÿÿ8¥ÔóùÛ.
+\	java:S112Ú"FDefine and throw a dedicated exception instead of using a generic one.(çô¶×
+K
+java:S3740µ"/Provide the parametrized type for this generic.(¯‹æØşÿÿÿÿ
+Z
+java:S3655…"7Call "Optional#isPresent()" before accessing the value.(Ø–ïıûÿÿÿÿ8¥ÔóùÛ.
+F
+java:S3740Ë"/Provide the parametrized type for this generic.(ìºé“
+R
+java:S3740×"/Provide the parametrized type for this generic.(™Ş­Ôşÿÿÿÿ8¥ÔóùÛ.
+F
+java:S3740ğ"/Provide the parametrized type for this generic.(ó‚È¼
+s	java:S127ê"XRefactor the code in order to not assign to this loop counter from within the loop body.(Öó…ÿÿÿÿÿ
+W	java:S125õ"<This block of commented-out lines of code should be removed.(æ»üüÿÿÿÿ
+Z
+java:S3655Î"7Call "Optional#isPresent()" before accessing the value.(Öò¼”ÿÿÿÿÿ8¥ÔóùÛ.
+K
+java:S3740Í"/Provide the parametrized type for this generic.(Í»ºúıÿÿÿÿ
+R
+java:S3740Í"/Provide the parametrized type for this generic.(Í»ºúıÿÿÿÿ8¶ÿÙÖÛ.
+?
+java:S1148²"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ
+T
+java:S3655"7Call "Optional#isPresent()" before accessing the value.(ÆçÑy8¥ÔóùÛ.
+W	java:S125—"<This block of commented-out lines of code should be removed.(êêŒøÿÿÿÿ
+?
+java:S1148"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ

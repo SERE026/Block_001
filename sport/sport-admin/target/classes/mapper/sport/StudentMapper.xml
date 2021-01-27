@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.sport.modules.sport.dao.StudentMapper">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.sport.modules.sport.entity.Student" id="studentMap">
+        <result property="id" column="id"/>
+        <result property="stuNumber" column="stu_number"/>
+        <result property="mobile" column="mobile"/>
+        <result property="realname" column="realname"/>
+        <result property="gender" column="gender"/>
+        <result property="birthday" column="birthday"/>
+        <result property="familyName" column="family_name"/>
+        <result property="familyMobile" column="family_mobile"/>
+        <result property="remark" column="remark"/>
+        <result property="registerTime" column="register_time"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="province" column="province"/>
+        <result property="city" column="city"/>
+        <result property="address" column="address"/>
+        <result property="schoolId" column="school_id"/>
+        <result property="gradeFlag" column="grade_flag"/>
+    </resultMap>
+
+    <resultMap id="studentWithSchoolNameMap" extends="studentMap" type="com.sport.modules.sport.dto.StudentDTO">
+        <result property="schoolName" column="school_name"/>
+    </resultMap>
+
+    <select id="getStudentWithSchoolNameById" resultMap="studentWithSchoolNameMap">
+        select s.*,sc.school_name from sport_student s left join sport_school sc
+        on s.school_id = sc.id
+        where s.id = #{studentId}
+    </select>
+
+    <select id="getStudentNumber" resultType="string">
+        select concat('100000',ifnull(max(id),1)) from sport_student
+    </select>
+</mapper>

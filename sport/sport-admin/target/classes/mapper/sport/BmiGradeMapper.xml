@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.sport.modules.sport.dao.BmiGradeMapper">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.sport.modules.sport.entity.BmiGrade" id="bmiGradeMap">
+        <result property="id" column="id"/>
+        <result property="studentId" column="student_id"/>
+        <result property="stuGradeId" column="stu_grade_id"/>
+        <result property="bmiConfigId" column="bmi_config_id"/>
+        <result property="age" column="age"/>
+        <result property="ageRange" column="age_range"/>
+        <result property="teacherName" column="teacher_name"/>
+        <result property="height" column="height"/>
+        <result property="weight" column="weight"/>
+        <result property="checkTime" column="check_time"/>
+        <result property="bmiGrade" column="bmi_grade"/>
+        <result property="score" column="score"/>
+        <result property="suggestion" column="suggestion"/>
+        <result property="remark" column="remark"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+    <sql id="Base_column_list">
+         `id`, `stu_grade_id`,`student_id`,`age`,`age_range`,`teacher_name`,`height`,`weight`,`check_time`,`bmi_grade`,`score`,
+         `suggestion`,`remark`,`create_time`,`update_time`,bmi_config_id
+    </sql>
+    <select id="selectByStudentId" resultMap="bmiGradeMap">
+        select <include refid="Base_column_list"/>
+         from sport_bmi_grade
+        where student_id=#{studentId}
+        order by id desc
+        limit 4
+    </select>
+    <select id="getLastByStuGradeId" resultMap="bmiGradeMap">
+        select <include refid="Base_column_list"/>
+        from sport_bmi_grade
+        where stu_grade_id=#{stuGradeId}
+        order by id desc
+        limit 1
+    </select>
+
+
+</mapper>

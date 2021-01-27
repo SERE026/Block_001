@@ -1,0 +1,164 @@
+html,body,h1,h2,h3,h4,h5,h6,div,dl,dt,dd,ul,ol,li,p,blockquote,pre,hr,figure,table,caption,th,td,form,fieldset,legend,input,button,textarea,menu{margin:0;padding:0;}
+header,footer,section,article,aside,nav,address,figure,figcaption,menu,details{display:block;}
+table{border-collapse:collapse;border-spacing:0;}
+caption,th{text-align:left;font-weight:normal;}
+html,body,fieldset,img,iframe,abbr{border:0;}
+i,cite,em,var,address,dfn{font-style:normal;}
+[hidefocus],summary{outline:0;}
+li{list-style:none;}
+pre,code,kbd,samp{font-family:inherit;}
+q:before,q:after{content:none;}
+textarea{overflow:auto;resize:none;}
+label,summary{cursor:default;}
+a,button{cursor:pointer;}
+h1,h2,h3,h4,h5,h6,em,strong,b{font-weight:bold;}
+del,ins,u,s,a,a:hover{text-decoration:none;}
+body,textarea,input,button,select,keygen,legend{outline:0;}
+i,span,img{ vertical-align: middle;}
+body {font-family: "微软雅黑" !important; margin: 0; padding: 0; background-color: #FBF9F9 !important;}
+
+
+#main{
+    margin: 0 auto;
+}
+.table>tbody>tr>td,.table>tbody>tr>th{
+    border: 1px #d6d6d6 solid;
+}
+.table tr .logo_text{
+    padding: 0;
+    height:24px;
+    line-height:24px;
+    background: #db8b0b;
+}
+
+.logo_text .title_img div{
+    float: left;
+    width:50%;
+    height:30px;
+    line-height: 30px;
+}
+.logo_text .title_img div img{
+    float: right;
+    margin-right: 20px;
+}
+.logo_text .title_img .title_font{
+    text-align: left;
+    width:50%;
+    height:30px;
+    line-height: 30px;
+    font-family: "微软雅黑";
+    font-weight: bold;
+    font-size: 18px;
+}
+.table .title_tr th ,.table .content_tr th{
+    padding: 0;
+    margin: 0;
+    height:20px;
+    line-height: 20px;
+    font-size: 10px;
+    text-align: center;
+}
+
+.table .pro-title{
+    background-color: yellow;
+    text-align: center;
+}
+.table .pro-title td{
+    /*width: 50%;*/
+    margin: 0;
+    padding: 0;
+    height: 28px;
+    line-height: 28px;
+    text-align: center;
+    font-size: 16px;
+    font-family: "微软雅黑";
+}
+
+.td-train-bmi{
+    width: 425px;
+}
+.train-goal{
+    word-break: break-all;
+    color: #0eca90;
+    font-size: 18px;
+    vertical-align: middle !important;
+    line-height: 35px;
+}
+
+.bmi-table{
+    width: 100%;
+    margin-bottom: 0;
+    border: none;
+}
+.bmi-table tr td{
+    text-align: center;
+}
+
+.pro-table>tbody>tr>td{
+    line-height: 5px;
+    height: 18px;
+    font-size:12px;
+}
+.pro-table {
+    white-space: nowrap;
+    width: 849px;
+    text-align: center;
+}
+.pro-table-title>td{
+    color: #58ca74;
+}
+.grade-table{
+    width:849px;
+}
+
+.sug-name{
+    width: 136px;
+    text-align: center;
+    font-size: 14px;
+}
+.sug-text{
+    font-size: 14px;
+    text-align: center;
+}
+.chart{
+    width: 425px;
+}
+.check-res-title{
+    text-align: center;height: 22px;
+    font-weight: bold;
+}
+.future-text{
+    height: 18px;
+    font-weight: bold;
+    text-align: center;
+}
+.pro-title-span{
+    color: red; font-size: 18px;font-weight: bold;
+    display: block;
+    text-align: center;
+}
+
+.btn-print{
+    color: #fff;
+    background-color: #337ab7;
+    border-color: #2e6da4;
+    display: inline-block;
+    padding: 6px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}

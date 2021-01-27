@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>学生成绩报表导出</title>
+    <link rel="icon" type="image/png" href="/favicon.ico" />
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="${request.contextPath}/libs/jquery.min.js"></script>
+    <script src="${request.contextPath}/libs/bootstrap.min.js"></script>
+    <script src="${request.contextPath}/libs/vue.min.js"></script>
+    <script src="https://cdn.staticfile.org/popper.js/1.12.5/umd/popper.min.js"></script>
+    <script src="https://cdn.bootcss.com/echarts/4.2.1-rc1/echarts.js"></script>
+    <script src="${request.contextPath}/libs/jquery.jqprint-0.3.js"></script>
+    <script src="${request.contextPath}/js/print.js?v=2"></script>
+
+    <link rel="stylesheet" href="${request.contextPath}/css/sport/print.css?v=7" media="print">
+    <link rel="stylesheet" href="${request.contextPath}/css/sport/revise_style.css?v=7"/>
+
+</head>
+<body style="position: relative;">
+
+<div style="position:absolute; left:150px;align-content: center;margin:0 auto;text-align-all: center;">
+    <button class='btn-print ' onclick="jqPrint('main')" >打印</button>
+</div>
+<div class="container" id="main" style="width:850px;height:950px">
+    <div class="row">
+        <table class="table table-bordered" >
+            <tr>
+                <td colspan="10" class="logo_text">
+                        <div class="title_img">
+                            <div><img src="/static/images/logo.jpg?v=1" style="width: 30px; height: 30px"/></div>
+                            <div class="title_font">爱赞儿童体能测评报告</div>
+                        </div>
+                </td>
+            </tr>
+            <tr class="title_tr">
+                <th>门店</th>
+                <th>姓名</th>
+                <th>性别</th>
+                <th>年龄</th>
+                <th>年龄段</th>
+                <th>出生年月</th>
+                <th>测试日期</th>
+                <th>训练课时</th>
+                <th>出勤率</th>
+                <th>测试人</th>
+            </tr>
+            <tr class="content_tr">
+                <th>{{student.schoolName}}</th>
+                <th>{{student.realname}}</th>
+                <th v-if="student.gender == 1">男</th><th v-else>女</th>
+                <th>{{student.age}}</th>
+                <th>{{lastStuGrade.ageRange}}</th>
+                <th>{{birthday}}</th>
+                <th>{{checkTime }} </th>
+                <th>{{lastStuGrade.trainHours}}</th>
+                <th>{{lastStuGrade.attendance}} %</th>
+                <th>{{lastStuGrade.teacherName}}</th>
+            </tr>
+
+            <tr class="pro-title">
+                <td colspan="5" >该年龄段训练目标	 </td>
+                <td colspan="5" >身体形态测评</td>
+            </tr>
+            <tr>
+                <td colspan="5" class="td-train-bmi td-train-goal train-goal">
+                        &nbsp;&nbsp; {{trainGoal.trainGoal}}
+
+                </td>
+                <td colspan="5" class="td-train-bmi bmi-content">
+                    <table class="table table-border bmi-table">
+                        <tr>
+                            <td colspan="2">身高: <span style="color: red; font-size: 16px;">{{lastBmiGrade.height}} </span>cm</td>
+                            <td colspan="2">体重: <span style="color: red; font-size: 16px;">{{lastBmiGrade.weight}} </span>KG</td>
+                            <td colspan="2">
+                                BMI:
+                                <span style="color: red; font-size: 18px;">{{lastBmiGrade.bmiGrade}}</span>
+                            </td>
+                        </tr>
+                        <tr style="border: none;">
+                            <td colspan="6">
+                                <img id="bmiChartImg" style="width:350px;height:220px;display:none;" >
+                                <div id="bmiChart" style="width: 350px;height:220px;margin: 0 auto;">
+                                    柱状图
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+
+            <tr class="pro-title">
+                <td colspan="10">身体素质测评数据 </td>
+            </tr>
+            <tr>
+                <td colspan="10">
+                    <table class="table table-border pro-table">
+                        <tr class="pro-table-tr">
+                            <td width="80px"></td>
+                            <td v-for="pg in lastProGradeList">{{pg.projectType }}</td>
+                        </tr>
+                        <tr class="pro-table-title">
+                            <td style="color: #000;">测试项目</td>
+                            <td v-for="pg in lastProGradeList">{{pg.projectName}}</td>
+                        </tr>
+                        <tr>
+                            <td>成绩</td>
+                            <td v-for="pg in lastProGradeList"> {{pg.projectGrade}}</td>
+                        </tr>
+                        <tr>
+                            <td>上次成绩</td>
+                            <td v-for="pg in lastProGradeList">
+                                <div v-for="prev in prevProGradeList" v-if="pg.projectId == prev.projectId" >
+                                    {{prev.projectGrade}}
+                                </div>
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>增长值</td>
+                            <td v-for="pg in lastProGradeList">
+                                <div v-if="prevProGradeList.length > 0">
+                                    <div v-for="prev in prevProGradeList" v-if="pg.projectId == prev.projectId" >
+                                        {{pg.projectGrade-prev.projectGrade | numFilter}}
+                                    </div>
+                                </div>
+                                <div v-else>{{pg.projectGrade}}</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>满分成绩</td>
+                            <td v-for="pg in lastProGradeList">
+                                <div v-for="(v,k) in proFullScore" v-if="k==pg.projectId">
+                                    <div v-if="v.rule == 1">
+                                    {{v.maxScore}}
+                                    </div>
+                                    <div v-else>{{v.minScore}}</div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>评分</td>
+                            <td v-for="pg in lastProGradeList">
+                                {{pg.score}}
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="5" class="pro-title"> 数据雷达对比图 </td>
+                <td colspan="5" class="pro-title"> TGMD-3 大肌肉群发展测试</td>
+            </tr>
+            <tr>
+                <td colspan="5" class="chart">
+                    <img id="radarImg" style="width:350px;height:220px;display:none;" >
+                    <div class="four-body" id="radarId" style="width:350px; height:220px;margin:0 auto;text-align: center;">
+                        雷达图
+                    </div>
+
+                </td>
+                <td colspan="5" class="chart">
+                    <img id="barChartImg" style="width:350px;height:220px;display:none;" >
+                    <div class="four-right-body" id="barChart" style="width:350px; height:220px;margin:0 auto;text-align: center;">
+                        柱状图
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="10" class="pro-title">根据测评结果训练建议 </td>
+            </tr>
+            <tr>
+                <td  colspan="10">
+                <table class="table grade-table">
+                    <tr v-for="proGrade in lastProGradeList">
+                        <td colspan="2" class="sug-name">{{proGrade.projectType}}</td>
+                        <td colspan="8" class="sug-text">{{proGrade.suggestion}}</td>
+                    </tr>
+
+                    <tr>
+                        <td colspan="2" class="sug-name">综合测评</td>
+                        <td colspan="8" class="sug-text">{{lastStuGrade.suggestion}}</td>
+                    </tr>
+                </table>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="10" class="pro-title">测试评价结果</td>
+            </tr>
+            <tr>
+                <td colspan="3" class="check-res-title">
+                    本次体能测试结果评价为
+                </td>
+                <td colspan="2"><span class="pro-title-span">通过</span></td>
+                <td colspan="3" class="check-res-title">你的测评成绩为</td>
+                <td colspan="2"><span class="pro-title-span">{{scoreDesc}}</span></td>
+            </tr>
+            <tr>
+                <td colspan="10" class="future-text">
+                    既然选择了踏上这条道路，那么，任何东西都不应该妨碍我沿着这条路走下去！请保持良好的出勤！
+                </td>
+            </tr>
+            <tr>
+                <td colspan="10" class="future-text">
+                    用运动，改变未来
+                </td>
+            </tr>
+        </table>
+    </div>
+
+</div>
+<script src="${request.contextPath}/js/modules/sport/exportStuGrade.js?_${.now?long}"></script>
+<script src="${request.contextPath}/js/modules/sport/grade.js?_${.now?long}"></script>
+
+
+</body>
+</html>

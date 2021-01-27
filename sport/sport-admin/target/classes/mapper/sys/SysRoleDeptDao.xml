@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.sport.modules.sys.dao.SysRoleDeptDao">
+	<cache type="org.mybatis.caches.ehcache.EhcacheCache">
+		<property name="timeToIdleSeconds" value="3600"/>
+		<property name="timeToLiveSeconds" value="3600"/>
+		<property name="maxEntriesLocalHeap" value="1000"/>
+		<property name="maxEntriesLocalDisk" value="10000000"/>
+		<property name="memoryStoreEvictionPolicy" value="LRU"/>
+	</cache>
+	<select id="queryDeptIdList" resultType="long">
+		select dept_id from sys_role_dept where role_id in
+		<foreach item="roleId" collection="array" open="(" separator="," close=")">
+			#{roleId}
+		</foreach>
+	</select>
+
+	<delete id="deleteBatch">
+		delete from sys_role_dept where role_id in
+		<foreach item="roleId" collection="array" open="(" separator="," close=")">
+			#{roleId}
+		</foreach>
+	</delete>
+
+</mapper>

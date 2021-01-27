@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/sport.iml" filepath="$PROJECT_DIR$/sport.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sport-admin/sport-admin.iml" filepath="$PROJECT_DIR$/sport-admin/sport-admin.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sport-api/sport-api.iml" filepath="$PROJECT_DIR$/sport-api/sport-api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sport-common/sport-common.iml" filepath="$PROJECT_DIR$/sport-common/sport-common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sport-datasource/sport-datasource.iml" filepath="$PROJECT_DIR$/sport-datasource/sport-datasource.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sport-generator/sport-generator.iml" filepath="$PROJECT_DIR$/sport-generator/sport-generator.iml" />
+    </modules>
+  </component>
+</project>

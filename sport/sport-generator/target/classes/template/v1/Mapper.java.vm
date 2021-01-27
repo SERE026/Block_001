@@ -1,0 +1,51 @@
+package ${package}.${moduleName}.mapper;
+
+import ${package}.${moduleName}.entity.${className};
+import java.util.List;
+import java.lang.Integer;
+
+/**
+ * ${comments}
+ * 
+ * @author ${author}
+ * @date ${datetime}
+ */
+public interface ${className}Mapper {
+
+    /**
+    * 根据条件查询
+    * @param record
+    * @return
+    */
+    List<${className}> listByCondition(${className} record);
+    /**
+    * 新增
+    * @param record
+    * @return
+    */
+    int insert(${className} record);
+    /**
+    * 批量插入
+    * @param list
+    * @return
+    */
+    Integer insertBatch(List<${className}> list);
+    /**
+    * 根据主键查询
+    * @param ${pk.attrname}
+    * @return
+    */
+    ${className} selectById(${pk.attrType} ${pk.attrname});
+    /**
+    * 批量更新
+    * @param list
+    * @return
+    */
+    Integer updateBatchByIds(List<${className}> list);
+    /**
+    * 单条更新
+    * @param record
+    * @return
+    */
+    int updateById(${className} record);
+}

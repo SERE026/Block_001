@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>项目</title>
+		<#include "/header.html">
+</head>
+<body>
+<div id="rrapp" v-cloak>
+    <div v-show="showList">
+        <div class="grid-btn">
+			<#if shiro.hasPermission("sport:project:save")>
+            <a class="btn btn-primary" @click="add"><i class="fa fa-plus"></i>&nbsp;新增</a>
+			</#if>
+			<#if shiro.hasPermission("sport:project:update")>
+            <a class="btn btn-primary" @click="update"><i class="fa fa-pencil-square-o"></i>&nbsp;修改</a>
+			</#if>
+			<#if shiro.hasPermission("sport:project:delete")>
+            <a class="btn btn-primary" @click="del"><i class="fa fa-trash-o"></i>&nbsp;删除</a>
+			</#if>
+        </div>
+        <table id="jqGrid"></table>
+        <div id="jqGridPager"></div>
+    </div>
+
+    <div v-show="!showList" class="panel panel-default">
+        <div class="panel-heading">{{title}}</div>
+        <form class="form-horizontal">
+
+                    <div class="form-group">
+                        <div class="col-sm-2 control-label">项目类型</div>
+                        <div class="col-sm-10">
+                            <select class="form-control" v-model="project.projectCode">
+                                <option value="upper_strength">上肢力量</option>
+                                <option value="low_strength">下肢爆发力</option>
+                                <option value="cardiopulmonary">心肺耐力</option>
+                                <option value="flexibility">柔韧</option>
+                                <option value="core_strength">核心力量</option>
+                                <option value="sensitivity">灵敏</option>
+                                <option value="speed">速度</option>
+                                <option value="tgmd3_check">TGMD-3测试</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-2 control-label">项目名称</div>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" v-model="project.projectName" placeholder="5*4 折返跑"/>
+                        </div>
+                    </div>
+
+            <div class="form-group">
+                <div class="col-sm-2 control-label">年龄范围</div>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" v-model="project.minAge" placeholder="最小年龄"/>-
+                </div>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" v-model="project.maxAge" placeholder="最大年龄"/>
+                </div>
+            </div>
+
+                    <div class="form-group">
+                        <div class="col-sm-2 control-label">评分规则</div>
+                        <div class="col-sm-10">
+                            <select class="form-control"  v-model="project.rule">
+                                <option value="">----请选择-----</option>
+                                <option value="1">分值小评分高/分值大评分低</option>
+                                <option value="2">分值小评分低/分值高评分高</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-2 control-label">备注</div>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" v-model="project.remark" placeholder="备注"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                <div class="col-sm-2 control-label"></div>
+                <input type="button" class="btn btn-primary" id="btnSaveOrUpdate" data-loading-text="保存中..." @click="saveOrUpdate" value="确定"/>
+                &nbsp;&nbsp;<input type="button" class="btn btn-warning" @click="reload" value="返回"/>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="${request.contextPath}/js/modules/sport/project.js?_${.now?long}"></script>
+</body>
+</html>

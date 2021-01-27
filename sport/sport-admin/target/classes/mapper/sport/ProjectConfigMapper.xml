@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.sport.modules.sport.dao.ProjectConfigMapper">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.sport.modules.sport.entity.ProjectConfig" id="projectConfigMap">
+        <result property="id" column="id"/>
+        <result property="projectType" column="project_type"/>
+        <result property="projectId" column="project_id"/>
+        <result property="projectName" column="project_name"/>
+        <result property="minScore" column="min_score"/>
+        <result property="maxScore" column="max_score"/>
+        <result property="scoreLevel" column="score_level"/>
+        <result property="minAge" column="min_age"/>
+        <result property="maxAge" column="max_age"/>
+        <result property="gender" column="gender"/>
+        <result property="remark" column="remark"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="rule" column="rule"/>
+    </resultMap>
+
+    <select id="getByProjectIds" resultMap="projectConfigMap">
+        select * from sport_project_config
+        where project_id in
+        <foreach collection="projectIds" item="projectId" open="(" close=")" separator=",">
+            #{projectId}
+        </foreach>
+    </select>
+
+    <select id="getByFullScoreByProjectIds" resultMap="projectConfigMap">
+        select * from sport_project_config
+        where  score_level = (SELECT MAX(score_level) FROM sport_project_config)
+        <if test="projectIds != null and projectIds.size() > 0" >
+        and project_id in
+        <foreach collection="projectIds" item="projectId" open="(" close=")" separator=",">
+            #{projectId}
+        </foreach>
+        </if>
+        <![CDATA[
+        AND (gender = 0 OR gender = #{gender})
+        AND ((min_age=-1 OR max_age=-1) OR (min_age <=#{age} and max_age >= #{age}) )
+        ]]>
+    </select>
+    <select id="getByAgeWithGradeRange" resultMap="projectConfigMap">
+      <![CDATA[
+        SELECT
+        *
+        FROM
+        sport_project_config
+        WHERE project_id = #{projectId}
+        AND (gender = 0 OR gender = #{gender})
+        AND (min_score <= #{proGrade} and max_score>=#{proGrade} )
+        AND ((min_age=-1 OR max_age=-1) OR (min_age <=#{age} and max_age >= #{age}) )
+        limit 1
+      ]]>
+    </select>
+
+    <select id="importSheet1" resultType="map">
+        SELECT c.*,p.`project_type`,p.`project_name`,p.`project_code`,p.`id` AS project_id
+        FROM `sheet1_305` c , sport_project p WHERE c.pro_name=p.project_name
+    </select>
+    <select id="importSheet2" resultType="map">
+      SELECT c.*,p.`project_type`,p.`project_name`,p.`project_code`,p.`id` AS project_id
+      FROM `sheet2_608` c , sport_project p WHERE c.pro_type=p.project_type AND p.`id`=11
+    </select>
+    <select id="importSheet3" resultType="map">
+      SELECT c.*,p.`project_type`,p.`project_name`,p.`project_code`,p.`id` AS project_id
+      FROM `sheet3_911` c , sport_project p WHERE c.pro_type=p.project_type AND p.`id`=11
+    </select>
+</mapper>

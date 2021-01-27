@@ -1,0 +1,80 @@
+package ${package}.${moduleName}.service.impl;
+
+import org.springframework.stereotype.Service;
+import java.util.List;
+import java.lang.Integer;
+
+import ${package}.${moduleName}.mapper.${className}Mapper;
+import ${package}.${moduleName}.entity.${className};
+import ${package}.${moduleName}.service.${className}Service;
+
+import javax.annotation.Resource;
+
+/**
+ * ${comments}
+ *
+ * @author ${author}
+ * @date ${datetime}
+ */
+@Service("${classname}Service")
+public class ${className}ServiceImpl implements ${className}Service {
+
+    @Resource
+    private ${className}Mapper ${classname}Mapper;
+
+    /**
+    * 根据条件查询
+    * @param record
+    * @return
+    */
+    @Override
+    public List<${className}> listByCondition(${className} record){
+        return ${classname}Mapper.listByCondition(record);
+    }
+    /**
+    * 新增
+    * @param record
+    * @return
+    */
+    @Override
+    public int insert(${className} record){
+        return ${classname}Mapper.insert(record);
+    }
+    /**
+    * 批量插入
+    * @param list
+    * @return
+    */
+    @Override
+    public Integer insertBatch(List<${className}> list){
+        return ${classname}Mapper.insertBatch(list);
+    }
+    /**
+    * 根据主键查询
+    * @param ${pk.attrname}
+    * @return
+    */
+    @Override
+    public ${className} selectById(${pk.attrType} ${pk.attrname}){
+        return ${classname}Mapper.selectById(${pk.attrname});
+    }
+    /**
+    * 批量更新
+    * @param list
+    * @return
+    */
+    @Override
+    public Integer updateBatchByIds(List<${className}> list){
+        return ${classname}Mapper.updateBatchByIds(list);
+    }
+    /**
+    * 单条更新
+    * @param record
+    * @return
+    */
+    @Override
+    public int updateById(${className} record){
+        return ${classname}Mapper.updateById(record);
+    }
+
+}

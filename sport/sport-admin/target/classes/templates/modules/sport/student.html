@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>学员信息表</title>
+		<#include "/header.html">
+    <style>
+        .form-control-i{
+            width: 20%;
+            height: 34px;
+            padding: 3px 6px;
+            font-size: 14px;
+            line-height: 1.42857143;
+            color: #555;
+            background-color: #fff;
+            background-image: none;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+            box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+            -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+            -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+            transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+        }
+    </style>
+</head>
+<body>
+<div id="rrapp" v-cloak>
+    <div v-show="showList">
+
+        <div class="grid-btn">
+            <#if shiro.hasPermission("sport:student:list")>
+            姓名:<input id="realnameInput" class="form-control-i" type="text" name="realname"/>
+            <a class="btn btn-default" @click="reload"><i class="fa fa-search"></i>&nbsp;查询</a>
+            </#if>
+			<#if shiro.hasPermission("sport:student:save")>
+            <a class="btn btn-primary" @click="add"><i class="fa fa-plus"></i>&nbsp;新增</a>
+			</#if>
+			<#if shiro.hasPermission("sport:student:update")>
+            <a class="btn btn-primary" @click="update"><i class="fa fa-pencil-square-o"></i>&nbsp;修改</a>
+			</#if>
+
+        </div>
+        <table id="jqGrid"></table>
+        <div id="jqGridPager"></div>
+    </div>
+
+    <div v-show="!showList" class="panel panel-default">
+        <div class="panel-heading">{{title}}</div>
+        <form class="form-horizontal">
+					<div class="form-group">
+                        <div class="col-sm-3 control-label">联系方式</div>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control" v-model="student.mobile" placeholder="联系方式"/>
+                        </div>
+                        <div class="col-sm-3 control-label">学生姓名</div>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control" v-model="student.realname" placeholder="学生姓名"/>
+                        </div>
+                    </div>
+					<div class="form-group">
+                        <div class="col-sm-3 control-label">性别</div>
+                        <div class="col-sm-3">
+                            <select class="form-control"  v-model="student.gender">
+                                <option value="">------请选择-----</option>
+                                <option value="1">男</option>
+                                <option value="2">女</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-3 control-label">出生日期</div>
+                        <div class="col-sm-3">
+                            <input type="text" id="birthday" autocomplete="off" class="form-control" v-model="student.birthday" placeholder="出生日期"/>
+                        </div>
+                    </div>
+					<!--<div class="form-group">
+                        <div class="col-sm-3 control-label">家长联系方式</div>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control" v-model="student.familyMobile" placeholder="家长联系方式"/>
+                        </div>
+                        <div class="col-sm-3 control-label">家长姓名</div>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control" v-model="student.familyName" placeholder="家长姓名"/>
+                        </div>
+                    </div>-->
+					<div class="form-group">
+                        <div class="col-sm-3 control-label">备注</div>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control" v-model="student.remark" placeholder="备注"/>
+                        </div>
+                        <div class="col-sm-3 control-label">报名时间</div>
+                        <div class="col-sm-3">
+                            <input type="text" id="registerTime" autocomplete="off"  class="form-control" v-model="student.registerTime"  placeholder="报名时间"/>
+                        </div>
+
+                    </div>
+                <div class="form-group">
+                    <div class="col-sm-3 control-label">省（直辖市）</div>
+                    <div class="col-sm-3">
+                        <select class="form-control" id="province" v-model="student.province" @change="fillCityByParentId()">
+                            <option value="">-----请选择-----</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-3 control-label">市</div>
+                    <div class="col-sm-3">
+                        <select class="form-control" id="city" v-model="student.city">
+                            <option value="">-----请选择-----</option>
+                        </select>
+                    </div>
+
+                </div>
+            <div class="form-group">
+                <div class="col-sm-3 control-label">详细地址</div>
+                <div class="col-sm-3">
+                    <input type="text" class="form-control" v-model="student.address" placeholder="详细地址"/>
+                </div>
+                <div class="col-sm-3 control-label">校区</div>
+                <div class="col-sm-3" style="">
+                    <select class="form-control" style="width: 100%" v-model="student.schoolId" name="student.schoolId" id="schoolId" placeholder="校区">
+                        <option value="">-----请选择----</option>
+                    </select>
+                </div>
+
+            </div>
+				<div class="form-group">
+                <div class="col-sm-2 control-label"></div>
+                <input type="button" class="btn btn-primary" id="btnSaveOrUpdate" data-loading-text="保存中..." @click="saveOrUpdate" value="确定"/>
+                &nbsp;&nbsp;<input type="button" class="btn btn-warning" @click="reload" value="返回"/>
+            </div>
+        </form>
+    </div>
+
+    <div v-show="!showGrade" id="addGradeId" class="panel panel-default" >
+        <form id="formId" class="form-horizontal" style="width: 720px" >
+            <div class="form-group">
+                <div class="col-sm-3 control-label">身高(厘米)</div>
+                <div class="col-sm-3">
+                    <input type="text" class="form-control"  name="height" id="height" placeholder="身高"/>
+                </div>
+                <div class="col-sm-3 control-label">体重(公斤)</div>
+                <div class="col-sm-3">
+                    <input type="text" class="form-control" name="weight" id="weight" placeholder="体重"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-3 control-label">训练时长</div>
+                <div class="col-sm-3">
+                    <input type="text" class="form-control"   name="trainHours" id="trainHours" placeholder="训练时长"/>
+                </div>
+                <div class="col-sm-3 control-label">出勤率(%)</div>
+                <div class="col-sm-3">
+                    <input type="text" class="form-control"   name="attendance" id="attendance" placeholder="出勤率"/>
+                </div>
+            </div>
+            <div id="form-project-group" >
+            </div>
+            <div class="form-group">
+                <div class="col-sm-3 control-label">测试员</div>
+                <div class="col-sm-3">
+                    <input type="text" class="form-control"   name="teacherName" id="teacherName" placeholder="测试员"/>
+                </div>
+                <div class="col-sm-3 control-label">检测时间</div>
+                <div class="col-sm-3">
+                    <input type="text" class="form-control" autocomplete="off"  name="checkTime" id="checkTime" placeholder="检测时间"/>
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <div class="col-sm-3 control-label"></div>
+                <input type="button" class="btn btn-primary" id="btnSaveGrade" data-loading-text="保存中..." @click="saveOrUpdateProjectGrade()" value="确定"/>
+                &nbsp;&nbsp;<input type="button" class="btn btn-warning" @click="layerClose" value="返回"/>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="${request.contextPath}/js/modules/area/area-name.js?_${.now?long}"></script>
+<script src="${request.contextPath}/js/modules/sport/student.js?_${.now?long}"></script>
+
+</body>
+</html>

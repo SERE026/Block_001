@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="sport-admin" />
+        <module name="sport-api" />
+        <module name="sport-common" />
+        <module name="sport-datasource" />
+        <module name="sport-generator" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="sport" target="1.8" />
+      <module name="sport-admin" target="1.8" />
+      <module name="sport-api" target="1.8" />
+      <module name="sport-common" target="1.8" />
+      <module name="sport-datasource" target="1.8" />
+      <module name="sport-generator" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="sport-admin" options="-parameters" />
+      <module name="sport-api" options="-parameters" />
+      <module name="sport-common" options="-parameters" />
+      <module name="sport-datasource" options="-parameters" />
+      <module name="sport-generator" options="-parameters" />
+    </option>
+  </component>
+</project>

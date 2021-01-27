@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <#include "/header.html">
+    <title>学生成绩报表导出</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.1.0/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/popper.js/1.12.5/umd/popper.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/4.1.0/js/bootstrap.min.js"></script>
+    <script src="https://cdn.bootcss.com/echarts/4.2.1-rc1/echarts.js"></script>
+    <script src="${request.contextPath}/libs/jquery.jqprint-0.3.js"></script>
+    <script src="${request.contextPath}/js/print.js"></script>
+    <style>
+        table{table-layout:fixed;word-break:break-all;}
+        .table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
+            padding: 2px;
+            line-height: -0.529;
+            height: 26px;
+            vertical-align: top;
+            border-top: 1px solid #ddd;
+    </style>
+</head>
+<body>
+
+<div style="align-content: center;margin:0 auto;text-align-all: center;">
+    <button class='btn btn-primary ' onclick="jqPrint('main')" >打印</button>
+</div>
+<div class="container" id="main" style="width:850px;height:978px">
+    <div class="row">
+        <table class="table table-bordered">
+            <tr>
+                <td colspan="10" style="align-content: center; background-color: yellow;"> <h3 class="text-center" >梦锐体能测评报告</h3></td>
+            </tr>
+            <tr>
+                <th>门店</th>
+                <th>姓名</th>
+                <th>性别</th>
+                <th>年龄</th>
+                <th>年龄段</th>
+                <th>出生年月</th>
+                <th>测试日期</th>
+                <th>训练课时</th>
+                <th>出勤率</th>
+                <th>测试人</th>
+            </tr>
+            <tr>
+                <th>${student.schoolName}</th>
+                <th>${student.realname}</th>
+                <th>${student.gender}</th>
+                <th>${age}</th>
+                <th>${lastStuGrade.ageRange}</th>
+                <th>${student.birthday?date('yyyy-MM-dd')}</th>
+                <th> ${lastStuGrade.checkTime?date('yyyy-MM-dd')} </th>
+                <th>${lastStuGrade.trainHours}</th>
+                <th>${lastStuGrade.attendance} %</th>
+                <th>${lastStuGrade.teacherName}</th>
+            </tr>
+
+            <tr>
+                <td colspan="5" style="background-color: yellow;text-align: center">该年龄段训练目标	 </td>
+                <td colspan="5" style="background-color: yellow; text-align: center">身体形态测评</td>
+            </tr>
+            <tr>
+                <td colspan="5" style="width: 384px; height: 30px;word-wrap:break-word; font-size: 18px;solid-color: #00ca6d">
+                     &nbsp;&nbsp; ${trainGoal.trainGoal}
+                </td>
+                <td colspan="5" style="width: 384px">
+                    <table class="table table-border">
+                        <tr>
+                            <td colspan="2">身高: <span style="color: red; font-size: 16px;">${lastBmiGrade.height} </span>cm</td>
+                            <td colspan="2">体重: <span style="color: red; font-size: 16px;">${lastBmiGrade.weight} </span>KG</td>
+                            <td colspan="2">
+                                BMI:
+                                <span style="color: red; font-size: 18px;">${lastBmiGrade.bmiGrade!}</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="1" style="text-align: center">身体质量指数</td>
+                            <td colspan="5">
+                                <img id="bmiChartImg" style="width:100%;display:none;" >
+                                <div id="bmiChart" style="width: 270px;height:280px;top: -20px;left:10px">
+                                    柱状图
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="10" style="background-color: yellow;text-align: center">身体素质测评数据 </td>
+            </tr>
+            <tr>
+                <td colspan="10">
+                    <table class="table table-border">
+                        <tr>
+                            <td>测试项目</td>
+
+                            <#list lastProGradeList as proGrade>
+                                <td>${proGrade.projectType} /  ${proGrade.projectName}</td>
+                            </#list>
+                        </tr>
+                        <tr>
+                            <td>成绩</td>
+                            <#list lastProGradeList as proGrade>
+                                <td>${proGrade.projectGrade}</td>
+                            </#list>
+                        </tr>
+                        <tr>
+                            <td>上次成绩</td>
+
+                                <#list lastProGradeList as proGrade>
+                                <td>
+                                    <#list prevProjectGradeList as prevGrade>
+                                        <#if proGrade.projectId == prevGrade.projectId>
+                                            ${prevGrade.projectGrade}
+                                        <#else>
+                                            0
+                                        </#if>
+                                    </#list>
+                                </td>
+                                </#list>
+
+                        </tr>
+                        <tr>
+                            <td>增长值</td>
+                            <#list lastProGradeList as proGrade>
+                                <td>
+                                    <#if prevProjectGradeList??>
+                                    <#list prevProjectGradeList as prevGrade>
+                                    <#if proGrade.projectId== prevGrade.projectId>
+                                        ${proGrade.projectGrade - prevGrade.projectGrade!0}
+                                    </#if>
+                                    </#list>
+                                    <#else>
+                                        0
+                                    </#if>
+                                </td>
+                            </#list>
+                        </tr>
+                        <tr>
+                            <td>满分成绩</td>
+                            <#list lastProGradeList as proGrade>
+                            <td>
+                                <#list projectFullScore as fullScore>
+                                    <#if proGrade.projectId == fullScore.projectId>
+                                        ${fullScore.minScore} <#break>
+                                    </#if>
+                                </#list>
+                            </td>
+                            </#list>
+                        </tr>
+                        <tr>
+                            <td>评分</td>
+                            <#list lastProGradeList as proGrade>
+                            <td>
+                                <#list prevProjectGradeList as prevGrade>
+                                <#if proGrade.projectId== prevGrade.projectId>
+                                    ${(proGrade.projectGrade + prevGrade.projectGrade!0)/2}
+                                </#if>
+                            </#list>
+                            </td>
+                        </#list>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="5" style="background-color: yellow;text-align: center"> 数据雷达对比图 </td>
+                <td colspan="5" style="background-color: yellow;text-align: center"> TGMD-3 大肌肉群发展测试</td>
+            </tr>
+            <tr>
+                <td colspan="5">
+                    <img id="radarImg" style="width:100%;display:none;" >
+                    <div class="four-body" id="radarId" style="width:223px; height:210px;text-align: center;">
+                        雷达图
+                    </div>
+
+                </td>
+                <td colspan="5">
+                    <img id="barChartImg" style="width:100%;display:none;" >
+                    <div class="four-right-body" id="barChart" style="width:223px; height:210px;text-align: center;">
+                        柱状图
+                    </div>
+                </td>
+            </tr>
+                        <#list lastProGradeList as proGrade>
+                            <tr>
+                                <td colspan="2">${proGrade.projectType}<br/> ${proGrade.projectName}</td>
+                                <td colspan="8">${proGrade.suggestion}</td>
+                            </tr>
+                        </#list>
+
+                        <tr>
+                            <td colspan="2">综合测评</td>
+                            <td colspan="8">${lastStuGrade.suggestion!}</td>
+                        </tr>
+            <tr>
+                <td colspan="10" style="background-color: yellow;text-align: center">测试评价结果</td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    本次体能测试结果评价为
+                </td>
+                <td colspan="2"><span style="font-color: red;text-align: center;">${passDesc}</span></td>
+                <td colspan="3">你的测评成绩为</td>
+                <td colspan="2"><span style="font-color: red;text-align: center">${scoreDesc}</span></td>
+            </tr>
+            <tr>
+                <td colspan="10" style="text-align: center;">
+                    既然选择了踏上这条道路，那么，任何东西都不应该妨碍我沿着这条路走下去！请保持良好的出勤！
+                </td>
+            </tr>
+            <tr>
+                <td colspan="10" style="text-align: center;">
+                    用运动，改变未来
+                </td>
+            </tr>
+    </div>
+
+</div>
+<script src="${request.contextPath}/js/modules/sport/exportStuGrade.js?_${.now?long}"></script>
+<script>
+    var radarChartData=[];
+    var barCheckDataY =[];
+    var barDataX =[];
+    var lastScore=0;
+    var lastCheckTime;
+    <#list lastProGradeList as item>
+        radarChartData.push({projectType:"${item.projectType}",score:"${item.score}"});
+        lastCheckTime = "${item.checkTime?date('MM-dd')}";
+        if('tgmd3_check' == "${item.projectType}"){
+            lastScore = "${item.score}";
+        }
+    </#list>
+    barDataX.push(lastCheckTime);
+    barCheckDataY.push(lastScore);
+    radarChartFun(radarChartData);
+
+    var prevScore = 0;
+    <#list prevProjectGradeList as item>
+        barDataX.push("${item.checkTime?date('MM-dd')}");
+        if('tgmd3_check' == "${item.projectType}"){
+            prevScore = "${item.score}";
+        }
+    </#list>
+    barCheckDataY.push(prevScore);
+    var barFullDataY = [];
+    fullScore = "100";
+    <#list projectFullScore as item>
+        if('tgmd3_check' == "${item.projectType}"){
+            fullScore = "${item.minScore}";
+        }
+    </#list>
+    barFullDataY.push(fullScore);
+    barFullDataY.push(fullScore);
+    barChartFun(barDataX,barFullDataY,barCheckDataY)
+
+    var bmiDataY=[];
+    var bmiFullDataY=[];
+    var checkDataY ="${lastBmiGrade.bmiGrade!'0'}";
+    <#list bmiConfigs as item>
+        var bmi = "${item.normWeightRange}".split("-");
+        bmiFullDataY.push((bmi[0]+bmi[1])/2);
+    </#list>
+    for(let fd in bmiFullDataY){
+        bmiDataY.push(bmiFullDataY[fd])
+    }
+    bmiDataY.push(checkDataY);
+    for(let fd in bmiFullDataY){
+        bmiDataY.push(bmiFullDataY[fd])
+    }
+    bmiChartFun(bmiDataY);
+</script>
+
+
+</body>
+</html>
